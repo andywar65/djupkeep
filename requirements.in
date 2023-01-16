@@ -1,0 +1,8 @@
+django>=4.1,<4.2
+django-bootstrap-v5
+django-grappelli
+django-filebrowser
+django-htmx
+django-geojson
+jsonfield
+django-leaflet
