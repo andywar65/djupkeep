@@ -12,30 +12,29 @@ class Project(models.Model):
 
     title = models.CharField(
         _("Name"),
-        help_text=_("Name of the project"),
         max_length=50,
     )
     intro = models.TextField(_("Description"), null=True)
     fb_image = FileBrowseField(
-        _("Image"),
+        _("Plan"),
         max_length=200,
         extensions=[".jpg", ".png", ".jpeg", ".gif", ".tif", ".tiff"],
         directory="images/upkeep/",
         null=True,
+        help_text=_("Plan of your project"),
     )
     image = models.ImageField(
-        _("Image"),
+        _("Plan"),
         max_length=200,
         null=True,
         blank=True,
         upload_to="uploads/images/upkeep/",
+        help_text=_("Plan of your project"),
     )
     origin = PointField(_("Origin of axis"), null=True)
     unit = PointField(_("Unit length"), null=True)
 
-    __original_fb_image = None
     __original_origin = None
-    __original_unit = None
 
     class Meta:
         verbose_name = _("Project")
@@ -43,9 +42,7 @@ class Project(models.Model):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.__original_fb_image = self.fb_image
         self.__original_origin = self.origin
-        self.__original_unit = self.unit
 
     def __str__(self):
         return self.title
@@ -57,5 +54,12 @@ class Project(models.Model):
             # image is uploaded on the front end, passed to fb_image and deleted
             self.fb_image = FileObject(str(self.image))
             self.image = None
+            # image has changed, so we delete origin and unit
+            self.origin = None
+            self.unit = None
             super(Project, self).save(*args, **kwargs)
             # check_wide_image(self.fb_image)
+        if not self.__original_origin == self.origin:
+            # origin has changed, so we delete unit
+            self.unit = None
+            super(Project, self).save(*args, **kwargs)
