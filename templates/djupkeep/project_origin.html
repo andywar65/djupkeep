@@ -31,4 +31,6 @@
       </div>
     </div>
   </form>
+  {{ object.get_image_path|json_script:"image_path" }}
+  {{ object.get_image_size|json_script:"image_size" }}
 {% endblock content %}

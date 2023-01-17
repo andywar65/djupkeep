@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -46,6 +47,17 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_image_path(self):
+        if not self.fb_image:
+            return
+        path = self.fb_image.path
+        return settings.MEDIA_URL + path
+
+    def get_image_size(self):
+        if not self.fb_image:
+            return
+        return (self.fb_image.height, self.fb_image.width)
 
     def save(self, *args, **kwargs):
         # save and eventually upload image file
