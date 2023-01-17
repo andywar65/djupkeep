@@ -21,3 +21,6 @@ class ProjectOriginForm(ModelForm):
                 }
             )
         }
+
+    class Media:
+        js = ("djupkeep/js/origin.js",)
