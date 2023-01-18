@@ -24,3 +24,19 @@ class ProjectOriginForm(ModelForm):
 
     class Media:
         js = ("djupkeep/js/origin.js",)
+
+
+class ProjectUnitForm(ModelForm):
+    class Meta:
+        model = Project
+        fields = ["title", "intro", "image", "unit"]
+        widgets = {
+            "unit": LeafletWidget(
+                attrs={
+                    "geom_type": "Point",
+                }
+            )
+        }
+
+    class Media:
+        js = ("djupkeep/js/origin.js",)
