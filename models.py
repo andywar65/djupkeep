@@ -57,7 +57,11 @@ class Project(models.Model):
     def get_image_size(self):
         if not self.fb_image:
             return
-        return (self.fb_image.height, self.fb_image.width)
+        y = self.fb_image.height
+        x = self.fb_image.width
+        if x >= y * 2:
+            return (180 * y / x, 180)
+        return (90, 90 * x / y)
 
     def save(self, *args, **kwargs):
         # save and eventually upload image file
