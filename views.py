@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, RedirectView, UpdateView
 
 from .forms import ProjectCreateForm, ProjectOriginForm, ProjectUnitForm
 from .models import Project
@@ -38,3 +39,16 @@ class ProjectUpdateView(PermissionRequiredMixin, UpdateView):
         else:
             # temporary, we will revert to project detail
             return reverse("djupkeep:project_change", kwargs={"pk": self.object.id})
+
+
+class ProjectResetOriginView(PermissionRequiredMixin, RedirectView):
+    permission_required = "djupkeep.change_project"
+
+    def setup(self, request, *args, **kwargs):
+        super(ProjectResetOriginView, self).setup(request, *args, **kwargs)
+        self.object = get_object_or_404(Project, id=self.kwargs["pk"])
+        self.object.origin = None
+        self.object.save()
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse("djupkeep:project_change", kwargs={"pk": self.object.id})

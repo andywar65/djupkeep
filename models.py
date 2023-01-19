@@ -15,7 +15,7 @@ class Project(models.Model):
         _("Name"),
         max_length=50,
     )
-    intro = models.TextField(_("Description"), null=True)
+    intro = models.CharField(_("Description"), max_length=200, null=True)
     fb_image = FileBrowseField(
         _("Plan"),
         max_length=200,
