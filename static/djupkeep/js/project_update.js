@@ -31,16 +31,16 @@ window.addEventListener("map:init", function (event) {
         let xtrim = parseInt((image_size[1]-origin[1])/length)*length
         let ytrim = parseInt((image_size[0]-origin[0])/length)*length
         for (let i = 1; i < (image_size[0]-origin[0])/length; i++) {
-            L.polyline([[0, i*length], [xtrim, i*length]], {weight: 1}).bindPopup("Y="+i.toString()).addTo(map);
+            L.polyline([[0, i*length], [xtrim, i*length]], {weight: 1}).bindPopup("X="+i.toString()).addTo(map);
         }
         for (let i = 1; i < (image_size[1]-origin[1])/length; i++) {
-            L.polyline([[i*length, 0], [i*length, ytrim]], {weight: 1}).bindPopup("X="+i.toString()).addTo(map);
+            L.polyline([[i*length, 0], [i*length, ytrim]], {weight: 1}).bindPopup("Y="+i.toString()).addTo(map);
         }
     }
     // Add axis
     if (origin !== "" ) {
-        L.polyline([[0, 0], [90, 0]], {color: "red"}).bindPopup("Y=0").addTo(map);
-        L.polyline([[0, 0], [0, 180]], {color: "red"}).bindPopup("X=0").addTo(map);
+        L.polyline([[0, 0], [90, 0]], {color: "red"}).bindPopup("X=0").addTo(map);
+        L.polyline([[0, 0], [0, 180]], {color: "red"}).bindPopup("Y=0").addTo(map);
     }
     map.fitBounds(bounds);
 });
