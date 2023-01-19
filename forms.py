@@ -23,7 +23,7 @@ class ProjectOriginForm(ModelForm):
         }
 
     class Media:
-        js = ("djupkeep/js/origin.js",)
+        js = ("djupkeep/js/project_update.js",)
 
 
 class ProjectUnitForm(ModelForm):
@@ -39,4 +39,4 @@ class ProjectUnitForm(ModelForm):
         }
 
     class Media:
-        js = ("djupkeep/js/origin.js",)
+        js = ("djupkeep/js/project_update.js",)

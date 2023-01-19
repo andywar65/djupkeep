@@ -12,12 +12,21 @@ window.addEventListener("map:init", function (event) {
     const image_path = JSON.parse(document.getElementById("image_path").textContent);
     const image_size = JSON.parse(document.getElementById("image_size").textContent);
     const origin = JSON.parse(document.getElementById("origin").textContent);
-    const bounds = [[0, 0], image_size]
+    // Get drawing bounds
+    function get_bounds(image_size, origin) {
+        if (origin !== "" ) {
+            return [[-origin[1], -origin[0]], [image_size[1]-origin[1], image_size[0]-origin[0]]];
+        } else {
+            return [[0, 0], [image_size[1], image_size[0]]];
+        }
+    };
+    const bounds = get_bounds(image_size, origin);
     // Add image to map
     L.imageOverlay(image_path, bounds).addTo(map);
+    // Add axis
     if (origin !== "" ) {
-        L.polyline([[origin[1], origin[0]], [90, origin[0]]]).addTo(map);
-        L.polyline([[origin[1], origin[0]], [origin[1], 180]]).addTo(map);
+        L.polyline([[0, 0], [90, 0]]).addTo(map);
+        L.polyline([[0, 0], [0, 180]]).addTo(map);
     }
     map.fitBounds(bounds);
 });
