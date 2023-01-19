@@ -31,7 +31,5 @@
       </div>
     </div>
   </form>
-  {{ object.get_image_path|json_script:"image_path" }}
-  {{ object.get_image_size|json_script:"image_size" }}
-  {{ object.origin.coordinates|json_script:"origin" }}
+  {% include "djupkeep/includes/project_update_data.html" %}
 {% endblock content %}
