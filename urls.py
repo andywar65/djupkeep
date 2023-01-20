@@ -6,17 +6,17 @@ from .views import ProjectCreateView, ProjectResetOriginView, ProjectUpdateView
 app_name = "djupkeep"
 urlpatterns = [
     path(
-        _("project/add/"),
+        _("location/add/"),
         ProjectCreateView.as_view(),
         name="project_create",
     ),
     path(
-        _("project/<pk>/change/"),
+        _("location/<pk>/change/"),
         ProjectUpdateView.as_view(),
         name="project_change",
     ),
     path(
-        _("project/<pk>/reset-origin/"),
+        _("location/<pk>/reset-origin/"),
         ProjectResetOriginView.as_view(),
         name="project_reset_origin",
     ),

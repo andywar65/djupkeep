@@ -22,7 +22,7 @@ class Project(models.Model):
         extensions=[".jpg", ".png", ".jpeg", ".gif", ".tif", ".tiff"],
         directory="images/upkeep/",
         null=True,
-        help_text=_("Plan of your project"),
+        help_text=_("Plan of your location"),
     )
     image = models.ImageField(
         _("Plan"),
@@ -30,7 +30,7 @@ class Project(models.Model):
         null=True,
         blank=True,
         upload_to="uploads/images/upkeep/",
-        help_text=_("Plan of your project"),
+        help_text=_("Plan of your location"),
     )
     origin = PointField(_("Origin of axis"), null=True)
     unit = PointField(_("Unit length"), null=True)
@@ -38,8 +38,8 @@ class Project(models.Model):
     __original_origin = None
 
     class Meta:
-        verbose_name = _("Project")
-        verbose_name_plural = _("Projects")
+        verbose_name = _("Location")
+        verbose_name_plural = _("Locations")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
