@@ -1,18 +1,18 @@
 from django.forms import ModelForm
 from leaflet.forms.widgets import LeafletWidget
 
-from .models import Project
+from .models import Location
 
 
-class ProjectCreateForm(ModelForm):
+class LocationCreateForm(ModelForm):
     class Meta:
-        model = Project
+        model = Location
         fields = ["title", "intro", "image"]
 
 
-class ProjectOriginForm(ModelForm):
+class LocationOriginForm(ModelForm):
     class Meta:
-        model = Project
+        model = Location
         fields = ["title", "intro", "image", "origin"]
         widgets = {
             "origin": LeafletWidget(
@@ -23,12 +23,12 @@ class ProjectOriginForm(ModelForm):
         }
 
     class Media:
-        js = ("djupkeep/js/project_update.js",)
+        js = ("djupkeep/js/location_update.js",)
 
 
-class ProjectUnitForm(ModelForm):
+class LocationUnitForm(ModelForm):
     class Meta:
-        model = Project
+        model = Location
         fields = ["title", "intro", "image", "unit"]
         widgets = {
             "unit": LeafletWidget(
@@ -39,4 +39,4 @@ class ProjectUnitForm(ModelForm):
         }
 
     class Media:
-        js = ("djupkeep/js/project_update.js",)
+        js = ("djupkeep/js/location_update.js",)

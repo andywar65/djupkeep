@@ -9,7 +9,7 @@ from filebrowser.fields import FileBrowseField
 User = get_user_model()
 
 
-class Project(models.Model):
+class Location(models.Model):
 
     title = models.CharField(
         _("Name"),
@@ -65,7 +65,7 @@ class Project(models.Model):
 
     def save(self, *args, **kwargs):
         # save and eventually upload image file
-        super(Project, self).save(*args, **kwargs)
+        super(Location, self).save(*args, **kwargs)
         if self.image:
             # image is uploaded on the front end, passed to fb_image and deleted
             self.fb_image = FileObject(str(self.image))
@@ -73,9 +73,9 @@ class Project(models.Model):
             # image has changed, so we delete origin and unit
             self.origin = None
             self.unit = None
-            super(Project, self).save(*args, **kwargs)
+            super(Location, self).save(*args, **kwargs)
             # check_wide_image(self.fb_image)
         if not self.__original_origin == self.origin:
             # origin has changed, so we delete unit
             self.unit = None
-            super(Project, self).save(*args, **kwargs)
+            super(Location, self).save(*args, **kwargs)

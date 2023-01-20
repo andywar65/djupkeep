@@ -10,7 +10,7 @@
         <div class="card">
           <div class="card-header">
             <h4 class="card-title">
-              {% trans "Update location"%}: {{ object }}
+              {% trans "Add unit to location"%}: {{ object }}
             </h4>
           </div>
           <div class="card-body">
@@ -22,7 +22,7 @@
             <input class="btn btn-primary"
               style="margin-bottom: 15px;"
               type="submit"
-              value="{% trans 'Update' %}" />
+              value="{% trans 'Add unit' %}" />
           </div>
         </div>
       </div>
@@ -31,5 +31,5 @@
       </div>
     </div>
   </form>
-  {% include "djupkeep/includes/project_update_data.html" %}
+  {% include "djupkeep/includes/location_update_data.html" %}
 {% endblock content %}

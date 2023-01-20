@@ -1,12 +1,12 @@
 from django.contrib import admin
 from leaflet.admin import LeafletGeoAdmin  # , LeafletGeoAdminMixin
 
-from .models import Project
+from .models import Location
 
 
-class ProjectAdmin(LeafletGeoAdmin):
+class LocationAdmin(LeafletGeoAdmin):
     list_display = ("title", "intro")
     exclude = ("image",)
 
 
-admin.site.register(Project, ProjectAdmin)
+admin.site.register(Location, LocationAdmin)
