@@ -1,7 +1,7 @@
 from django.contrib import admin
 from leaflet.admin import LeafletGeoAdmin  # , LeafletGeoAdminMixin
 
-from .models import Location
+from .models import Category, Location
 
 
 class LocationAdmin(LeafletGeoAdmin):
@@ -10,3 +10,8 @@ class LocationAdmin(LeafletGeoAdmin):
 
 
 admin.site.register(Location, LocationAdmin)
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ("title", "intro", "parent")

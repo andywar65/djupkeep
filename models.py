@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from djgeojson.fields import PointField
 from filebrowser.base import FileObject
 from filebrowser.fields import FileBrowseField
+from tree_queries.models import TreeNode
 
 User = get_user_model()
 
@@ -79,3 +80,19 @@ class Location(models.Model):
             # origin has changed, so we delete unit
             self.unit = None
             super(Location, self).save(*args, **kwargs)
+
+
+class Category(TreeNode):
+
+    title = models.CharField(
+        _("Name"),
+        max_length=50,
+    )
+    intro = models.CharField(_("Description"), max_length=200, null=True)
+
+    class Meta:
+        verbose_name = _("Element category")
+        verbose_name_plural = _("Element categories")
+
+    def __str__(self):
+        return self.title
