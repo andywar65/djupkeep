@@ -6,3 +6,4 @@ django-htmx
 django-geojson
 jsonfield
 django-leaflet
+django-tree-queries
