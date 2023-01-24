@@ -3,7 +3,13 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views.generic import CreateView, RedirectView, UpdateView
 
-from .forms import LocationCreateForm, LocationOriginForm, LocationUnitForm
+from .forms import (
+    LocationCreateForm,
+    LocationOriginForm,
+    LocationOriginHtmxForm,
+    LocationUnitForm,
+    LocationUnitHtmxForm,
+)
 from .models import Location
 
 
@@ -32,7 +38,11 @@ class LocationUpdateView(PermissionRequiredMixin, UpdateView):
 
     def get_form_class(self):
         if not self.object.origin:
+            if self.request.htmx:
+                return LocationOriginHtmxForm
             return LocationOriginForm
+        if self.request.htmx:
+            return LocationUnitHtmxForm
         return LocationUnitForm
 
     def get_template_names(self):
