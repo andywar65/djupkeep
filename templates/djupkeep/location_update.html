@@ -1,35 +1,5 @@
 {% extends "djupkeep/base_form.html" %}
-{% load bootstrap5 %}
-{% load i18n %}
 
 {% block content %}
-  <form method="POST" action="" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="row">
-      <div class="col" style="margin-bottom: 20px">
-        <div class="card">
-          <div class="card-header">
-            <h4 class="card-title">
-              {% trans "Update location"%}: {{ object }}
-            </h4>
-          </div>
-          <div class="card-body">
-            {% bootstrap_field form.title %}
-            {% bootstrap_field form.intro %}
-            {% bootstrap_field form.image %}
-          </div>
-          <div class="card-footer">
-            <input class="btn btn-primary"
-              style="margin-bottom: 15px;"
-              type="submit"
-              value="{% trans 'Update' %}" />
-          </div>
-        </div>
-      </div>
-      <div class="col col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-        {% bootstrap_field form.unit %}
-      </div>
-    </div>
-  </form>
-  {% include "djupkeep/includes/location_update_data.html" %}
+  {% include "djupkeep/htmx/location_update.html" %}
 {% endblock content %}

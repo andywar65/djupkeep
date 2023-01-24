@@ -36,11 +36,14 @@ class LocationUpdateView(PermissionRequiredMixin, UpdateView):
         return LocationUnitForm
 
     def get_template_names(self):
+        name = "djupkeep/htmx/location_update.html"
         if not self.object.origin:
-            return "djupkeep/location_origin.html"
+            name = "djupkeep/htmx/location_origin.html"
         elif not self.object.unit:
-            return "djupkeep/location_unit.html"
-        return "djupkeep/location_update.html"
+            name = "djupkeep/htmx/location_unit.html"
+        if not self.request.htmx:
+            name = name.replace("htmx/", "")
+        return [name]
 
     def get_success_url(self):
         if not self.object.origin:
