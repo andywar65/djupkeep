@@ -7,14 +7,23 @@ from .forms import LocationCreateForm, LocationOriginForm, LocationUnitForm
 from .models import Location
 
 
-class LocationCreateView(PermissionRequiredMixin, CreateView):
+class HxPageTemplateMixin:
+    """Switches template depending on request.htmx"""
+
+    def get_template_names(self):
+        if not self.request.htmx:
+            return [self.template_name.replace("htmx/", "")]
+        return [self.template_name]
+
+
+class LocationCreateView(PermissionRequiredMixin, HxPageTemplateMixin, CreateView):
     permission_required = "djupkeep.add_location"
     model = Location
     form_class = LocationCreateForm
-    template_name = "djupkeep/location_create.html"
+    template_name = "djupkeep/htmx/location_create.html"
 
     def get_success_url(self):
-        return reverse("djupkeep:Location_change", kwargs={"pk": self.object.id})
+        return reverse("djupkeep:location_change", kwargs={"pk": self.object.id})
 
 
 class LocationUpdateView(PermissionRequiredMixin, UpdateView):
