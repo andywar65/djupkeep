@@ -8,7 +8,12 @@
     {% if locations %}
       <ul>
         {% for location in locations %}
-          <li>{{ location.title }}</li>
+          <li>
+            {{ location.title }}
+            <a class="link-primary" href="{% url 'djupkeep:location_change' pk=location.id %}">
+              {% trans "Modify" %}
+            </a>
+          </li>
         {% endfor %}
       </ul>
     {% else %}
