@@ -1,10 +1,20 @@
 from django.urls import path
 from django.utils.translation import gettext_lazy as _
 
-from .views import LocationCreateView, LocationResetOriginView, LocationUpdateView
+from .views import (
+    LocationCreateView,
+    LocationListView,
+    LocationResetOriginView,
+    LocationUpdateView,
+)
 
 app_name = "djupkeep"
 urlpatterns = [
+    path(
+        _("location/list/"),
+        LocationListView.as_view(),
+        name="location_list",
+    ),
     path(
         _("location/add/"),
         LocationCreateView.as_view(),
