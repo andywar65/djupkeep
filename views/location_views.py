@@ -1,7 +1,13 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.views.generic import CreateView, ListView, RedirectView, UpdateView
+from django.views.generic import (
+    CreateView,
+    DetailView,
+    ListView,
+    RedirectView,
+    UpdateView,
+)
 
 from djupkeep.forms import LocationCreateForm, LocationOriginForm, LocationUnitForm
 from djupkeep.models import Location
@@ -21,6 +27,12 @@ class LocationListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
     model = Location
     context_object_name = "locations"
     template_name = "djupkeep/locations/htmx/list.html"
+
+
+class LocationDetailView(PermissionRequiredMixin, HxPageTemplateMixin, DetailView):
+    permission_required = "djupkeep.view_location"
+    model = Location
+    template_name = "djupkeep/locations/htmx/detail.html"
 
 
 class LocationCreateView(PermissionRequiredMixin, HxPageTemplateMixin, CreateView):
