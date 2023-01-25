@@ -23,6 +23,27 @@
               style="margin-bottom: 15px;"
               type="submit"
               value="{% trans 'Add origin' %}" />
+            <div class="dropdown">
+              <a class="btn btn-secondary dropdown-toggle"
+                href="#"
+                role="button"
+                id="dropdownMenuLink"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+                {% trans "Other actions" %}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li>
+                  <a class="dropdown-item"
+                    hx-get="{% url 'djupkeep:location_detail' pk=object.id %}"
+                    hx-target="#content"
+                    hx-push-url="true">
+                    {% trans "View location" %}
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
