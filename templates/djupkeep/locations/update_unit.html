@@ -48,6 +48,15 @@
                   </a>
                 </li>
                 <li><hr class="dropdown-divider"></li>
+                <li>
+                  <a class="dropdown-item"
+                    hx-get="{% url 'djupkeep:location_delete' pk=object.id %}"
+                    hx-target="#content"
+                    hx-confirm="{% trans 'Are you sure you want to delete location' %} {{ object.title }}"
+                    hx-push-url="{% url 'djupkeep:location_list' %}">
+                    {% trans "Delete location" %}
+                  </a>
+                </li>
               </ul>
             </div>
           </div>

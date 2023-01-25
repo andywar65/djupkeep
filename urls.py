@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from .views import (
     LocationCreateView,
+    LocationDeleteView,
     LocationDetailView,
     LocationListView,
     LocationResetOriginView,
@@ -35,5 +36,10 @@ urlpatterns = [
         _("location/<pk>/reset-origin/"),
         LocationResetOriginView.as_view(),
         name="location_reset_origin",
+    ),
+    path(
+        _("location/<pk>/delete/"),
+        LocationDeleteView.as_view(),
+        name="location_delete",
     ),
 ]
