@@ -1,7 +1,6 @@
 window.addEventListener("map:init", function (event) {
     // Get reference to map
     var map = event.detail.map;
-    map.invalidateSize();
     // Delete all default layers
     map.eachLayer(function (layer) {
         map.removeLayer(layer);

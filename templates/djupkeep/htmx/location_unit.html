@@ -2,10 +2,7 @@
 {% load i18n %}
 
 {% block content %}
-  <form
-    hx-encoding="multipart/form-data"
-    hx-post="{% url 'djupkeep:location_change' pk=object.id %}"
-    hx-target="#content">
+  <form method="POST" action="" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="row">
       <div class="col" style="margin-bottom: 20px">
