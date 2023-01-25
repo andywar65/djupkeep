@@ -7,4 +7,12 @@
   <div class="card-body">
     <p>{{ object.intro }}</p>
   </div>
+  <div class="card-footer">
+    <a class="link-primary" href="{% url 'djupkeep:location_change' pk=object.id %}">
+      {% trans "Modify" %}
+    </a>
+    <a class="link-secondary" href="{% url 'djupkeep:location_list' %}">
+      {% trans "Back to location list" %}
+    </a>
+  </div>
 </div>

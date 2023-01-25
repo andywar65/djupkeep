@@ -10,11 +10,9 @@
         {% for location in locations %}
           <li>
             <a class="link-primary" href="{% url 'djupkeep:location_detail' pk=location.id %}">
-              {{ location.title }} -
+              {{ location.title }}
             </a>
-            <a class="link-primary" href="{% url 'djupkeep:location_change' pk=location.id %}">
-              {% trans "Modify" %}
-            </a>
+            <p>- {{ location.intro }}</p>
           </li>
         {% endfor %}
       </ul>
