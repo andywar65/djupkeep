@@ -1,3 +1,4 @@
+{% extends "djupkeep/locations/base_form.html" %}
 {% load bootstrap5 %}
 {% load i18n %}
 
@@ -30,5 +31,5 @@
       </div>
     </div>
   </form>
-  {% include "djupkeep/includes/location_update_data.html" %}
+  {% include "djupkeep/locations/includes/update_data.html" %}
 {% endblock content %}

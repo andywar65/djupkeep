@@ -1,3 +1,4 @@
+{% extends "djupkeep/locations/base_form.html" %}
 {% load bootstrap5 %}
 {% load i18n %}
 
@@ -9,7 +10,7 @@
         <div class="card">
           <div class="card-header">
             <h4 class="card-title">
-              {% trans "Add origin to location"%}: {{ object }}
+              {% trans "Update location"%}: {{ object }}
             </h4>
           </div>
           <div class="card-body">
@@ -21,14 +22,14 @@
             <input class="btn btn-primary"
               style="margin-bottom: 15px;"
               type="submit"
-              value="{% trans 'Add origin' %}" />
+              value="{% trans 'Update' %}" />
           </div>
         </div>
       </div>
       <div class="col col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-        {% bootstrap_field form.origin %}
+        {% bootstrap_field form.unit %}
       </div>
     </div>
   </form>
-  {% include "djupkeep/includes/location_update_data.html" %}
+  {% include "djupkeep/locations/includes/update_data.html" %}
 {% endblock content %}

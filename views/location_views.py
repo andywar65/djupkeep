@@ -3,8 +3,8 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views.generic import CreateView, RedirectView, UpdateView
 
-from .forms import LocationCreateForm, LocationOriginForm, LocationUnitForm
-from .models import Location
+from djupkeep.forms import LocationCreateForm, LocationOriginForm, LocationUnitForm
+from djupkeep.models import Location
 
 
 class HxPageTemplateMixin:
@@ -20,7 +20,7 @@ class LocationCreateView(PermissionRequiredMixin, HxPageTemplateMixin, CreateVie
     permission_required = "djupkeep.add_location"
     model = Location
     form_class = LocationCreateForm
-    template_name = "djupkeep/htmx/location_create.html"
+    template_name = "djupkeep/locations/htmx/create.html"
 
     def get_success_url(self):
         return reverse("djupkeep:location_change", kwargs={"pk": self.object.id})
@@ -36,17 +36,15 @@ class LocationUpdateView(PermissionRequiredMixin, UpdateView):
         return LocationUnitForm
 
     def get_template_names(self):
-        name = "djupkeep/htmx/location_update.html"
+        name = "djupkeep/locations/update.html"
         if not self.object.origin:
-            name = "djupkeep/htmx/location_origin.html"
+            name = "djupkeep/locations/update_origin.html"
         elif not self.object.unit:
-            name = "djupkeep/htmx/location_unit.html"
-        if not self.request.htmx:
-            name = name.replace("htmx/", "")
+            name = "djupkeep/locations/update_unit.html"
         return [name]
 
     def get_success_url(self):
-        if not self.object.origin:
+        if not self.object.origin or not self.object.unit:
             return reverse("djupkeep:location_change", kwargs={"pk": self.object.id})
         else:
             # temporary, we will revert to Location detail
