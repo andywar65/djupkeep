@@ -66,8 +66,7 @@ class LocationUpdateView(PermissionRequiredMixin, UpdateView):
         if not self.object.origin or not self.object.unit:
             return reverse("djupkeep:location_change", kwargs={"pk": self.object.id})
         else:
-            # temporary, we will revert to Location detail
-            return reverse("djupkeep:location_change", kwargs={"pk": self.object.id})
+            return reverse("djupkeep:location_detail", kwargs={"pk": self.object.id})
 
 
 class LocationResetOriginView(PermissionRequiredMixin, RedirectView):
