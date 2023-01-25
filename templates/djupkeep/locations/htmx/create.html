@@ -18,6 +18,12 @@
           style="margin-bottom: 15px;"
           type="submit"
           value="{% trans 'Add' %}" />
+        <a class="link-primary"
+          hx-get="{% url 'djupkeep:location_list' %}"
+          hx-target="#content"
+          hx-push-url="true">
+          {% trans "Back to location list" %}
+        </a>
       </div>
     </form>
   </div>

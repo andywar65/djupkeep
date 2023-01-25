@@ -11,7 +11,10 @@
     <a class="link-primary" href="{% url 'djupkeep:location_change' pk=object.id %}">
       {% trans "Modify" %}
     </a>
-    <a class="link-secondary" href="{% url 'djupkeep:location_list' %}">
+    <a class="link-primary"
+      hx-get="{% url 'djupkeep:location_list' %}"
+      hx-target="#content"
+      hx-push-url="true">
       {% trans "Back to location list" %}
     </a>
   </div>

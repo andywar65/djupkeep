@@ -17,14 +17,14 @@ urlpatterns = [
         name="location_list",
     ),
     path(
-        _("location/<pk>/"),
-        LocationDetailView.as_view(),
-        name="location_detail",
-    ),
-    path(
         _("location/add/"),
         LocationCreateView.as_view(),
         name="location_create",
+    ),
+    path(
+        _("location/<pk>/"),
+        LocationDetailView.as_view(),
+        name="location_detail",
     ),
     path(
         _("location/<pk>/change/"),

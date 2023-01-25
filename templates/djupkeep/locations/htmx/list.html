@@ -20,4 +20,12 @@
       <p>{% trans "No locations yet" %}</p>
     {% endif %}
   </div>
+  <div class="card-footer">
+    <a class="link-primary"
+      hx-get="{% url 'djupkeep:location_create' %}"
+      hx-target="#content"
+      hx-push-url="true">
+      {% trans "Add location" %}
+    </a>
+  </div>
 </div>
