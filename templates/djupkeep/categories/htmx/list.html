@@ -6,11 +6,7 @@
   </div>
   <div class="card-body">
     <div id="cat-add" style="margin-bottom: 20px">
-      <a class="btn btn-success"
-        hx-get="{% url 'djupkeep:category_create' %}"
-        hx-target="#cat-add">
-        {% trans "Add category" %}
-      </a>
+      {% include "djupkeep/categories/htmx/create_button.html" %}
     </div>
     {% if categories %}
       {% for category in categories %}

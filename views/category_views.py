@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import Http404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, TemplateView
 
 from djupkeep.forms import CategoryCreateForm
 from djupkeep.models import Category
@@ -40,3 +40,7 @@ class CategoryCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, CreateVie
 
     def get_success_url(self):
         return reverse("djupkeep:category_list")
+
+
+class CategoryCreateDismissView(HxOnlyTemplateMixin, TemplateView):
+    template_name = "djupkeep/categories/htmx/create_button.html"

@@ -1,0 +1,7 @@
+{% load i18n %}
+
+<a class="btn btn-success"
+  hx-get="{% url 'djupkeep:category_create' %}"
+  hx-target="#cat-add">
+  {% trans "Add category" %}
+</a>

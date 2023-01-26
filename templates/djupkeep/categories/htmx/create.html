@@ -15,9 +15,13 @@
     </div>
     <div class="card-footer">
       <input class="btn btn-primary"
-        style="margin-bottom: 15px;"
         type="submit"
         value="{% trans 'Add' %}" />
+      <a class="btn btn-secondary"
+        hx-get="{% url 'djupkeep:category_create_dismiss' %}"
+        hx-target="#cat-add">
+        {% trans 'Dismiss' %}
+      </a>
     </div>
   </form>
 </div>
