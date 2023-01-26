@@ -1,7 +1,7 @@
 from django.urls import path
 from django.utils.translation import gettext_lazy as _
 
-from .views.category_views import CategoryListView
+from .views.category_views import CategoryCreateView, CategoryListView
 from .views.location_views import (
     LocationCreateView,
     LocationDeleteView,
@@ -47,5 +47,10 @@ urlpatterns = [
         _("category/list/"),
         CategoryListView.as_view(),
         name="category_list",
+    ),
+    path(
+        _("category/add/"),
+        CategoryCreateView.as_view(),
+        name="category_create",
     ),
 ]
