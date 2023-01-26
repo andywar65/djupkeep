@@ -1,11 +1,13 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import Http404
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
     CreateView,
     DetailView,
     ListView,
+    RedirectView,
     TemplateView,
     UpdateView,
 )
@@ -67,3 +69,14 @@ class CategoryUpdateDismissView(HxOnlyTemplateMixin, DetailView):
     model = Category
     context_object_name = "category"
     template_name = "djupkeep/categories/htmx/detail.html"
+
+
+class CategoryDeleteView(PermissionRequiredMixin, RedirectView):
+    permission_required = "djupkeep.delete_category"
+
+    def get_redirect_url(self, *args, **kwargs):
+        if not self.request.htmx:
+            raise Http404(_("Request without HTMX headers"))
+        category = get_object_or_404(Category, id=self.kwargs["pk"])
+        category.delete()
+        return reverse("djupkeep:category_list")

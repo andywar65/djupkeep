@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from .views.category_views import (
     CategoryCreateDismissView,
     CategoryCreateView,
+    CategoryDeleteView,
     CategoryListView,
     CategoryUpdateDismissView,
     CategoryUpdateView,
@@ -73,5 +74,10 @@ urlpatterns = [
         "category/<pk>/change/dismiss/",
         CategoryUpdateDismissView.as_view(),
         name="category_update_dismiss",
+    ),
+    path(
+        "category/<pk>/delete/",
+        CategoryDeleteView.as_view(),
+        name="category_delete",
     ),
 ]

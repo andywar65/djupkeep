@@ -15,13 +15,37 @@
     </div>
     <div class="card-footer">
       <input class="btn btn-primary"
+        style="margin-bottom: 15px;"
         type="submit"
         value="{% trans 'Update' %}" />
-      <a class="btn btn-secondary"
-        hx-get="{% url 'djupkeep:category_update_dismiss' pk=category.id %}"
-        hx-target="#cat-{{ category.id }}">
-        {% trans 'Dismiss' %}
-      </a>
+      <div class="dropdown">
+        <a class="btn btn-secondary dropdown-toggle"
+          href="#"
+          role="button"
+          id="dropdownMenuLink"
+          data-bs-toggle="dropdown"
+          aria-expanded="false">
+          {% trans "Other actions" %}
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <li>
+            <a class="dropdown-item"
+              hx-get="{% url 'djupkeep:category_update_dismiss' pk=category.id %}"
+              hx-target="#cat-{{ category.id }}">
+              {% trans 'Dismiss' %}
+            </a>
+          </li>
+          <li><hr class="dropdown-divider"></li>
+          <li>
+            <a class="dropdown-item"
+              hx-get="{% url 'djupkeep:category_delete' pk=category.id %}"
+              hx-target="#content"
+              hx-confirm="{% trans 'Are you sure you want to delete category' %} {{ category.title }}">
+              {% trans "Delete category" %}
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </form>
 </div>
