@@ -1,0 +1,27 @@
+{% load bootstrap5 %}
+{% load i18n %}
+
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">
+      {% trans "Update category"%}: {{ category.title }}
+    </h4>
+  </div>
+  <form
+    hx-post="{% url 'djupkeep:category_update' pk=category.id %}"
+    hx-target="#content">
+    <div class="card-body">
+      {% bootstrap_form form %}
+    </div>
+    <div class="card-footer">
+      <input class="btn btn-primary"
+        type="submit"
+        value="{% trans 'Update' %}" />
+      <a class="btn btn-secondary"
+        hx-get="{% url 'djupkeep:category_update_dismiss' pk=category.id %}"
+        hx-target="#cat-{{ category.id }}">
+        {% trans 'Dismiss' %}
+      </a>
+    </div>
+  </form>
+</div>

@@ -1,3 +1,7 @@
 <div class="alert alert-secondary">
-  {{ category.title }} - <em>{{ category.intro }}</em>
+  <a class="link-primary"
+    hx-get="{% url 'djupkeep:category_update' pk=category.id %}"
+    hx-target="#cat-{{ category.id }}">
+    {{ category.title }}
+  </a> - <em>{{ category.intro }}</em>
 </div>
