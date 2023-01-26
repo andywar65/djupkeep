@@ -17,6 +17,7 @@
       <input class="btn btn-primary"
         type="submit"
         value="{% trans 'Add' %}" />
+      <span class="htmx-indicator spinner-border spinner-border-sm text-primary"></span>
       <a class="btn btn-secondary"
         hx-get="{% url 'djupkeep:category_create_dismiss' %}"
         hx-target="#cat-add">
