@@ -6,13 +6,17 @@
   </div>
   <div class="card-body">
     {% if categories %}
-      <ul>
-        {% for category in categories %}
-          <li>
-            {{ category.title }} - {{ category.intro }}
-          </li>
-        {% endfor %}
-      </ul>
+      {% for category in categories %}
+        <div class="row">
+          <div class="col-{{ category.tree_depth }}">
+          </div>
+          <div class="col">
+            <div class="alert alert-secondary" id="cat-{{ category.id }}">
+              {{ category.title }} - <em>{{ category.intro }}</em>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
     {% else %}
       <p>{% trans "No categories yet" %}</p>
     {% endif %}
