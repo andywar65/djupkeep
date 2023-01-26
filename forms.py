@@ -44,7 +44,7 @@ class LocationUnitForm(ModelForm):
 
 
 class CategoryCreateForm(ModelForm):
-    parent = TreeNodeChoiceField(queryset=Category.objects.all())
+    parent = TreeNodeChoiceField(queryset=Category.objects.all(), required=False)
 
     class Meta:
         model = Category
