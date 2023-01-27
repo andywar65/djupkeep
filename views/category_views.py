@@ -30,6 +30,11 @@ class HxOnlyTemplateMixin:
             return [self.template_name]
 
 
+class IntroTemplateView(PermissionRequiredMixin, HxPageTemplateMixin, TemplateView):
+    permission_required = "djupkeep.view_category"
+    template_name = "djupkeep/categories/htmx/intro.html"
+
+
 class CategoryListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
     permission_required = "djupkeep.view_category"
     model = Category

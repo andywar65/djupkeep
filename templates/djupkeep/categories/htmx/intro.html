@@ -1,0 +1,31 @@
+{% load i18n %}
+
+<div
+  class="card mx-auto"
+  style="max-width: 960px; margin-top: 60px" >
+  <div class="card-header">
+    <h3>{% translate 'Maintenance Plan Content' %}</h3>
+  </div>
+  <div class="card-body">
+    <ul>
+      <li>
+        <a class="link-primary"
+          hx-get="{% url 'djupkeep:category_list' %}"
+          hx-target="#content"
+          hx-push-url="true">
+          {% trans 'Categories' %}
+        </a>
+        - <em>{% trans 'Categories of Elements in Maintenance Plan' %}</em>
+      </li>
+      <li>
+        <a class="link-primary"
+          hx-get="{% url 'djupkeep:location_list' %}"
+          hx-target="#content"
+          hx-push-url="true">
+          {% trans 'Locations' %}
+        </a>
+        - <em>{% trans 'Locations of Maintenance Plan' %}</em>
+      </li>
+    </ul>
+  </div>
+</div>

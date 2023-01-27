@@ -9,6 +9,7 @@ from .views.category_views import (
     CategoryListView,
     CategoryUpdateDismissView,
     CategoryUpdateView,
+    IntroTemplateView,
 )
 from .views.location_views import (
     LocationCreateView,
@@ -21,6 +22,11 @@ from .views.location_views import (
 
 app_name = "djupkeep"
 urlpatterns = [
+    path(
+        "",
+        IntroTemplateView.as_view(),
+        name="introduction",
+    ),
     path(
         _("location/list/"),
         LocationListView.as_view(),
