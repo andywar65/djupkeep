@@ -2,23 +2,15 @@
 {% load i18n %}
 
 <div class="card" style="margin-bottom: 15px; max-width: 960px">
-  <div class="card-header">
-    <h4 class="card-title">
-      {% trans "Update category"%}: {{ category.title }}
-    </h4>
-  </div>
   <form
     hx-post="{% url 'djupkeep:category_update' pk=category.id %}"
-    hx-target="#content">
+    hx-target="#cat-{{ category.id }}">
     <div class="card-body">
       {% bootstrap_form form %}
-    </div>
-    <div class="card-footer">
-      <input class="btn btn-primary"
-        style="margin-bottom: 15px;"
-        type="submit"
-        value="{% trans 'Update' %}" />
-      <span class="htmx-indicator spinner-border spinner-border-sm text-primary"></span>
+      <button class="btn btn-primary" type="submit" style="margin-bottom: 15px">
+        {% trans "Update" %}
+        <span class="htmx-indicator spinner-border spinner-border-sm"></span>
+      </button>
       <div class="dropdown">
         <a class="btn btn-secondary dropdown-toggle"
           href="#"
@@ -48,5 +40,6 @@
         </ul>
       </div>
     </div>
+
   </form>
 </div>

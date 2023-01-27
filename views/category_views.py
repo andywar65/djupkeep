@@ -61,7 +61,18 @@ class CategoryUpdateView(PermissionRequiredMixin, HxOnlyTemplateMixin, UpdateVie
     context_object_name = "category"
     template_name = "djupkeep/categories/htmx/update.html"
 
+    def setup(self, request, *args, **kwargs):
+        super(CategoryUpdateView, self).setup(request, *args, **kwargs)
+        self.retarget = False
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super(CategoryUpdateView, self).dispatch(request, *args, **kwargs)
+        if self.retarget:
+            response["HX-Retarget"] = "#content"
+        return response
+
     def get_success_url(self):
+        self.retarget = True
         return reverse("djupkeep:category_list")
 
 
