@@ -4,7 +4,7 @@
 <div class="card" style="margin-bottom: 15px; max-width: 960px">
   <form
     hx-post="{% url 'djupkeep:category_update' pk=category.id %}"
-    hx-target="#cat-{{ category.id }}">
+    hx-target="#content">
     <div class="card-body">
       {% bootstrap_form form %}
       <button class="btn btn-primary" type="submit" style="margin-bottom: 15px">

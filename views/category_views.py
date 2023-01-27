@@ -67,8 +67,8 @@ class CategoryUpdateView(PermissionRequiredMixin, HxOnlyTemplateMixin, UpdateVie
 
     def dispatch(self, request, *args, **kwargs):
         response = super(CategoryUpdateView, self).dispatch(request, *args, **kwargs)
-        if self.retarget:
-            response["HX-Retarget"] = "#content"
+        # if self.retarget:
+        # response["HX-Retarget"] = "#content"
         return response
 
     def get_success_url(self):
