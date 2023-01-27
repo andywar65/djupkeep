@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import Http404
 from django.shortcuts import get_object_or_404
@@ -61,25 +63,28 @@ class CategoryUpdateView(PermissionRequiredMixin, HxOnlyTemplateMixin, UpdateVie
     context_object_name = "category"
     template_name = "djupkeep/categories/htmx/update.html"
 
-    def setup(self, request, *args, **kwargs):
-        super(CategoryUpdateView, self).setup(request, *args, **kwargs)
-        self.retarget = False
-
-    def dispatch(self, request, *args, **kwargs):
-        response = super(CategoryUpdateView, self).dispatch(request, *args, **kwargs)
-        # if self.retarget:
-        # response["HX-Retarget"] = "#content"
-        return response
-
     def get_success_url(self):
-        self.retarget = True
-        return reverse("djupkeep:category_list")
+        return reverse(
+            "djupkeep:category_detail",
+            kwargs={"pk": self.object.id},
+        )
 
 
-class CategoryUpdateDismissView(HxOnlyTemplateMixin, DetailView):
+class CategoryUpdateDismissView(
+    PermissionRequiredMixin, HxOnlyTemplateMixin, DetailView
+):
+    permission_required = "djupkeep.view_category"
     model = Category
     context_object_name = "category"
     template_name = "djupkeep/categories/htmx/detail.html"
+
+
+class CategoryDetailView(CategoryUpdateDismissView):
+    def dispatch(self, request, *args, **kwargs):
+        response = super(CategoryDetailView, self).dispatch(request, *args, **kwargs)
+        dict = {"refreshList": True}
+        response["HX-Trigger-After-Swap"] = json.dumps(dict)
+        return response
 
 
 class CategoryDeleteView(PermissionRequiredMixin, RedirectView):

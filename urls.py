@@ -5,6 +5,7 @@ from .views.category_views import (
     CategoryCreateDismissView,
     CategoryCreateView,
     CategoryDeleteView,
+    CategoryDetailView,
     CategoryListView,
     CategoryUpdateDismissView,
     CategoryUpdateView,
@@ -64,6 +65,11 @@ urlpatterns = [
         "category/add/dismiss/",
         CategoryCreateDismissView.as_view(),
         name="category_create_dismiss",
+    ),
+    path(
+        "category/<pk>/",
+        CategoryDetailView.as_view(),
+        name="category_detail",
     ),
     path(
         "category/<pk>/change/",

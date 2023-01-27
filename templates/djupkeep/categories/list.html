@@ -1,5 +1,10 @@
 {% extends "base_menu.html" %}
 
 {% block content %}
-  {% include "djupkeep/categories/htmx/list.html" %}
+  <div
+    id="category-list"
+    hx-get="{% url 'djupkeep:category_list' %}"
+    hx-trigger="refreshList from:body">
+    {% include "djupkeep/categories/htmx/list.html" %}
+  </div>
 {% endblock content %}
