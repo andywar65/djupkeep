@@ -1,5 +1,3 @@
-import json
-
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import Http404
 from django.shortcuts import get_object_or_404
@@ -101,8 +99,7 @@ class CategoryDetailRefreshView(CategoryDetailView):
         response = super(CategoryDetailRefreshView, self).dispatch(
             request, *args, **kwargs
         )
-        dict = {"refreshList": True}
-        response["HX-Trigger-After-Swap"] = json.dumps(dict)
+        response["HX-Trigger-After-Swap"] = "refreshList"
         return response
 
 
