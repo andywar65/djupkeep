@@ -1,32 +1,27 @@
 {% load i18n %}
 
 <div
-  id="category-list"
-  hx-get="{% url 'djupkeep:category_list' %}"
-  hx-trigger="refreshList from:body">
-  <div
-    class="card mx-auto"
-    style="max-width: 960px; margin-top: 60px" >
-    <div class="card-header">
-      <h3>{% translate 'Categories' %}</h3>
+  class="card mx-auto"
+  style="max-width: 960px; margin-top: 60px" >
+  <div class="card-header">
+    <h3>{% translate 'Categories' %}</h3>
+  </div>
+  <div class="card-body">
+    <div id="cat-add" style="margin-bottom: 20px">
+      {% include "djupkeep/categories/htmx/create_button.html" %}
     </div>
-    <div class="card-body">
-      <div id="cat-add" style="margin-bottom: 20px">
-        {% include "djupkeep/categories/htmx/create_button.html" %}
-      </div>
-      {% if categories %}
-        {% for category in categories %}
-          <div class="row">
-            <div class="col-{{ category.tree_depth }}">
-            </div>
-            <div class="col" id="cat-{{ category.id }}">
-              {% include "djupkeep/categories/htmx/detail.html" %}
-            </div>
+    {% if categories %}
+      {% for category in categories %}
+        <div class="row">
+          <div class="col-{{ category.tree_depth }}">
           </div>
-        {% endfor %}
-      {% else %}
-        <p>{% trans "No categories yet" %}</p>
-      {% endif %}
-    </div>
+          <div class="col" id="cat-{{ category.id }}">
+            {% include "djupkeep/categories/htmx/detail.html" %}
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>{% trans "No categories yet" %}</p>
+    {% endif %}
   </div>
 </div>
