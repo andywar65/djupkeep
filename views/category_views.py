@@ -46,7 +46,17 @@ class CategoryListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
 
 
 class CategoryListWrapperView(CategoryListView):
+    """Subclasses CategoryListView with different template that adds a wrapper
+    with an event catcher around the list. Called only by IntroTemplateView.
+    View is restricted to HTMX requests"""
+
     template_name = "djupkeep/categories/htmx/list_wrapper.html"
+
+    def get_template_names(self):
+        if not self.request.htmx:
+            raise Http404(_("Request without HTMX headers"))
+        else:
+            return [self.template_name]
 
 
 class CategoryCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, CreateView):
