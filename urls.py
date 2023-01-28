@@ -8,6 +8,7 @@ from .views.category_views import (
     CategoryDetailRefreshView,
     CategoryDetailView,
     CategoryListView,
+    CategoryListWrapperView,
     CategoryUpdateView,
     IntroTemplateView,
 )
@@ -61,6 +62,11 @@ urlpatterns = [
         _("category/list/"),
         CategoryListView.as_view(),
         name="category_list",
+    ),
+    path(
+        "category/list/wrapper/",
+        CategoryListWrapperView.as_view(),
+        name="category_list_wrapper",
     ),
     path(
         "category/add/",

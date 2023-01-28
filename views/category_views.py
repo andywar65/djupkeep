@@ -45,6 +45,10 @@ class CategoryListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
         return context
 
 
+class CategoryListWrapperView(CategoryListView):
+    template_name = "djupkeep/categories/htmx/list_wrapper.html"
+
+
 class CategoryCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, CreateView):
     permission_required = "djupkeep.add_category"
     model = Category

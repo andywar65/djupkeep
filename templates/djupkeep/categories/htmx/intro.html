@@ -10,7 +10,9 @@
     <ul>
       <li>
         <a class="link-primary"
-          href="{% url 'djupkeep:category_list' %}">
+          hx-get="{% url 'djupkeep:category_list_wrapper' %}"
+          hx-target="#content"
+          hx-push-url="{% url 'djupkeep:category_list' %}">
           {% trans 'Categories' %}
         </a>
         - <em>{% trans 'Categories of Elements in Maintenance Plan' %}</em>
