@@ -68,9 +68,23 @@ class CategoryUpdateView(PermissionRequiredMixin, HxOnlyTemplateMixin, UpdateVie
     context_object_name = "category"
     template_name = "djupkeep/categories/htmx/update.html"
 
+    def setup(self, request, *args, **kwargs):
+        super(CategoryUpdateView, self).setup(request, *args, **kwargs)
+        self.original_parent = None
+
+    def get_object(self, queryset=None):
+        obj = super(CategoryUpdateView, self).get_object(queryset=None)
+        self.original_parent = obj.parent
+        return obj
+
     def get_success_url(self):
+        if self.original_parent != self.object.parent:
+            return reverse(
+                "djupkeep:category_detail_refresh",
+                kwargs={"pk": self.object.id},
+            )
         return reverse(
-            "djupkeep:category_detail_refresh",
+            "djupkeep:category_detail",
             kwargs={"pk": self.object.id},
         )
 
