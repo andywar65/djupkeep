@@ -32,7 +32,7 @@
           <li>
             <a class="dropdown-item"
               hx-get="{% url 'djupkeep:category_delete' pk=category.id %}"
-              hx-target="#content"
+              hx-target="#category-list"
               hx-confirm="{% trans 'Are you sure you want to delete category' %} {{ category.title }}">
               {% trans "Delete category" %}
             </a>
