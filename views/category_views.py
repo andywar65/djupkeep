@@ -70,23 +70,23 @@ class CategoryUpdateView(PermissionRequiredMixin, HxOnlyTemplateMixin, UpdateVie
 
     def get_success_url(self):
         return reverse(
-            "djupkeep:category_detail",
+            "djupkeep:category_detail_refresh",
             kwargs={"pk": self.object.id},
         )
 
 
-class CategoryUpdateDismissView(
-    PermissionRequiredMixin, HxOnlyTemplateMixin, DetailView
-):
+class CategoryDetailView(PermissionRequiredMixin, HxOnlyTemplateMixin, DetailView):
     permission_required = "djupkeep.view_category"
     model = Category
     context_object_name = "category"
     template_name = "djupkeep/categories/htmx/detail.html"
 
 
-class CategoryDetailView(CategoryUpdateDismissView):
+class CategoryDetailRefreshView(CategoryDetailView):
     def dispatch(self, request, *args, **kwargs):
-        response = super(CategoryDetailView, self).dispatch(request, *args, **kwargs)
+        response = super(CategoryDetailRefreshView, self).dispatch(
+            request, *args, **kwargs
+        )
         dict = {"refreshList": True}
         response["HX-Trigger-After-Swap"] = json.dumps(dict)
         return response

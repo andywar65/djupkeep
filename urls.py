@@ -5,9 +5,9 @@ from .views.category_views import (
     CategoryCreateDismissView,
     CategoryCreateView,
     CategoryDeleteView,
+    CategoryDetailRefreshView,
     CategoryDetailView,
     CategoryListView,
-    CategoryUpdateDismissView,
     CategoryUpdateView,
     IntroTemplateView,
 )
@@ -78,14 +78,14 @@ urlpatterns = [
         name="category_detail",
     ),
     path(
+        "category/<pk>/refresh/",
+        CategoryDetailRefreshView.as_view(),
+        name="category_detail_refresh",
+    ),
+    path(
         "category/<pk>/change/",
         CategoryUpdateView.as_view(),
         name="category_update",
-    ),
-    path(
-        "category/<pk>/change/dismiss/",
-        CategoryUpdateDismissView.as_view(),
-        name="category_update_dismiss",
     ),
     path(
         "category/<pk>/delete/",
