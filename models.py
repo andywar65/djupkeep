@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from djgeojson.fields import PointField
+from djgeojson.fields import LineStringField, PointField
 from filebrowser.base import FileObject
 from filebrowser.fields import FileBrowseField
 from tree_queries.models import TreeNode
@@ -35,6 +35,11 @@ class Location(models.Model):
     )
     origin = PointField(_("Origin of axis"), null=True)
     unit = PointField(_("Unit length"), null=True)
+    length = LineStringField(_("Reference length on the map"), null=True, blank=True)
+    meters = models.FloatField(
+        _("Reference length in meters"),
+        default=1,
+    )
 
     __original_origin = None
 
