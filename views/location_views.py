@@ -11,7 +11,10 @@ from django.views.generic import (
     UpdateView,
 )
 
-from djupkeep.forms import LocationCreateForm, LocationOriginForm, LocationUnitForm
+from djupkeep.forms import (  # LocationOriginForm,; LocationUnitForm,
+    LocationCreateForm,
+    LocationUpdateForm,
+)
 from djupkeep.models import Location
 
 
@@ -50,25 +53,11 @@ class LocationCreateView(PermissionRequiredMixin, HxPageTemplateMixin, CreateVie
 class LocationUpdateView(PermissionRequiredMixin, UpdateView):
     permission_required = "djupkeep.change_location"
     model = Location
-
-    def get_form_class(self):
-        if not self.object.origin:
-            return LocationOriginForm
-        return LocationUnitForm
-
-    def get_template_names(self):
-        name = "djupkeep/locations/update.html"
-        if not self.object.origin:
-            name = "djupkeep/locations/update_origin.html"
-        elif not self.object.unit:
-            name = "djupkeep/locations/update_unit.html"
-        return [name]
+    form_class = LocationUpdateForm
+    template_name = "djupkeep/locations/update.html"
 
     def get_success_url(self):
-        if not self.object.origin or not self.object.unit:
-            return reverse("djupkeep:location_change", kwargs={"pk": self.object.id})
-        else:
-            return reverse("djupkeep:location_detail", kwargs={"pk": self.object.id})
+        return reverse("djupkeep:location_detail", kwargs={"pk": self.object.id})
 
 
 class LocationResetOriginView(PermissionRequiredMixin, RedirectView):

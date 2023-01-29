@@ -43,6 +43,22 @@ class LocationUnitForm(ModelForm):
         js = ("djupkeep/js/location_update.js",)
 
 
+class LocationUpdateForm(ModelForm):
+    class Meta:
+        model = Location
+        fields = ["title", "intro", "image", "meters", "length"]
+        widgets = {
+            "length": LeafletWidget(
+                attrs={
+                    "geom_type": "LineString",
+                }
+            )
+        }
+
+    class Media:
+        js = ("djupkeep/js/location_update.js",)
+
+
 class CategoryCreateForm(ModelForm):
     parent = TreeNodeChoiceField(queryset=Category.objects.all(), required=False)
 
