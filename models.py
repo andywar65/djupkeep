@@ -34,7 +34,10 @@ class Location(models.Model):
         help_text=_("Plan of your location"),
     )
     origin = PointField(_("Origin of axis"), null=True)
-    length = LineStringField(_("Reference length on the map"), null=True, blank=True)
+    length = LineStringField(
+        _("Reference length on the map"),
+        default=dict(type="LineString", coordinates=[0, 0]),
+    )
     meters = models.FloatField(
         _("Reference length in meters"),
         default=1,
@@ -77,20 +80,22 @@ class Location(models.Model):
             self.image = None
             # image has changed, so we delete length and origin
             self.length = None
-            self.origin = None
+            self.origin = {"type": "Point", "coordinates": [0, 0]}
             super(Location, self).save(*args, **kwargs)
             # check_wide_image(self.fb_image)
-        if not self.__original_length == self.length:
+        if self.length and not self.__original_length == self.length:
             # length has changed, so we set origin...
-            coords = self.length["coordinates"][0]
-            self.origin = {"type": "Point", "coordinates": coords}
-            print(coords, self.origin)
-            # and move length
-            self.length["coordinates"][0] = [0, 0]
-            self.length["coordinates"][1] = [
-                self.length["coordinates"][1][0] - coords[0],
-                self.length["coordinates"][1][1] - coords[1],
+            coords = [
+                self.length["coordinates"][0][0] + self.origin["coordinates"][0],
+                self.length["coordinates"][0][1] + self.origin["coordinates"][1],
             ]
+            self.origin = {"type": "Point", "coordinates": coords}
+            # and move length
+            self.length["coordinates"][1] = [
+                self.length["coordinates"][1][0] - self.length["coordinates"][0][0],
+                self.length["coordinates"][1][1] - self.length["coordinates"][0][1],
+            ]
+            self.length["coordinates"][0] = [0, 0]
             super(Location, self).save(*args, **kwargs)
 
 
