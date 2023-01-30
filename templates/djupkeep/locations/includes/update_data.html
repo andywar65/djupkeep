@@ -1,4 +1,4 @@
 {{ object.get_image_path|json_script:"image_path" }}
 {{ object.get_image_size|json_script:"image_size" }}
-{{ object.length.coordinates.0|json_script:"origin_coords" }}
+{{ object.origin.coordinates|json_script:"origin_coords" }}
 {{ object.length.coordinates.1|json_script:"unit_coords" }}

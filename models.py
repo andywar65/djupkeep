@@ -41,7 +41,7 @@ class Location(models.Model):
         default=1,
     )
 
-    __original_origin = None
+    __original_length = None
 
     class Meta:
         verbose_name = _("Location")
@@ -49,7 +49,7 @@ class Location(models.Model):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.__original_origin = self.origin
+        self.__original_length = self.length
 
     def __str__(self):
         return self.title
@@ -76,14 +76,22 @@ class Location(models.Model):
             # image is uploaded on the front end, passed to fb_image and deleted
             self.fb_image = FileObject(str(self.image))
             self.image = None
-            # image has changed, so we delete origin and unit
+            # image has changed, so we delete length and origin
+            self.length = None
             self.origin = None
-            self.unit = None
             super(Location, self).save(*args, **kwargs)
             # check_wide_image(self.fb_image)
-        if not self.__original_origin == self.origin:
-            # origin has changed, so we delete unit
-            self.unit = None
+        if not self.__original_length == self.length:
+            # length has changed, so we set origin...
+            coords = self.length["coordinates"][0]
+            self.origin = {"type": "Point", "coordinates": coords}
+            print(coords, self.origin)
+            # and move length
+            self.length["coordinates"][0] = [0, 0]
+            self.length["coordinates"][1] = [
+                self.length["coordinates"][1][0] - coords[0],
+                self.length["coordinates"][1][1] - coords[1],
+            ]
             super(Location, self).save(*args, **kwargs)
 
 
