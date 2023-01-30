@@ -34,7 +34,6 @@ class Location(models.Model):
         help_text=_("Plan of your location"),
     )
     origin = PointField(_("Origin of axis"), null=True)
-    unit = PointField(_("Unit length"), null=True)
     length = LineStringField(_("Reference length on the map"), null=True, blank=True)
     meters = models.FloatField(
         _("Reference length in meters"),

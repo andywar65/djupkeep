@@ -6,7 +6,7 @@ from .models import Category, Location
 
 class LocationAdmin(LeafletGeoAdmin):
     list_display = ("title", "intro")
-    exclude = ("image", "origin", "unit")
+    exclude = ("image", "origin")
 
 
 admin.site.register(Location, LocationAdmin)

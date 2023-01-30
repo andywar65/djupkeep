@@ -11,10 +11,7 @@ from django.views.generic import (
     UpdateView,
 )
 
-from djupkeep.forms import (  # LocationOriginForm,; LocationUnitForm,
-    LocationCreateForm,
-    LocationUpdateForm,
-)
+from djupkeep.forms import LocationCreateForm, LocationUpdateForm
 from djupkeep.models import Location
 
 
@@ -58,19 +55,6 @@ class LocationUpdateView(PermissionRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse("djupkeep:location_detail", kwargs={"pk": self.object.id})
-
-
-class LocationResetOriginView(PermissionRequiredMixin, RedirectView):
-    permission_required = "djupkeep.change_location"
-
-    def setup(self, request, *args, **kwargs):
-        super(LocationResetOriginView, self).setup(request, *args, **kwargs)
-        self.object = get_object_or_404(Location, id=self.kwargs["pk"])
-        self.object.origin = None
-        self.object.save()
-
-    def get_redirect_url(self, *args, **kwargs):
-        return reverse("djupkeep:location_change", kwargs={"pk": self.object.id})
 
 
 class LocationDeleteView(PermissionRequiredMixin, RedirectView):
