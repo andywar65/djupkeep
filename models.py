@@ -10,6 +10,10 @@ from tree_queries.models import TreeNode
 User = get_user_model()
 
 
+def get_default_origin():
+    return dict(type="Point", coordinates=[0, 0])
+
+
 class Location(models.Model):
 
     title = models.CharField(
@@ -33,10 +37,11 @@ class Location(models.Model):
         upload_to="uploads/images/upkeep/",
         help_text=_("Plan of your location"),
     )
-    origin = PointField(_("Origin of axis"), null=True)
+    origin = PointField(_("Origin of axis"), default=get_default_origin)
     length = LineStringField(
         _("Reference length on the map"),
-        default=dict(type="LineString", coordinates=[0, 0]),
+        null=True,
+        blank=True,
     )
     meters = models.FloatField(
         _("Reference length in meters"),
