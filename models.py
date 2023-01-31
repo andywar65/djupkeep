@@ -88,7 +88,7 @@ class Location(models.Model):
             self.origin = {"type": "Point", "coordinates": [0, 0]}
             super(Location, self).save(*args, **kwargs)
             # check_wide_image(self.fb_image)
-        if self.length and not self.__original_length == self.length:
+        elif self.length and not self.__original_length == self.length:
             # length has changed, so we set origin...
             coords = [
                 self.length["coordinates"][0][0] + self.origin["coordinates"][0],
