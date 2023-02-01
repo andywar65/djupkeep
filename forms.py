@@ -2,7 +2,7 @@ from django.forms import ModelForm
 from leaflet.forms.widgets import LeafletWidget
 from tree_queries.forms import TreeNodeChoiceField
 
-from .models import Category, Location
+from .models import Category, Element, Location
 
 
 class LocationCreateForm(ModelForm):
@@ -33,3 +33,11 @@ class CategoryCreateForm(ModelForm):
     class Meta:
         model = Category
         fields = "__all__"
+
+
+class ElementCreateForm(ModelForm):
+    category = TreeNodeChoiceField(queryset=Category.objects.all(), required=True)
+
+    class Meta:
+        model = Element
+        fields = ["location", "category", "intro", "image"]

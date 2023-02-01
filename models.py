@@ -154,7 +154,7 @@ class Element(models.Model):
         blank=True,
         upload_to="uploads/images/upkeep/",
     )
-    geom = PointField(_("Position"))
+    geom = PointField(_("Position"), null=True)
 
     class Meta:
         verbose_name = _("Element")
