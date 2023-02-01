@@ -156,9 +156,15 @@ class Element(models.Model):
     )
     geom = PointField(_("Position"), null=True)
 
+    __original_location = None
+
     class Meta:
         verbose_name = _("Element")
         verbose_name_plural = _("Elements")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__original_location = self.location
 
     def __str__(self):
         return self.category.title + " - " + str(self.id)
@@ -170,4 +176,7 @@ class Element(models.Model):
             # image is uploaded on the front end, passed to fb_image and deleted
             self.fb_image = FileObject(str(self.image))
             self.image = None
+            super(Element, self).save(*args, **kwargs)
+        if self.location and not self.__original_location == self.location:
+            self.geom = None
             super(Element, self).save(*args, **kwargs)
