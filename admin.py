@@ -18,7 +18,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class ElementAdmin(LeafletGeoAdmin):
-    list_display = ("__str__", "location")
+    list_display = ("__str__", "intro", "location")
     exclude = ("image",)
 
 
