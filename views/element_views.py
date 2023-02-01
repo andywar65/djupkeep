@@ -1,12 +1,11 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
-
-# from django.http import Http404
-# from django.shortcuts import get_object_or_404
+from django.http import Http404
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
-
-# from django.utils.translation import gettext_lazy as _
-from django.views.generic import (  # DetailView,; ListView,; RedirectView,;
+from django.utils.translation import gettext_lazy as _
+from django.views.generic import (  # DetailView,; ListView,; ;
     CreateView,
+    RedirectView,
     UpdateView,
 )
 
@@ -36,3 +35,15 @@ class ElementUpdateView(PermissionRequiredMixin, UpdateView):
         return reverse(
             "djupkeep:location_detail", kwargs={"pk": self.object.location.id}
         )
+
+
+class ElementDeleteView(PermissionRequiredMixin, RedirectView):
+    permission_required = "djupkeep.delete_element"
+
+    def get_redirect_url(self, *args, **kwargs):
+        if not self.request.htmx:
+            raise Http404(_("Request without HTMX headers"))
+        element = get_object_or_404(Element, id=self.kwargs["pk"])
+        location = element.location
+        element.delete()
+        return reverse("djupkeep:location_detail", kwargs={"pk": location.id})
