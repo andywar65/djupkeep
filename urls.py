@@ -12,7 +12,7 @@ from .views.category_views import (
     CategoryUpdateView,
     IntroTemplateView,
 )
-from .views.element_views import ElementCreateView
+from .views.element_views import ElementCreateView, ElementUpdateView
 from .views.location_views import (
     LocationCreateView,
     LocationDeleteView,
@@ -97,5 +97,10 @@ urlpatterns = [
         _("element/add/"),
         ElementCreateView.as_view(),
         name="element_create",
+    ),
+    path(
+        "element/<pk>/change/",
+        ElementUpdateView.as_view(),
+        name="element_update",
     ),
 ]

@@ -1,0 +1,63 @@
+{% extends "djupkeep/locations/base_form.html" %}
+{% load bootstrap5 %}
+{% load i18n %}
+
+{% block content %}
+  <form method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col" style="margin-bottom: 20px">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">
+              {% trans "Update element"%}: {{ object }}
+            </h4>
+          </div>
+          <div class="card-body">
+            {% bootstrap_field form.location %}
+            {% bootstrap_field form.category %}
+            {% bootstrap_field form.intro %}
+            {% bootstrap_field form.image %}
+          </div>
+          <div class="card-footer">
+            <input class="btn btn-primary"
+              style="margin-bottom: 15px;"
+              type="submit"
+              value="{% trans 'Update' %}" />
+            <div class="dropdown">
+              <a class="btn btn-secondary dropdown-toggle"
+                href="#"
+                role="button"
+                id="dropdownMenuLink"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+                {% trans "Other actions" %}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li>
+                  <a class="dropdown-item"
+                    hx-get="{% url 'djupkeep:location_detail' pk=object.location.id %}"
+                    hx-target="#content"
+                    hx-push-url="true">
+                    {% trans "View location" %}
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <a class="dropdown-item"
+                    href="#">
+                    {% trans "Delete element" %}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+        {% bootstrap_field form.geom %}
+      </div>
+    </div>
+  </form>
+  {% include "djupkeep/elements/includes/update_data.html" %}
+{% endblock content %}

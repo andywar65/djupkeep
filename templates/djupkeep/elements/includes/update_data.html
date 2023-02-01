@@ -1,0 +1,5 @@
+{{ object.location.get_image_path|json_script:"image_path" }}
+{{ object.location.get_image_size|json_script:"image_size" }}
+{{ object.location.origin.coordinates|json_script:"origin_coords" }}
+{{ object.location.length.coordinates.1|json_script:"unit_coords" }}
+{{ object.location.meters|json_script:"length_meters" }}

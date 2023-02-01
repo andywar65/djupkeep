@@ -41,3 +41,19 @@ class ElementCreateForm(ModelForm):
     class Meta:
         model = Element
         fields = ["location", "category", "intro", "image"]
+
+
+class ElementUpdateForm(ModelForm):
+    class Meta:
+        model = Element
+        fields = ["location", "category", "intro", "image", "geom"]
+        widgets = {
+            "geom": LeafletWidget(
+                attrs={
+                    "geom_type": "Point",
+                }
+            )
+        }
+
+    class Media:
+        js = ("djupkeep/js/location_update.js",)
