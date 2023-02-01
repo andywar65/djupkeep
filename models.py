@@ -123,3 +123,51 @@ class Category(TreeNode):
 
     def __str__(self):
         return self.title
+
+
+class Element(models.Model):
+
+    location = models.ForeignKey(
+        Location,
+        on_delete=models.CASCADE,
+        related_name="elements",
+        verbose_name=_("Location"),
+    )
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name="elements",
+        verbose_name=_("Category"),
+    )
+    intro = models.CharField(_("Description"), max_length=200, null=True)
+    fb_image = FileBrowseField(
+        _("Image"),
+        max_length=200,
+        extensions=[".jpg", ".png", ".jpeg", ".gif", ".tif", ".tiff"],
+        directory="images/upkeep/",
+        null=True,
+    )
+    image = models.ImageField(
+        _("Image"),
+        max_length=200,
+        null=True,
+        blank=True,
+        upload_to="uploads/images/upkeep/",
+    )
+    geom = PointField(_("Position"))
+
+    class Meta:
+        verbose_name = _("Element")
+        verbose_name_plural = _("Elements")
+
+    def __str__(self):
+        return self.category.title + " - " + str(self.id)
+
+    def save(self, *args, **kwargs):
+        # save and eventually upload image file
+        super(Element, self).save(*args, **kwargs)
+        if self.image:
+            # image is uploaded on the front end, passed to fb_image and deleted
+            self.fb_image = FileObject(str(self.image))
+            self.image = None
+            super(Element, self).save(*args, **kwargs)
