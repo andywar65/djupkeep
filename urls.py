@@ -99,7 +99,7 @@ urlpatterns = [
         name="element_create",
     ),
     path(
-        "element/<pk>/change/",
+        _("element/<pk>/change/"),
         ElementUpdateView.as_view(),
         name="element_update",
     ),

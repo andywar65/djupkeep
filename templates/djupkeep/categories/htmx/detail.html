@@ -1,7 +1,15 @@
+{% load i18n %}
+
 <div class="alert alert-secondary">
   <a class="link-primary"
     hx-get="{% url 'djupkeep:category_update' pk=category.id %}"
     hx-target="#cat-{{ category.id }}">
     {{ category.title }}
-  </a> - <em>{{ category.intro }}</em>
+  </a> - <em>{{ category.intro }}</em> -
+  <a class="link-primary"
+    hx-get="{% url 'djupkeep:element_create' %}?category={{ category.id }}"
+    hx-target="#content"
+    hx-push-url="true">
+    {% trans "+ Element" %}
+  </a>
 </div>

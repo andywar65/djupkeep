@@ -10,7 +10,7 @@ from django.views.generic import (  # DetailView,; ListView,; ;
 )
 
 from djupkeep.forms import ElementCreateForm, ElementUpdateForm
-from djupkeep.models import Element
+from djupkeep.models import Category, Element, Location
 
 from .location_views import HxPageTemplateMixin
 
@@ -21,8 +21,18 @@ class ElementCreateView(PermissionRequiredMixin, HxPageTemplateMixin, CreateView
     form_class = ElementCreateForm
     template_name = "djupkeep/elements/htmx/create.html"
 
+    def get_initial(self):
+        initial = super(ElementCreateView, self).get_initial()
+        if "category" in self.request.GET:
+            cat = get_object_or_404(Category, id=self.request.GET["category"])
+            initial["category"] = cat.id
+        elif "location" in self.request.GET:
+            loc = get_object_or_404(Location, id=self.request.GET["location"])
+            initial["location"] = loc.id
+        return initial
+
     def get_success_url(self):
-        return reverse("djupkeep:element_change", kwargs={"pk": self.object.id})
+        return reverse("djupkeep:element_update", kwargs={"pk": self.object.id})
 
 
 class ElementUpdateView(PermissionRequiredMixin, UpdateView):
