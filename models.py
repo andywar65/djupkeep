@@ -163,6 +163,32 @@ class Element(models.Model):
     def __str__(self):
         return self.category.title + " - " + str(self.id)
 
+    @property
+    def popupContent(self):
+        url = ""
+        title_str = '<h5><a href="%(url)s">%(title)s</a></h5>' % {
+            "title": self.__str__(),
+            "url": url,
+        }
+        intro_str = "<small>%(intro)s</small>" % {"intro": self.intro}
+        image = self.get_thumbnail_path()
+        if not image:
+            return {
+                "content": title_str + intro_str,
+                "layer": _("Category - ") + self.category.title,
+            }
+        image_str = '<img src="%(image)s">' % {"image": image}
+        return {
+            "content": title_str + image_str + intro_str,
+            "layer": _("Category - ") + self.category.title,
+        }
+
+    def get_thumbnail_path(self):
+        if not self.fb_image:
+            return
+        path = self.fb_image.version_generate("popup").path
+        return settings.MEDIA_URL + path
+
     def save(self, *args, **kwargs):
         # save and eventually upload image file
         super(Element, self).save(*args, **kwargs)
