@@ -2,6 +2,7 @@
 {% load static %}
 {% load i18n %}
 {% load leaflet_tags %}
+{% load geojson_tags %}
 
 {% block content %}
   <div class="card mx-auto" style="max-width: 960px; margin-top: 15px">
@@ -26,4 +27,6 @@
     </div>
   </div>
   {% include "djupkeep/locations/includes/update_data.html" %}
+  <script id="marker_data" type="application/json">{{ elements|geojsonfeature:"popupContent"|safe }}</script>
+  {{ category_list|json_script:"layer_data" }}
 {% endblock content %}

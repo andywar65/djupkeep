@@ -12,7 +12,7 @@ from django.views.generic import (
 )
 
 from djupkeep.forms import LocationCreateForm, LocationUpdateForm
-from djupkeep.models import Location
+from djupkeep.models import Category, Location
 
 
 class HxPageTemplateMixin:
@@ -35,6 +35,19 @@ class LocationDetailView(PermissionRequiredMixin, DetailView):
     permission_required = "djupkeep.view_location"
     model = Location
     template_name = "djupkeep/locations/detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["elements"] = self.object.elements.all().prefetch_related("category")
+        # TODO see if we can avoid next query as we use prefetch_related above
+        cat_list = context["elements"].values_list("category_id", flat=True)
+        categories = Category.objects.filter(id__in=cat_list)
+        name_list = categories.values_list("title", flat=True)
+        context["category_list"] = list(dict.fromkeys(name_list))
+        context["category_list"] = [
+            _("Category - ") + s for s in context["category_list"]
+        ]
+        return context
 
 
 class LocationCreateView(PermissionRequiredMixin, HxPageTemplateMixin, CreateView):
