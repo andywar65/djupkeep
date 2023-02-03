@@ -31,10 +31,10 @@ class LocationListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
     template_name = "djupkeep/locations/htmx/list.html"
 
 
-class LocationDetailView(PermissionRequiredMixin, HxPageTemplateMixin, DetailView):
+class LocationDetailView(PermissionRequiredMixin, DetailView):
     permission_required = "djupkeep.view_location"
     model = Location
-    template_name = "djupkeep/locations/htmx/detail.html"
+    template_name = "djupkeep/locations/detail.html"
 
 
 class LocationCreateView(PermissionRequiredMixin, HxPageTemplateMixin, CreateView):

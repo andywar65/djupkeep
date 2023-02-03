@@ -1,11 +1,17 @@
+{% load static %}
 {% load i18n %}
+{% load leaflet_tags %}
 
 <div class="card mx-auto" style="max-width: 960px; margin-top: 60px">
   <div class="card-header">
     <h3>{% translate 'Location' %}: {{ object.title }}</h3>
+    <p>{{ object.intro }}</p>
   </div>
   <div class="card-body">
-    <p>{{ object.intro }}</p>
+    <script src="{% static 'djupkeep/js/location_detail.js'%}"></script>
+    <div class="col col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+      {% leaflet_map "mymap" callback="window.map_init" %}
+    </div>
   </div>
   <div class="card-footer">
     <a class="link-primary" href="{% url 'djupkeep:location_change' pk=object.id %}">
@@ -19,3 +25,4 @@
     </a>
   </div>
 </div>
+{% include "djupkeep/locations/includes/update_data.html" %}

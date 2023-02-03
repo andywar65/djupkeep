@@ -1,0 +1,16 @@
+{% extends "base_menu.html" %}
+{% load leaflet_tags %}
+
+{% block extra-head %}
+  {% leaflet_js %}
+  {% leaflet_css %}
+  <style>
+    .leaflet-container {  /* all maps */
+      height: 600px;
+      margin-bottom: 20px;
+    }
+  </style>
+{% endblock extra-head %}
+
+{% block content %}
+{% endblock content %}
