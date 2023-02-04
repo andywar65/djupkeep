@@ -16,12 +16,20 @@
           <div class="card-body">
             {% if object.elements.exists %}
               <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {% trans "Warning: some elements are already attached to this location, don't change origin position" %}
+                {% blocktrans %}
+                  Warning: some elements are already attached to this location, so if you change
+                  origin of axis (first point of Reference length) their position may be shifted.
+                  Restore previous origin of axis, reset Reference length / Meters, update and
+                  check if elements are back at their place.
+                {% endblocktrans %}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
             {% else %}
               <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {% trans "TODO: explain 'Length' and 'Meters' fields." %}
+                {% blocktrans %}
+                  Draw a reference segment on the map. First point will set origin of axis (red lines),
+                  so choose wisely. In the 'Meters' field enter actual size of Reference length.
+                {% endblocktrans %}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
             {% endif %}
