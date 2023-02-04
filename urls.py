@@ -104,7 +104,7 @@ urlpatterns = [
         name="element_update",
     ),
     path(
-        "element/<pk>/delete/",
+        _("element/<pk>/delete/"),
         ElementDeleteView.as_view(),
         name="element_delete",
     ),

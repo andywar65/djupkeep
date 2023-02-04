@@ -3,9 +3,9 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import (  # DetailView,; ListView,; ;
+from django.views.generic import (  # DetailView,; ListView,; RedirectView,
     CreateView,
-    RedirectView,
+    DeleteView,
     UpdateView,
 )
 
@@ -52,13 +52,17 @@ class ElementUpdateView(PermissionRequiredMixin, UpdateView):
         )
 
 
-class ElementDeleteView(PermissionRequiredMixin, RedirectView):
+class ElementDeleteView(PermissionRequiredMixin, DeleteView):
+    model = Element
     permission_required = "djupkeep.delete_element"
+    template_name = "djupkeep/elements/htmx/element_confirm_delete.html"
 
-    def get_redirect_url(self, *args, **kwargs):
-        if not self.request.htmx:
+    def setup(self, request, *args, **kwargs):
+        super(ElementDeleteView, self).setup(request, *args, **kwargs)
+        if not request.htmx and not request.POST:
             raise Http404(_("Request without HTMX headers"))
-        element = get_object_or_404(Element, id=self.kwargs["pk"])
-        location = element.location
-        element.delete()
-        return reverse("djupkeep:location_detail", kwargs={"pk": location.id})
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse(
+            "djupkeep:location_detail", kwargs={"pk": self.object.location.id}
+        )

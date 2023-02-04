@@ -45,8 +45,7 @@
                   <a class="dropdown-item"
                     hx-get="{% url 'djupkeep:element_delete' pk=object.id %}"
                     hx-target="#content"
-                    hx-confirm="{% trans 'Are you sure you want to delete element' %} {{ object.title }}"
-                    hx-push-url="{% url 'djupkeep:location_detail' pk=location.id %}">
+                    hx-push-url="true">
                     {% trans "Delete element" %}
                   </a>
                 </li>
