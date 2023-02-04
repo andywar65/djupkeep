@@ -1,3 +1,5 @@
+from math import pow, sqrt
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -54,6 +56,7 @@ class Location(models.Model):
     )
 
     __original_length = None
+    __original_meters = None
 
     class Meta:
         verbose_name = _("Location")
@@ -62,6 +65,7 @@ class Location(models.Model):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.__original_length = self.length
+        self.__original_meters = self.meters
 
     def __str__(self):
         return self.title
@@ -81,6 +85,22 @@ class Location(models.Model):
             return (180, 180 * y / x)
         return (90 * x / y, 90)
 
+    def update_element_position(self):
+        length = sqrt(
+            pow(self.__original_length["coordinates"][1][0], 2)
+            + pow(self.__original_length["coordinates"][1][1], 2)
+        )
+        original_scale = self.__original_meters / length
+        length = sqrt(
+            pow(self.length["coordinates"][1][0], 2)
+            + pow(self.length["coordinates"][1][1], 2)
+        )
+        scale = self.meters / length
+        for e in self.elements.all():
+            e.geom["coordinates"][0] = e.geom["coordinates"][0] * original_scale / scale
+            e.geom["coordinates"][1] = e.geom["coordinates"][1] * original_scale / scale
+            super(Element, e).save()
+
     def save(self, *args, **kwargs):
         # save and eventually upload image file
         super(Location, self).save(*args, **kwargs)
@@ -88,25 +108,29 @@ class Location(models.Model):
             # image is uploaded on the front end, passed to fb_image and deleted
             self.fb_image = FileObject(str(self.image))
             self.image = None
-            # image has changed, so we delete length and origin
-            self.length = None
-            self.origin = {"type": "Point", "coordinates": [0, 0]}
             super(Location, self).save(*args, **kwargs)
-            # check_wide_image(self.fb_image)
-        elif self.length and not self.__original_length == self.length:
+            # TODO check_wide_image(self.fb_image)
+        if self.length and not self.__original_length == self.length:
             # length has changed, so we set origin...
             coords = [
                 self.length["coordinates"][0][0] + self.origin["coordinates"][0],
                 self.length["coordinates"][0][1] + self.origin["coordinates"][1],
             ]
             self.origin = {"type": "Point", "coordinates": coords}
-            # and move length
+            # ... move length ...
             self.length["coordinates"][1] = [
                 self.length["coordinates"][1][0] - self.length["coordinates"][0][0],
                 self.length["coordinates"][1][1] - self.length["coordinates"][0][1],
             ]
             self.length["coordinates"][0] = [0, 0]
+            # ... save new values ...
             super(Location, self).save(*args, **kwargs)
+            # ... and eventually update attached elements.
+            if self.elements.exists():
+                self.update_element_position()
+        # if previous conditional was skipped, eventually update attached elements
+        elif not self.__original_meters == self.meters and self.elements.exists():
+            self.update_element_position()
 
 
 class Category(TreeNode):
