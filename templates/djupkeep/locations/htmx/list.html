@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load fb_versions %}
 
 <div class="card mx-auto" style="max-width: 960px; margin-top: 60px">
   <div class="card-header">
@@ -6,22 +7,36 @@
   </div>
   <div class="card-body">
     {% if locations %}
-      <ul>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {% for location in locations %}
-          <li>
-            <a class="link-primary" href="{% url 'djupkeep:location_detail' pk=location.id %}">
-              {{ location.title }}
-            </a>
-            <p>- {{ location.intro }}</p>
-          </li>
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-header">
+                <h4>
+                  <a class="link-primary"
+                    href="{% url 'djupkeep:location_detail' pk=location.id %}">
+                    {{ location.title }}
+                  </a>
+                </h4>
+              </div>
+              <div class="card-body">
+                <img class="card-img-top"
+                  src="{% version location.fb_image 'popup' %}"
+                  alt="{{ location.intro }}">
+                <p>
+                  <em>{{ location.intro }}</em>
+                </p>
+              </div>
+            </div>
+          </div>
         {% endfor %}
-      </ul>
+      </div>
     {% else %}
       <p>{% trans "No locations yet" %}</p>
     {% endif %}
   </div>
   <div class="card-footer">
-    <a class="link-primary"
+    <a class="btn btn-success"
       hx-get="{% url 'djupkeep:location_create' %}"
       hx-target="#content"
       hx-push-url="true">
