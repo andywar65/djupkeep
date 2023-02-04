@@ -36,9 +36,7 @@
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li>
                   <a class="dropdown-item"
-                    hx-get="{% url 'djupkeep:location_detail' pk=object.location.id %}"
-                    hx-target="#content"
-                    hx-push-url="true">
+                    href="{% url 'djupkeep:location_detail' pk=location.id %}">
                     {% trans "View location" %}
                   </a>
                 </li>
@@ -48,7 +46,7 @@
                     hx-get="{% url 'djupkeep:element_delete' pk=object.id %}"
                     hx-target="#content"
                     hx-confirm="{% trans 'Are you sure you want to delete element' %} {{ object.title }}"
-                    hx-push-url="{% url 'djupkeep:location_detail' pk=object.location.id %}">
+                    hx-push-url="{% url 'djupkeep:location_detail' pk=location.id %}">
                     {% trans "Delete element" %}
                   </a>
                 </li>
@@ -62,5 +60,5 @@
       </div>
     </div>
   </form>
-  {% include "djupkeep/elements/includes/update_data.html" %}
+  {% include "djupkeep/locations/includes/update_data.html" %}
 {% endblock content %}
