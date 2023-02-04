@@ -31,6 +31,16 @@ class ElementCreateView(PermissionRequiredMixin, HxPageTemplateMixin, CreateView
             initial["location"] = loc.id
         return initial
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if "category" in self.request.GET:
+            context["discard_url"] = reverse("djupkeep:category_list")
+        elif "location" in self.request.GET:
+            context["discard_url"] = reverse(
+                "djupkeep:location_detail", kwargs={"pk": self.request.GET["location"]}
+            )
+        return context
+
     def get_success_url(self):
         return reverse("djupkeep:element_update", kwargs={"pk": self.object.id})
 
