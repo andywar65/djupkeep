@@ -7,8 +7,8 @@
 {% block content %}
   <div class="card mx-auto" style="max-width: 960px; margin-top: 15px">
     <div class="card-header">
-      <h3>{% translate 'Location' %}: {{ object.title }}</h3>
-      <p>{{ object.intro }}</p>
+      <h3>{% translate 'Location' %}: {{ location.title }}</h3>
+      <p>{{ location.intro }}</p>
     </div>
     <div class="card-body">
       <script src="{% static 'djupkeep/js/location_detail.js'%}"></script>
@@ -16,7 +16,7 @@
     </div>
     <div class="card-footer">
       <a class="btn btn-primary" style="margin-bottom: 15px"
-        href="{% url 'djupkeep:location_change' pk=object.id %}">
+        href="{% url 'djupkeep:location_change' pk=location.id %}">
         {% trans "Modify" %}
       </a>
       <div class="dropdown">
@@ -31,7 +31,7 @@
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           <li>
             <a class="dropdown-item"
-              href="{% url 'djupkeep:element_create' %}?location={{ object.id }}">
+              href="{% url 'djupkeep:element_create' %}?location={{ location.id }}">
               {% trans "Add element to location" %}
             </a>
           </li>

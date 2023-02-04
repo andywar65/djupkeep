@@ -15,10 +15,9 @@
       </div>
       <div class="card-footer">
         <input class="btn btn-primary"
-          style="margin-bottom: 15px;"
           type="submit"
           value="{% trans 'Add' %}" />
-        <a class="link-primary"
+        <a class="btn btn-secondary"
           hx-get="{% url 'djupkeep:location_list' %}"
           hx-target="#content"
           hx-push-url="true">

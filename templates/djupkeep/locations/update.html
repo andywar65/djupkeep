@@ -10,11 +10,11 @@
         <div class="card">
           <div class="card-header">
             <h4 class="card-title">
-              {% trans "Update location"%}: {{ object }}
+              {% trans "Update location"%}: {{ location }}
             </h4>
           </div>
           <div class="card-body">
-            {% if object.elements.exists %}
+            {% if location.elements.exists %}
               <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {% blocktrans %}
                   Warning: some elements are already attached to this location, so if you change
@@ -55,16 +55,16 @@
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li>
                   <a class="dropdown-item"
-                    href="{% url 'djupkeep:location_detail' pk=object.id %}">
+                    href="{% url 'djupkeep:location_detail' pk=location.id %}">
                     {% trans "View location" %}
                   </a>
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
                   <a class="dropdown-item"
-                    hx-get="{% url 'djupkeep:location_delete' pk=object.id %}"
+                    hx-get="{% url 'djupkeep:location_delete' pk=location.id %}"
                     hx-target="#content"
-                    hx-confirm="{% trans 'Are you sure you want to delete location' %} {{ object.title }}"
+                    hx-confirm="{% trans 'Are you sure you want to delete location' %} {{ location.title }}"
                     hx-push-url="{% url 'djupkeep:location_list' %}">
                     {% trans "Delete location" %}
                   </a>

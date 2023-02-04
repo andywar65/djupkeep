@@ -34,6 +34,7 @@ class LocationListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
 class LocationDetailView(PermissionRequiredMixin, DetailView):
     permission_required = "djupkeep.view_location"
     model = Location
+    context_object_name = "location"
     template_name = "djupkeep/locations/detail.html"
 
     def get_context_data(self, **kwargs):
@@ -63,6 +64,7 @@ class LocationCreateView(PermissionRequiredMixin, HxPageTemplateMixin, CreateVie
 class LocationUpdateView(PermissionRequiredMixin, UpdateView):
     permission_required = "djupkeep.change_location"
     model = Location
+    context_object_name = "location"
     form_class = LocationUpdateForm
     template_name = "djupkeep/locations/update.html"
 
