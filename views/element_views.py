@@ -45,6 +45,31 @@ class ElementCreateView(PermissionRequiredMixin, HxPageTemplateMixin, CreateView
         return reverse("djupkeep:element_update", kwargs={"pk": self.object.id})
 
 
+class ElementCreateLocatedView(PermissionRequiredMixin, CreateView):
+    permission_required = "djupkeep.add_element"
+    model = Element
+    form_class = ElementUpdateForm
+    template_name = "djupkeep/elements/htmx/create_located.html"
+
+    def get_initial(self):
+        initial = super(ElementCreateLocatedView, self).get_initial()
+        self.location = get_object_or_404(Location, id=self.kwargs["pk"])
+        initial["location"] = self.location.id
+        return initial
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["discard_url"] = reverse(
+            "djupkeep:location_detail", kwargs={"pk": self.location.id}
+        )
+        return context
+
+    def get_success_url(self):
+        return reverse(
+            "djupkeep:location_detail", kwargs={"pk": self.object.location.id}
+        )
+
+
 class ElementUpdateView(PermissionRequiredMixin, UpdateView):
     permission_required = "djupkeep.change_element"
     model = Element
