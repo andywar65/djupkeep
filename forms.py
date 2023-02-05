@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django.utils.translation import gettext_lazy as _
 from leaflet.forms.widgets import LeafletWidget
 from tree_queries.forms import TreeNodeChoiceField
 
@@ -49,6 +50,7 @@ class ElementUpdateForm(ModelForm):
     class Meta:
         model = Element
         fields = ["location", "category", "intro", "image", "geom"]
+        labels = {"image": _("Upload / change image")}
         widgets = {
             "geom": LeafletWidget(
                 attrs={

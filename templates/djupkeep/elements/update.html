@@ -1,6 +1,7 @@
 {% extends "djupkeep/locations/base_form.html" %}
 {% load bootstrap5 %}
 {% load i18n %}
+{% load fb_versions %}
 
 {% block content %}
   <form method="POST" action="" enctype="multipart/form-data">
@@ -14,6 +15,11 @@
             </h4>
           </div>
           <div class="card-body">
+            {% if object.fb_image %}
+              <img
+                src="{% version object.fb_image 'popup' %}"
+                alt="{{ object.intro }}" />
+            {% endif %}
             {% bootstrap_field form.location %}
             {% bootstrap_field form.category %}
             {% bootstrap_field form.intro %}

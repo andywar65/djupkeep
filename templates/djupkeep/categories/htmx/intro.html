@@ -26,6 +26,15 @@
         </a>
         - <em>{% trans 'Locations of Maintenance Plan' %}</em>
       </li>
+      <li>
+        <a class="link-primary"
+          hx-get="{% url 'djupkeep:element_list' %}"
+          hx-target="#content"
+          hx-push-url="true">
+          {% trans 'Elements' %}
+        </a>
+        - <em>{% trans 'Elements to be maintained' %}</em>
+      </li>
     </ul>
   </div>
 </div>
