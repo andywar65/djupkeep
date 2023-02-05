@@ -221,3 +221,24 @@ class Element(models.Model):
             self.fb_image = FileObject(str(self.image))
             self.image = None
             super(Element, self).save(*args, **kwargs)
+
+
+class Activity(models.Model):
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name="activities",
+        verbose_name=_("Category"),
+    )
+    title = models.CharField(
+        _("Name"),
+        max_length=50,
+    )
+    intro = models.TextField(_("Description"), null=True)
+
+    class Meta:
+        verbose_name = _("Activity")
+        verbose_name_plural = _("Activities")
+
+    def __str__(self):
+        return self.title
