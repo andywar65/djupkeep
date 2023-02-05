@@ -2,7 +2,7 @@ from django.forms import ModelForm
 from leaflet.forms.widgets import LeafletWidget
 from tree_queries.forms import TreeNodeChoiceField
 
-from .models import Category, Element, Location
+from .models import Activity, Category, Element, Location
 
 
 class LocationCreateForm(ModelForm):
@@ -59,3 +59,11 @@ class ElementUpdateForm(ModelForm):
 
     class Media:
         js = ("djupkeep/js/location_update.js",)
+
+
+class ActivityCreateForm(ModelForm):
+    category = TreeNodeChoiceField(queryset=Category.objects.all(), required=True)
+
+    class Meta:
+        model = Activity
+        fields = "__all__"

@@ -1,0 +1,27 @@
+{% load bootstrap5 %}
+{% load i18n %}
+
+{% block content %}
+  <div class="card mx-auto" style="max-width: 480px; margin-top: 60px">
+    <div class="card-header">
+      <h4 class="card-title">
+        {% trans "Add activity"%}
+      </h4>
+    </div>
+    <form method="POST" action="" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="card-body">
+        {% bootstrap_form form %}
+      </div>
+      <div class="card-footer">
+        <input class="btn btn-primary"
+          type="submit"
+          value="{% trans 'Add' %}" />
+        <a class="btn btn-secondary"
+          href="{{ discard_url }}">
+          {% trans "Discard" %}
+        </a>
+      </div>
+    </form>
+  </div>
+{% endblock content %}

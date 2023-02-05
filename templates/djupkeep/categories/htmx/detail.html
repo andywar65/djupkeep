@@ -12,4 +12,11 @@
     hx-push-url="true">
     {% trans "+ Element" %}
   </a>
+  -
+  <a class="link-primary"
+    hx-get="{% url 'djupkeep:activity_create' pk=category.id %}"
+    hx-target="#content"
+    hx-push-url="true">
+    {% trans "+ Activity" %}
+  </a>
 </div>

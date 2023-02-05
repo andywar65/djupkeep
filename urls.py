@@ -1,6 +1,7 @@
 from django.urls import path
 from django.utils.translation import gettext_lazy as _
 
+from .views.activity_views import ActivityCreateView
 from .views.category_views import (
     CategoryCreateDismissView,
     CategoryCreateView,
@@ -117,5 +118,10 @@ urlpatterns = [
         _("element/<pk>/delete/"),
         ElementDeleteView.as_view(),
         name="element_delete",
+    ),
+    path(
+        _("category/<pk>/activity/add/"),
+        ActivityCreateView.as_view(),
+        name="activity_create",
     ),
 ]
