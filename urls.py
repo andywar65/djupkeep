@@ -12,7 +12,12 @@ from .views.category_views import (
     CategoryUpdateView,
     IntroTemplateView,
 )
-from .views.element_views import ElementCreateView, ElementDeleteView, ElementUpdateView
+from .views.element_views import (
+    ElementCreateLocatedView,
+    ElementCreateView,
+    ElementDeleteView,
+    ElementUpdateView,
+)
 from .views.location_views import (
     LocationCreateView,
     LocationDeleteView,
@@ -52,6 +57,11 @@ urlpatterns = [
         _("location/<pk>/delete/"),
         LocationDeleteView.as_view(),
         name="location_delete",
+    ),
+    path(
+        _("location/<pk>/element/add/"),
+        ElementCreateLocatedView.as_view(),
+        name="element_create_located",
     ),
     path(
         _("category/list/"),

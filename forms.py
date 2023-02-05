@@ -44,6 +44,8 @@ class ElementCreateForm(ModelForm):
 
 
 class ElementUpdateForm(ModelForm):
+    category = TreeNodeChoiceField(queryset=Category.objects.all(), required=True)
+
     class Meta:
         model = Element
         fields = ["location", "category", "intro", "image", "geom"]

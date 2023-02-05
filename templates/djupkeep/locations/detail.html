@@ -31,7 +31,7 @@
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           <li>
             <a class="dropdown-item"
-              href="{% url 'djupkeep:element_create' %}?location={{ location.id }}">
+              href="{% url 'djupkeep:element_create_located' pk=location.id %}">
               {% trans "Add element to location" %}
             </a>
           </li>

@@ -26,19 +26,12 @@ class ElementCreateView(PermissionRequiredMixin, HxPageTemplateMixin, CreateView
         if "category" in self.request.GET:
             cat = get_object_or_404(Category, id=self.request.GET["category"])
             initial["category"] = cat.id
-        elif "location" in self.request.GET:
-            loc = get_object_or_404(Location, id=self.request.GET["location"])
-            initial["location"] = loc.id
         return initial
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if "category" in self.request.GET:
-            context["discard_url"] = reverse("djupkeep:category_list")
-        elif "location" in self.request.GET:
-            context["discard_url"] = reverse(
-                "djupkeep:location_detail", kwargs={"pk": self.request.GET["location"]}
-            )
+        # we can use this to redirect to different pages
+        context["discard_url"] = reverse("djupkeep:category_list")
         return context
 
     def get_success_url(self):
@@ -49,7 +42,7 @@ class ElementCreateLocatedView(PermissionRequiredMixin, CreateView):
     permission_required = "djupkeep.add_element"
     model = Element
     form_class = ElementUpdateForm
-    template_name = "djupkeep/elements/htmx/create_located.html"
+    template_name = "djupkeep/elements/create_located.html"
 
     def get_initial(self):
         initial = super(ElementCreateLocatedView, self).get_initial()
@@ -59,9 +52,7 @@ class ElementCreateLocatedView(PermissionRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["discard_url"] = reverse(
-            "djupkeep:location_detail", kwargs={"pk": self.location.id}
-        )
+        context["location"] = self.location
         return context
 
     def get_success_url(self):
