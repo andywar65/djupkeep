@@ -17,6 +17,7 @@ from .views.element_views import (
     ElementCreateLocatedView,
     ElementCreateView,
     ElementDeleteView,
+    ElementListView,
     ElementUpdateView,
 )
 from .views.location_views import (
@@ -103,6 +104,11 @@ urlpatterns = [
         "category/<pk>/delete/",
         CategoryDeleteView.as_view(),
         name="category_delete",
+    ),
+    path(
+        _("element/list/"),
+        ElementListView.as_view(),
+        name="element_list",
     ),
     path(
         _("element/add/"),

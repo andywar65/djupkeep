@@ -3,9 +3,10 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import (  # DetailView,; ListView,; RedirectView,
+from django.views.generic import (  # DetailView,; ; RedirectView,
     CreateView,
     DeleteView,
+    ListView,
     UpdateView,
 )
 
@@ -13,6 +14,17 @@ from djupkeep.forms import ElementCreateForm, ElementUpdateForm
 from djupkeep.models import Category, Element, Location
 
 from .location_views import HxPageTemplateMixin
+
+
+class ElementListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
+    permission_required = "djupkeep.view_element"
+    model = Element
+    template_name = "djupkeep/elements/htmx/list.html"
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.order_by("category")
+        return qs
 
 
 class ElementCreateView(PermissionRequiredMixin, HxPageTemplateMixin, CreateView):
@@ -30,8 +42,9 @@ class ElementCreateView(PermissionRequiredMixin, HxPageTemplateMixin, CreateView
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # we can use this to redirect to different pages
-        context["discard_url"] = reverse("djupkeep:category_list")
+        context["discard_url"] = reverse("djupkeep:element_list")
+        if "category" in self.request.GET:
+            context["discard_url"] = reverse("djupkeep:category_list")
         return context
 
     def get_success_url(self):

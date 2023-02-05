@@ -1,0 +1,35 @@
+{% load i18n %}
+
+<div
+  class="card mx-auto"
+  style="max-width: 960px; margin-top: 60px" >
+  <div class="card-header">
+    <h3>{% translate 'Elements' %}</h3>
+  </div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">{% trans "Category" %}</th>
+          <th scope="col">#</th>
+          <th scope="col">{% trans "Location" %}</th>
+        </tr>
+        {% for element in object_list %}
+          <tr>
+            <td>{{ element.category }}</td>
+            <td>{{ element.id }}</td>
+            <td>{{ element.location }}</td>
+          </tr>
+        {% endfor %}
+      </thead>
+    </table>
+  </div>
+  <div class="card-footer">
+    <a class="btn btn-success"
+      hx-get="{% url 'djupkeep:element_create' %}"
+      hx-target="#content"
+      hx-push-url="{% url 'djupkeep:element_create' %}?element=true">
+      {% trans "Add element" %}
+    </a>
+  </div>
+</div>
