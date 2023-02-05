@@ -17,6 +17,7 @@ from .views.element_views import (
     ElementCreateLocatedView,
     ElementCreateView,
     ElementDeleteView,
+    ElementDetailView,
     ElementListView,
     ElementUpdateView,
 )
@@ -114,6 +115,11 @@ urlpatterns = [
         _("element/add/"),
         ElementCreateView.as_view(),
         name="element_create",
+    ),
+    path(
+        _("element/<pk>/"),
+        ElementDetailView.as_view(),
+        name="element_detail",
     ),
     path(
         _("element/<pk>/change/"),

@@ -3,9 +3,10 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import (  # DetailView,; ; RedirectView,
+from django.views.generic import (  # ; ; RedirectView,
     CreateView,
     DeleteView,
+    DetailView,
     ListView,
     UpdateView,
 )
@@ -25,6 +26,18 @@ class ElementListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
         qs = super().get_queryset()
         qs = qs.order_by("category")
         return qs
+
+
+class ElementDetailView(PermissionRequiredMixin, HxPageTemplateMixin, DetailView):
+    permission_required = "djupkeep.view_element"
+    model = Element
+    template_name = "djupkeep/elements/detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["location"] = self.object.location
+        context["category_list"] = [_("Category - ") + self.object.category.title]
+        return context
 
 
 class ElementCreateView(PermissionRequiredMixin, HxPageTemplateMixin, CreateView):
