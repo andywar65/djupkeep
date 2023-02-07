@@ -146,7 +146,7 @@ class Category(TreeNode):
     class Meta:
         verbose_name = _("Element category")
         verbose_name_plural = _("Element categories")
-        ordering = ["-position", "title"]
+        ordering = ["position", "title"]
 
     def __str__(self):
         return self.title
