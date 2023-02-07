@@ -151,6 +151,14 @@ class Category(TreeNode):
     def __str__(self):
         return self.title
 
+    def move_younger_siblings(self):
+        siblings = Category.objects.filter(
+            parent_id=self.parent.id, position__gt=self.position
+        )
+        for sibling in siblings:
+            sibling.position -= 1
+            sibling.save()
+
 
 class Element(models.Model):
 

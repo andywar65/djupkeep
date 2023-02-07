@@ -128,5 +128,6 @@ class CategoryDeleteView(PermissionRequiredMixin, RedirectView):
         if not self.request.htmx:
             raise Http404(_("Request without HTMX headers"))
         category = get_object_or_404(Category, id=self.kwargs["pk"])
+        category.move_younger_siblings()
         category.delete()
         return reverse("djupkeep:category_list")
