@@ -141,10 +141,12 @@ class Category(TreeNode):
         max_length=50,
     )
     intro = models.CharField(_("Description"), max_length=200, null=True)
+    position = models.PositiveIntegerField(default=0)
 
     class Meta:
         verbose_name = _("Element category")
         verbose_name_plural = _("Element categories")
+        ordering = ["-position", "title"]
 
     def __str__(self):
         return self.title

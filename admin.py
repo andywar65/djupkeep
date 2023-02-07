@@ -14,7 +14,8 @@ admin.site.register(Location, LocationAdmin)
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("title", "intro", "parent")
+    list_display = ("title", "parent", "position")
+    list_filter = ("parent",)
 
 
 class ElementAdmin(LeafletGeoAdmin):
