@@ -161,6 +161,18 @@ class Category(TreeNode):
             sibling.position -= 1
             sibling.save()
 
+    def get_next_sibling(self):  # noqa
+        return Category.objects.filter(
+            parent_id=self.parent.id, position=self.position + 1
+        )
+
+    def get_previous_sibling(self):  # noqa
+        if self.position == 0:
+            return None
+        return Category.objects.filter(
+            parent_id=self.parent.id, position=self.position - 1
+        )
+
 
 class Element(models.Model):
 
