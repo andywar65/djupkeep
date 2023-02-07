@@ -93,8 +93,15 @@ class CategoryUpdateView(PermissionRequiredMixin, HxOnlyTemplateMixin, UpdateVie
         self.original_parent = obj.parent
         return obj
 
+    def form_valid(self, form):
+        if not self.original_parent == form.instance.parent:
+            if self.original_parent:
+                self.original_parent.move_younger_children(form.instance.position)
+            form.instance.position = form.instance.parent.children.count()
+        return super(CategoryUpdateView, self).form_valid(form)
+
     def get_success_url(self):
-        if self.original_parent != self.object.parent:
+        if not self.original_parent == self.object.parent:
             return reverse(
                 "djupkeep:category_detail_refresh",
                 kwargs={"pk": self.object.id},
@@ -128,6 +135,7 @@ class CategoryDeleteView(PermissionRequiredMixin, RedirectView):
         if not self.request.htmx:
             raise Http404(_("Request without HTMX headers"))
         category = get_object_or_404(Category, id=self.kwargs["pk"])
-        category.move_younger_siblings()
+        if category.parent:
+            category.parent.move_younger_children(category.position)
         category.delete()
         return reverse("djupkeep:category_list")

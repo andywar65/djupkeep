@@ -151,10 +151,12 @@ class Category(TreeNode):
     def __str__(self):
         return self.title
 
-    def move_younger_siblings(self):
-        siblings = Category.objects.filter(
-            parent_id=self.parent.id, position__gt=self.position
-        )
+    def move_younger_children(self, pos):
+        """Used when a child is moved to other parent or deleted.
+        Children with greater position than child (pos) are
+        moved up the ladder.
+        """
+        siblings = self.children.filter(position__gt=pos)
         for sibling in siblings:
             sibling.position -= 1
             sibling.save()
