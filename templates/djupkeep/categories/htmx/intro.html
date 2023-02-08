@@ -7,34 +7,61 @@
     <h3>{% translate 'Maintenance Plan Content' %}</h3>
   </div>
   <div class="card-body">
-    <ul>
-      <li>
-        <a class="link-primary"
-          hx-get="{% url 'djupkeep:category_list_wrapper' %}"
-          hx-target="#content"
-          hx-push-url="{% url 'djupkeep:category_list' %}">
-          {% trans 'Categories' %}
-        </a>
-        - <em>{% trans 'Categories of Elements in Maintenance Plan' %}</em>
-      </li>
-      <li>
-        <a class="link-primary"
-          hx-get="{% url 'djupkeep:location_list' %}"
-          hx-target="#content"
-          hx-push-url="true">
-          {% trans 'Locations' %}
-        </a>
-        - <em>{% trans 'Locations of Maintenance Plan' %}</em>
-      </li>
-      <li>
-        <a class="link-primary"
-          hx-get="{% url 'djupkeep:element_list' %}"
-          hx-target="#content"
-          hx-push-url="true">
-          {% trans 'Elements' %}
-        </a>
-        - <em>{% trans 'Elements to be maintained' %}</em>
-      </li>
-    </ul>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-header">
+            <i class="fa fa-map-marker fa-lg"></i>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">
+              <a class="link-primary card-title"
+                hx-get="{% url 'djupkeep:element_list' %}"
+                hx-target="#content"
+                hx-push-url="true">
+                {% trans 'Elements' %}
+              </a>
+            </h5>
+            <p class="card-text">{% trans 'Things to be maintained' %}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-header">
+            <i class="fa fa-folder-o fa-lg"></i>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">
+              <a class="link-primary card-title"
+                hx-get="{% url 'djupkeep:category_list_wrapper' %}"
+                hx-target="#content"
+                hx-push-url="{% url 'djupkeep:category_list' %}">
+                {% trans 'Categories' %}
+              </a>
+            </h5>
+            <p class="card-text">{% trans 'A collection of things to be maintained' %}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-header">
+            <i class="fa fa-map-o fa-lg"></i>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">
+              <a class="link-primary card-title"
+                hx-get="{% url 'djupkeep:location_list' %}"
+                hx-target="#content"
+                hx-push-url="true">
+                {% trans 'Locations' %}
+              </a>
+            </h5>
+            <p class="card-text">{% trans 'Where things to be maintained are' %}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
