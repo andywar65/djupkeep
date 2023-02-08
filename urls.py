@@ -10,6 +10,8 @@ from .views.category_views import (
     CategoryDetailView,
     CategoryListView,
     CategoryListWrapperView,
+    CategoryMoveDownView,
+    CategoryMoveUpView,
     CategoryUpdateView,
     IntroTemplateView,
 )
@@ -100,6 +102,16 @@ urlpatterns = [
         "category/<pk>/change/",
         CategoryUpdateView.as_view(),
         name="category_update",
+    ),
+    path(
+        "category/<pk>/move/down/",
+        CategoryMoveDownView.as_view(),
+        name="category_move_down",
+    ),
+    path(
+        "category/<pk>/move/up/",
+        CategoryMoveUpView.as_view(),
+        name="category_move_up",
     ),
     path(
         "category/<pk>/delete/",

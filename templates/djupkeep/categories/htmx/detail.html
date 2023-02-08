@@ -5,18 +5,18 @@
     hx-get="{% url 'djupkeep:category_update' pk=category.id %}"
     hx-target="#cat-{{ category.id }}">
     {{ category.title }}
-  </a> - <em>{{ category.intro }}</em> -
-  <a class="link-primary"
-    hx-get="{% url 'djupkeep:element_create' %}?category={{ category.id }}"
-    hx-target="#content"
-    hx-push-url="true">
-    {% trans "+ Element" %}
-  </a>
-  -
-  <a class="link-primary"
-    hx-get="{% url 'djupkeep:activity_create' pk=category.id %}"
-    hx-target="#content"
-    hx-push-url="true">
-    {% trans "+ Activity" %}
-  </a>
+  </a> - <em>{{ category.intro }}</em>
+  {% if category.get_previous_sibling %}
+    <a class="link-primary"
+      hx-get="{% url 'djupkeep:category_move_up' pk=category.id %}"
+      hx-target="#category-list">
+      <i class="fa fa-arrow-up"></i></a>
+  {% endif %}
+  {% if category.get_next_sibling %}
+    <a class="link-primary"
+      hx-get="{% url 'djupkeep:category_move_down' pk=category.id %}"
+      hx-target="#category-list">
+      <i class="fa fa-arrow-down"></i>
+    </a>
+  {% endif %}
 </div>

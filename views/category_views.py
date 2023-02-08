@@ -112,6 +112,40 @@ class CategoryUpdateView(PermissionRequiredMixin, HxOnlyTemplateMixin, UpdateVie
         )
 
 
+class CategoryMoveDownView(PermissionRequiredMixin, HxOnlyTemplateMixin, RedirectView):
+    permission_required = "djupkeep.change_category"
+
+    def setup(self, request, *args, **kwargs):
+        super(CategoryMoveDownView, self).setup(request, *args, **kwargs)
+        cat = get_object_or_404(Category, id=self.kwargs["pk"])
+        next = cat.get_next_sibling()
+        if next:
+            cat.position += 1
+            cat.save()
+            next.position -= 1
+            next.save()
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse("djupkeep:category_list")
+
+
+class CategoryMoveUpView(PermissionRequiredMixin, HxOnlyTemplateMixin, RedirectView):
+    permission_required = "djupkeep.change_category"
+
+    def setup(self, request, *args, **kwargs):
+        super(CategoryMoveUpView, self).setup(request, *args, **kwargs)
+        cat = get_object_or_404(Category, id=self.kwargs["pk"])
+        prev = cat.get_previous_sibling()
+        if prev:
+            cat.position -= 1
+            cat.save()
+            prev.position += 1
+            prev.save()
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse("djupkeep:category_list")
+
+
 class CategoryDetailView(PermissionRequiredMixin, HxOnlyTemplateMixin, DetailView):
     permission_required = "djupkeep.view_category"
     model = Category

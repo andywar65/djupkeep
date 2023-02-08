@@ -162,16 +162,26 @@ class Category(TreeNode):
             sibling.save()
 
     def get_next_sibling(self):  # noqa
-        return Category.objects.filter(
-            parent_id=self.parent.id, position=self.position + 1
-        )
+        if not self.parent:
+            return None
+        try:
+            next = Category.objects.get(
+                parent_id=self.parent.id, position=self.position + 1
+            )
+            return next
+        except Category.DoesNotExist:
+            return None
 
     def get_previous_sibling(self):  # noqa
-        if self.position == 0:
+        if self.position == 0 or not self.parent:
             return None
-        return Category.objects.filter(
-            parent_id=self.parent.id, position=self.position - 1
-        )
+        try:
+            next = Category.objects.get(
+                parent_id=self.parent.id, position=self.position - 1
+            )
+            return next
+        except Category.DoesNotExist:
+            return None
 
 
 class Element(models.Model):
