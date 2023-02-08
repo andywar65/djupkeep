@@ -28,6 +28,13 @@
               {% trans 'Dismiss' %}
             </a>
           </li>
+          <li>
+            <a class="dropdown-item"
+              hx-get="{% url 'djupkeep:category_detail' pk=category.id %}"
+              hx-target="#cat-{{ category.id }}">
+              {% trans 'Add Activities and Elements' %}
+            </a>
+          </li>
           <li><hr class="dropdown-divider"></li>
           <li>
             <a class="dropdown-item"
