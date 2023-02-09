@@ -1,11 +1,12 @@
 from django.urls import path
 from django.utils.translation import gettext_lazy as _
 
-from .views.activity_views import ActivityCreateView
+from .views.activity_views import ActivityCreateDismissView, ActivityCreateView
 from .views.category_views import (
     CategoryCreateDismissView,
     CategoryCreateView,
     CategoryDeleteView,
+    CategoryDetailActivityListView,
     CategoryDetailRefreshView,
     CategoryDetailRelatedView,
     CategoryDetailView,
@@ -105,6 +106,11 @@ urlpatterns = [
         name="category_detail_related",
     ),
     path(
+        "category/<pk>/activity/list/",
+        CategoryDetailActivityListView.as_view(),
+        name="activity_list",
+    ),
+    path(
         "category/<pk>/change/",
         CategoryUpdateView.as_view(),
         name="category_update",
@@ -150,8 +156,13 @@ urlpatterns = [
         name="element_delete",
     ),
     path(
-        _("category/<pk>/activity/add/"),
+        "category/<pk>/activity/add/",
         ActivityCreateView.as_view(),
         name="activity_create",
+    ),
+    path(
+        "category/<pk>/activity/add/dismiss/",
+        ActivityCreateDismissView.as_view(),
+        name="activity_create_dismiss",
     ),
 ]

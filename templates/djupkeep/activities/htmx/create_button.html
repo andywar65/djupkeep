@@ -1,0 +1,8 @@
+{% load i18n %}
+
+<a class="btn btn-success"
+  hx-get="{% url 'djupkeep:activity_create' pk=category.id %}"
+  hx-target="#activity-add">
+  {% trans "Add activity" %}
+  <span class="htmx-indicator spinner-border spinner-border-sm text-success"></span>
+</a>

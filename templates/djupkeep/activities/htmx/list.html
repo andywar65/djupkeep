@@ -1,0 +1,8 @@
+<div id="activity-add" style="margin-bottom: 20px">
+  {% include "djupkeep/activities/htmx/create_button.html" %}
+</div>
+{% for activity in category.activities.all %}
+  <div id="act-{{ activity.id }}">
+    {{ activity }}
+  </div>
+{% endfor %}

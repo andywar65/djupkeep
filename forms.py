@@ -66,8 +66,9 @@ class ElementUpdateForm(ModelForm):
 
 
 class ActivityCreateForm(ModelForm):
-    category = TreeNodeChoiceField(queryset=Category.objects.all(), required=True)
-
     class Meta:
         model = Activity
-        fields = "__all__"
+        exclude = (
+            "category",
+            "position",
+        )

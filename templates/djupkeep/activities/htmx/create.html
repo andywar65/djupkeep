@@ -1,27 +1,21 @@
 {% load bootstrap5 %}
 {% load i18n %}
 
-{% block content %}
-  <div class="card mx-auto" style="max-width: 480px; margin-top: 60px">
-    <div class="card-header">
-      <h4 class="card-title">
-        {% trans "Add activity"%}
-      </h4>
+<div class="card">
+  <form
+    hx-post="{% url 'djupkeep:activity_create' pk=category.id %}"
+    hx-target="#activity-list">
+    <div class="card-body">
+      {% bootstrap_form form %}
+      <button class="btn btn-success" type="submit">
+        {% trans "Add" %}
+        <span class="htmx-indicator spinner-border spinner-border-sm"></span>
+      </button>
+      <a class="btn btn-secondary"
+        hx-get="{% url 'djupkeep:activity_create_dismiss' pk=category.id %}"
+        hx-target="#activity-add">
+        {% trans 'Dismiss' %}
+      </a>
     </div>
-    <form method="POST" action="" enctype="multipart/form-data">
-      {% csrf_token %}
-      <div class="card-body">
-        {% bootstrap_form form %}
-      </div>
-      <div class="card-footer">
-        <input class="btn btn-primary"
-          type="submit"
-          value="{% trans 'Add' %}" />
-        <a class="btn btn-secondary"
-          href="{{ discard_url }}">
-          {% trans "Discard" %}
-        </a>
-      </div>
-    </form>
-  </div>
-{% endblock content %}
+  </form>
+</div>
