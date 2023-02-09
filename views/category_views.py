@@ -6,13 +6,14 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
     CreateView,
     DetailView,
+    FormView,
     ListView,
     RedirectView,
     TemplateView,
     UpdateView,
 )
 
-from djupkeep.forms import CategoryCreateForm
+from djupkeep.forms import CategoryCreateForm, IntroForm
 from djupkeep.models import Category
 
 from .location_views import HxPageTemplateMixin
@@ -23,14 +24,27 @@ class HxOnlyTemplateMixin:
 
     def get_template_names(self):
         if not self.request.htmx:
-            raise Http404(_("Request without HTMX headers"))
+            raise Http404("Request without HTMX headers")
         else:
             return [self.template_name]
 
 
-class IntroTemplateView(PermissionRequiredMixin, HxPageTemplateMixin, TemplateView):
+class IntroTemplateView(PermissionRequiredMixin, HxPageTemplateMixin, FormView):
     permission_required = "djupkeep.view_category"
+    form_class = IntroForm
     template_name = "djupkeep/categories/htmx/intro.html"
+
+    def form_valid(self, form):
+        if not form.cleaned_data["target"]:
+            raise Http404("No target selected")
+        self.id = form.cleaned_data["target"].id
+        return super(IntroTemplateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse(
+            "djupkeep:category_detail_related",
+            kwargs={"pk": self.id},
+        )
 
 
 class CategoryListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):

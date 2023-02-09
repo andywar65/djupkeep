@@ -1,3 +1,4 @@
+from django import forms
 from django.forms import ModelForm
 from django.utils.translation import gettext_lazy as _
 from leaflet.forms.widgets import LeafletWidget
@@ -26,6 +27,14 @@ class LocationUpdateForm(ModelForm):
 
     class Media:
         js = ("djupkeep/js/location_update.js",)
+
+
+class IntroForm(forms.Form):
+    target = TreeNodeChoiceField(
+        queryset=Category.objects.all(),
+        required=False,
+        label=_("Maintenance procedures of Category:"),
+    )
 
 
 class CategoryCreateForm(ModelForm):
