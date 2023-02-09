@@ -186,10 +186,10 @@ class Category(TreeNode):
         if self.position == 0 or not self.parent:
             return None
         try:
-            next = Category.objects.get(
+            prev = Category.objects.get(
                 parent_id=self.parent.id, position=self.position - 1
             )
-            return next
+            return prev
         except Category.DoesNotExist:
             return None
 
@@ -295,3 +295,21 @@ class Activity(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_next_sibling(self):
+        try:
+            next = Activity.objects.get(
+                category_id=self.category.id, position=self.position + 1
+            )
+            return next
+        except Activity.DoesNotExist:
+            return None
+
+    def get_previous_sibling(self):
+        try:
+            prev = Activity.objects.get(
+                category_id=self.category.id, position=self.position - 1
+            )
+            return prev
+        except Activity.DoesNotExist:
+            return None
