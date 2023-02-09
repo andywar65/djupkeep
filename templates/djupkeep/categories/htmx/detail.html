@@ -1,6 +1,7 @@
 {% load i18n %}
 
 <div class="alert alert-secondary">
+  <strong>{{ category.get_punctuated_index }}</strong> -
   <a class="link-primary"
     hx-get="{% url 'djupkeep:category_update' pk=category.id %}"
     hx-target="#cat-{{ category.id }}">

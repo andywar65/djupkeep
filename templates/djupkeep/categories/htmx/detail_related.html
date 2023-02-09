@@ -9,7 +9,7 @@
     <a class="link-primary"
       hx-get="{% url 'djupkeep:category_list_wrapper' %}"
       hx-target="#content"
-      hx-push-url="true">
+      hx-push-url="{% url 'djupkeep:category_list' %}">
       {% translate 'All categories' %}
     </a>
   </div>
