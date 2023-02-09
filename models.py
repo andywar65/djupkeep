@@ -151,6 +151,16 @@ class Category(TreeNode):
     def __str__(self):
         return self.title
 
+    def move_activities(self, pos):
+        """Used when a related activity is deleted.
+        Activities with greater position than given (pos) are
+        moved up the ladder.
+        """
+        siblings = self.activities.filter(position__gt=pos)
+        for sibling in siblings:
+            sibling.position -= 1
+            sibling.save()
+
     def move_younger_children(self, pos):
         """Used when a child is moved to other parent or deleted.
         Children with greater position than child (pos) are
