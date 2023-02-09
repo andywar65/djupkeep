@@ -162,6 +162,15 @@ class CategoryDetailRefreshView(CategoryDetailView):
         return response
 
 
+class CategoryDetailRelatedView(
+    PermissionRequiredMixin, HxPageTemplateMixin, DetailView
+):
+    permission_required = "djupkeep.view_category"
+    model = Category
+    context_object_name = "category"
+    template_name = "djupkeep/categories/htmx/detail_related.html"
+
+
 class CategoryDeleteView(PermissionRequiredMixin, RedirectView):
     permission_required = "djupkeep.delete_category"
 

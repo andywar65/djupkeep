@@ -7,6 +7,7 @@ from .views.category_views import (
     CategoryCreateView,
     CategoryDeleteView,
     CategoryDetailRefreshView,
+    CategoryDetailRelatedView,
     CategoryDetailView,
     CategoryListView,
     CategoryListWrapperView,
@@ -97,6 +98,11 @@ urlpatterns = [
         "category/<pk>/refresh/",
         CategoryDetailRefreshView.as_view(),
         name="category_detail_refresh",
+    ),
+    path(
+        _("category/<pk>/related/"),
+        CategoryDetailRelatedView.as_view(),
+        name="category_detail_related",
     ),
     path(
         "category/<pk>/change/",

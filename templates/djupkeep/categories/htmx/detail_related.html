@@ -1,0 +1,24 @@
+{% load i18n %}
+
+<div
+  class="card mx-auto"
+  style="max-width: 960px; margin-top: 60px" >
+  <div class="card-header">
+    <h2>{% translate 'Category' %}: {{ category.title }}</h2>
+    <p><em>{{ category.intro }}</em></p>
+    <a class="link-primary"
+      hx-get="{% url 'djupkeep:category_list_wrapper' %}"
+      hx-target="#content"
+      hx-push-url="true">
+      {% translate 'All categories' %}
+    </a>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+      </div>
+      <div class="col">
+      </div>
+    </div>
+  </div>
+</div>

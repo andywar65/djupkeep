@@ -30,8 +30,9 @@
           </li>
           <li>
             <a class="dropdown-item"
-              hx-get="{% url 'djupkeep:category_detail' pk=category.id %}"
-              hx-target="#cat-{{ category.id }}">
+              hx-get="{% url 'djupkeep:category_detail_related' pk=category.id %}"
+              hx-target="#content"
+              hx-push-url="true">
               {% trans 'Add Activities and Elements' %}
             </a>
           </li>
