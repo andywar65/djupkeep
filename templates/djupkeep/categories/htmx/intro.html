@@ -10,16 +10,13 @@
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
       <div class="col">
         <div class="card h-100">
-          <div class="card-header">
-            <i class="fa fa-map-marker fa-lg"></i>
-          </div>
           <div class="card-body">
             <h5 class="card-title">
-              <a class="link-primary card-title"
+              <a class="btn btn-primary btn-lg"
                 hx-get="{% url 'djupkeep:element_list' %}"
                 hx-target="#content"
                 hx-push-url="true">
-                {% trans 'Elements' %}
+                {% trans 'Elements' %} <i class="fa fa-map-marker fa-lg"></i>
               </a>
             </h5>
             <p class="card-text">{% trans 'Things to be maintained' %}</p>
@@ -28,16 +25,13 @@
       </div>
       <div class="col">
         <div class="card h-100">
-          <div class="card-header">
-            <i class="fa fa-folder-o fa-lg"></i>
-          </div>
           <div class="card-body">
             <h5 class="card-title">
-              <a class="link-primary card-title"
+              <a class="btn btn-primary btn-lg"
                 hx-get="{% url 'djupkeep:category_list_wrapper' %}"
                 hx-target="#content"
                 hx-push-url="{% url 'djupkeep:category_list' %}">
-                {% trans 'Categories' %}
+                {% trans 'Categories' %} <i class="fa fa-folder-o fa-lg"></i>
               </a>
             </h5>
             <p class="card-text">{% trans 'A collection of things to be maintained' %}</p>
@@ -46,16 +40,13 @@
       </div>
       <div class="col">
         <div class="card h-100">
-          <div class="card-header">
-            <i class="fa fa-map-o fa-lg"></i>
-          </div>
           <div class="card-body">
             <h5 class="card-title">
-              <a class="link-primary card-title"
+              <a class="btn btn-primary btn-lg"
                 hx-get="{% url 'djupkeep:location_list' %}"
                 hx-target="#content"
                 hx-push-url="true">
-                {% trans 'Locations' %}
+                {% trans 'Locations' %} <i class="fa fa-map-o fa-lg"></i>
               </a>
             </h5>
             <p class="card-text">{% trans 'Where things to be maintained are' %}</p>
