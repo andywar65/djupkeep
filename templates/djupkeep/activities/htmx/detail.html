@@ -1,0 +1,10 @@
+{% load i18n %}
+
+<div class="alert alert-secondary">
+  <strong>{{ activity.position }}</strong> -
+  <a class="link-primary"
+    hx-get="#"
+    hx-target="#cat-{{ activity.id }}">
+    {{ activity.title }}
+  </a>
+</div>

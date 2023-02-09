@@ -3,6 +3,6 @@
 </div>
 {% for activity in category.activities.all %}
   <div id="act-{{ activity.id }}">
-    {{ activity }}
+    {% include "djupkeep/activities/htmx/detail.html" %}
   </div>
 {% endfor %}

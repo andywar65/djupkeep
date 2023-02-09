@@ -144,8 +144,8 @@ class Category(TreeNode):
     position = models.PositiveIntegerField(default=0)
 
     class Meta:
-        verbose_name = _("Element category")
-        verbose_name_plural = _("Element categories")
+        verbose_name = _("Category")
+        verbose_name_plural = _("Categories")
         ordering = ["position"]
 
     def __str__(self):
@@ -161,7 +161,7 @@ class Category(TreeNode):
             sibling.position -= 1
             sibling.save()
 
-    def get_next_sibling(self):  # noqa
+    def get_next_sibling(self):
         if not self.parent:
             return None
         try:
@@ -172,7 +172,7 @@ class Category(TreeNode):
         except Category.DoesNotExist:
             return None
 
-    def get_previous_sibling(self):  # noqa
+    def get_previous_sibling(self):
         if self.position == 0 or not self.parent:
             return None
         try:

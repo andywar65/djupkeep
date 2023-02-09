@@ -6,7 +6,7 @@ from django.urls import reverse
 
 # from django.utils.translation import gettext_lazy as _
 # DetailView,; ListView,; RedirectView,; DeleteView,; UpdateView,
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, DetailView, TemplateView
 
 from djupkeep.forms import ActivityCreateForm  # ElementUpdateForm
 from djupkeep.models import Activity, Category
@@ -31,6 +31,7 @@ class ActivityCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, CreateVie
 
     def form_valid(self, form):
         form.instance.category = self.category
+        form.instance.position = self.category.activities.count()
         return super(ActivityCreateView, self).form_valid(form)
 
     def get_success_url(self):
@@ -44,3 +45,10 @@ class ActivityCreateDismissView(HxOnlyTemplateMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context["category"] = get_object_or_404(Category, id=self.kwargs["pk"])
         return context
+
+
+class ActivityDetailView(HxOnlyTemplateMixin, DetailView):
+    permission_required = "djupkeep.view_activity"
+    model = Activity
+    context_object_name = "activity"
+    template_name = "djupkeep/activities/htmx/detail.html"
