@@ -3,8 +3,8 @@
 <div class="alert alert-secondary">
   <strong>{{ activity.position }}</strong> -
   <a class="link-primary"
-    hx-get="#"
-    hx-target="#cat-{{ activity.id }}">
+    hx-get="{% url 'djupkeep:activity_update' pk=activity.id %}"
+    hx-target="#activity-{{ activity.id }}">
     {{ activity.title }}
   </a>
 </div>

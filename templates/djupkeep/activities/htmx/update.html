@@ -1,0 +1,21 @@
+{% load bootstrap5 %}
+{% load i18n %}
+
+<div class="card" style="margin-bottom: 15px">
+  <form
+    hx-post="{% url 'djupkeep:activity_update' pk=activity.id %}"
+    hx-target="#activity-{{ activity.id }}">
+    <div class="card-body">
+      {% bootstrap_form form %}
+      <button class="btn btn-primary" type="submit">
+        {% trans "Update" %}
+        <span class="htmx-indicator spinner-border spinner-border-sm"></span>
+      </button>
+      <a class="btn btn-secondary"
+        hx-get="{% url 'djupkeep:activity_detail' pk=activity.id %}"
+        hx-target="#activity-{{ activity.id }}">
+        {% trans 'Dismiss' %}
+      </a>
+    </div>
+  </form>
+</div>

@@ -2,7 +2,7 @@
   {% include "djupkeep/activities/htmx/create_button.html" %}
 </div>
 {% for activity in category.activities.all %}
-  <div id="act-{{ activity.id }}">
+  <div id="activity-{{ activity.id }}">
     {% include "djupkeep/activities/htmx/detail.html" %}
   </div>
 {% endfor %}
