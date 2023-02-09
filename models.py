@@ -146,7 +146,7 @@ class Category(TreeNode):
     class Meta:
         verbose_name = _("Element category")
         verbose_name_plural = _("Element categories")
-        ordering = ["position", "title"]
+        ordering = ["position"]
 
     def __str__(self):
         return self.title
@@ -276,10 +276,12 @@ class Activity(models.Model):
         max_length=50,
     )
     intro = models.TextField(_("Description"), null=True)
+    position = models.PositiveIntegerField(default=0)
 
     class Meta:
         verbose_name = _("Activity")
         verbose_name_plural = _("Activities")
+        ordering = ["category", "position"]
 
     def __str__(self):
         return self.title

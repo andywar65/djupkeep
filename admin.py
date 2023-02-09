@@ -29,4 +29,6 @@ admin.site.register(Element, ElementAdmin)
 
 @admin.register(Activity)
 class ActivityAdmin(admin.ModelAdmin):
-    list_display = ("title", "category")
+    list_display = ("title", "category", "position")
+    list_filter = ("category",)
+    list_editable = ("position",)
