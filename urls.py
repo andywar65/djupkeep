@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from .views.activity_views import (
     ActivityCreateDismissView,
     ActivityCreateView,
+    ActivityDeleteView,
     ActivityDetailView,
     ActivityMoveDownView,
     ActivityMoveUpView,
@@ -191,5 +192,10 @@ urlpatterns = [
         "activity/<pk>/move/up/",
         ActivityMoveUpView.as_view(),
         name="activity_move_up",
+    ),
+    path(
+        "activity/<pk>/delete/",
+        ActivityDeleteView.as_view(),
+        name="activity_delete",
     ),
 ]

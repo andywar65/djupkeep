@@ -1,11 +1,8 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
-
-# from django.http import Http404
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-
-# from django.utils.translation import gettext_lazy as _
-# DetailView,; ListView,; RedirectView,; DeleteView,; UpdateView,
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
     CreateView,
     DetailView,
@@ -116,3 +113,16 @@ class ActivityMoveUpView(PermissionRequiredMixin, HxOnlyTemplateMixin, RedirectV
 
     def get_redirect_url(self, *args, **kwargs):
         return reverse("djupkeep:activity_list", kwargs={"pk": self.object.category.id})
+
+
+class ActivityDeleteView(PermissionRequiredMixin, RedirectView):
+    permission_required = "djupkeep.delete_activity"
+
+    def get_redirect_url(self, *args, **kwargs):
+        if not self.request.htmx:
+            raise Http404(_("Request without HTMX headers"))
+        activity = get_object_or_404(Activity, id=self.kwargs["pk"])
+        category = activity.category
+        category.move_activities(activity.position)
+        activity.delete()
+        return reverse("djupkeep:activity_list", kwargs={"pk": category.id})

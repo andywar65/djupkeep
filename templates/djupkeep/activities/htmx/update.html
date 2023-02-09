@@ -16,6 +16,12 @@
         hx-target="#activity-{{ activity.id }}">
         {% trans 'Dismiss' %}
       </a>
+      <a class="btn btn-danger"
+        hx-get="{% url 'djupkeep:activity_delete' pk=activity.id %}"
+        hx-target="#activity-list"
+        hx-confirm="{% trans 'Are you sure you want to delete activity' %} {{ activity.title }}">
+        {% trans "Delete activity" %}
+      </a>
     </div>
   </form>
 </div>
