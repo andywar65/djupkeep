@@ -275,6 +275,16 @@ class Element(models.Model):
 
 
 class Activity(models.Model):
+
+    FREQUENCY = [
+        ("30", _("Monthly")),
+        ("60", _("Bimonthly")),
+        ("90", _("Quarterly")),
+        ("120", _("Four-monthly")),
+        ("183", _("Biannual")),
+        ("365", _("Annual")),
+    ]
+
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
@@ -287,6 +297,11 @@ class Activity(models.Model):
     )
     intro = models.TextField(_("Description"), null=True)
     position = models.PositiveIntegerField(default=0)
+    frequency = models.CharField(
+        max_length=3,
+        choices=FREQUENCY,
+        default="30",
+    )
 
     class Meta:
         verbose_name = _("Activity")
