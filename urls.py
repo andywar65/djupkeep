@@ -5,6 +5,8 @@ from .views.activity_views import (
     ActivityCreateDismissView,
     ActivityCreateView,
     ActivityDetailView,
+    ActivityMoveDownView,
+    ActivityMoveUpView,
     ActivityUpdateView,
 )
 from .views.category_views import (
@@ -111,11 +113,6 @@ urlpatterns = [
         name="category_detail_related",
     ),
     path(
-        "category/<pk>/activity/list/",
-        CategoryDetailActivityListView.as_view(),
-        name="activity_list",
-    ),
-    path(
         "category/<pk>/change/",
         CategoryUpdateView.as_view(),
         name="category_update",
@@ -161,6 +158,11 @@ urlpatterns = [
         name="element_delete",
     ),
     path(
+        "category/<pk>/activity/list/",
+        CategoryDetailActivityListView.as_view(),
+        name="activity_list",
+    ),
+    path(
         "category/<pk>/activity/add/",
         ActivityCreateView.as_view(),
         name="activity_create",
@@ -179,5 +181,15 @@ urlpatterns = [
         "activity/<pk>/change/",
         ActivityUpdateView.as_view(),
         name="activity_update",
+    ),
+    path(
+        "activity/<pk>/move/down/",
+        ActivityMoveDownView.as_view(),
+        name="activity_move_down",
+    ),
+    path(
+        "activity/<pk>/move/up/",
+        ActivityMoveUpView.as_view(),
+        name="activity_move_up",
     ),
 ]

@@ -6,7 +6,13 @@ from django.urls import reverse
 
 # from django.utils.translation import gettext_lazy as _
 # DetailView,; ListView,; RedirectView,; DeleteView,; UpdateView,
-from django.views.generic import CreateView, DetailView, TemplateView, UpdateView
+from django.views.generic import (
+    CreateView,
+    DetailView,
+    RedirectView,
+    TemplateView,
+    UpdateView,
+)
 
 from djupkeep.forms import ActivityCreateForm  # ElementUpdateForm
 from djupkeep.models import Activity, Category
@@ -66,3 +72,47 @@ class ActivityUpdateView(PermissionRequiredMixin, HxOnlyTemplateMixin, UpdateVie
             "djupkeep:activity_detail",
             kwargs={"pk": self.object.id},
         )
+
+
+class ActivityMoveDownView(PermissionRequiredMixin, HxOnlyTemplateMixin, RedirectView):
+    permission_required = "djupkeep.change_activity"
+
+    def setup(self, request, *args, **kwargs):
+        super(ActivityMoveDownView, self).setup(request, *args, **kwargs)
+        self.object = get_object_or_404(Activity, id=self.kwargs["pk"])
+        next = self.object.get_next_sibling()
+        if next:
+            self.object.position += 1
+            self.object.save()
+            next.position -= 1
+            next.save()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["category"] = self.object.category
+        return context
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse("djupkeep:activity_list", kwargs={"pk": self.object.category.id})
+
+
+class ActivityMoveUpView(PermissionRequiredMixin, HxOnlyTemplateMixin, RedirectView):
+    permission_required = "djupkeep.change_activity"
+
+    def setup(self, request, *args, **kwargs):
+        super(ActivityMoveUpView, self).setup(request, *args, **kwargs)
+        self.object = get_object_or_404(Activity, id=self.kwargs["pk"])
+        prev = self.object.get_previous_sibling()
+        if prev:
+            self.object.position -= 1
+            self.object.save()
+            prev.position += 1
+            prev.save()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["category"] = self.object.category
+        return context
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse("djupkeep:activity_list", kwargs={"pk": self.object.category.id})
