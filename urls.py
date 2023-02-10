@@ -26,6 +26,7 @@ from .views.category_views import (
     IntroTemplateView,
 )
 from .views.element_views import (
+    ElementCreateCategorizedView,
     ElementCreateLocatedView,
     ElementCreateView,
     ElementDeleteView,
@@ -172,6 +173,11 @@ urlpatterns = [
         "category/<pk>/activity/add/dismiss/",
         ActivityCreateDismissView.as_view(),
         name="activity_create_dismiss",
+    ),
+    path(
+        _("category/<pk>/element/add/"),
+        ElementCreateCategorizedView.as_view(),
+        name="element_create_categorized",
     ),
     path(
         "activity/<pk>/",

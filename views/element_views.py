@@ -87,6 +87,33 @@ class ElementCreateLocatedView(PermissionRequiredMixin, CreateView):
         )
 
 
+class ElementCreateCategorizedView(PermissionRequiredMixin, CreateView):
+    permission_required = "djupkeep.add_element"
+    model = Element
+    form_class = ElementUpdateForm
+    template_name = "djupkeep/elements/create_categorized.html"
+
+    def get_initial(self):
+        initial = super(ElementCreateCategorizedView, self).get_initial()
+        self.category = get_object_or_404(Category, id=self.kwargs["pk"])
+        initial["category"] = self.category.id
+        if "location" in self.request.GET:
+            self.location = get_object_or_404(Location, id=self.request.GET["location"])
+            initial["location"] = self.location.id
+        return initial
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["category"] = self.category
+        context["location"] = self.location
+        return context
+
+    def get_success_url(self):
+        return reverse(
+            "djupkeep:category_detail_related", kwargs={"pk": self.category.id}
+        )
+
+
 class ElementUpdateView(PermissionRequiredMixin, UpdateView):
     permission_required = "djupkeep.change_element"
     model = Element

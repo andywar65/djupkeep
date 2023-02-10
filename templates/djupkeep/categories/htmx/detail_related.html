@@ -19,6 +19,7 @@
         {% include "djupkeep/activities/htmx/list.html" %}
       </div>
       <div class="col">
+        {% include "djupkeep/categories/includes/element_create_button.html" %}
         {% for element in category.elements.all %}
           {{ element }}
         {% endfor %}

@@ -14,7 +14,7 @@ from django.views.generic import (
 )
 
 from djupkeep.forms import CategoryCreateForm, IntroForm
-from djupkeep.models import Category
+from djupkeep.models import Category, Location
 
 from .location_views import HxPageTemplateMixin
 
@@ -183,6 +183,11 @@ class CategoryDetailRelatedView(
     model = Category
     context_object_name = "category"
     template_name = "djupkeep/categories/htmx/detail_related.html"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CategoryDetailRelatedView, self).get_context_data()
+        context["locations"] = Location.objects.all()
+        return context
 
 
 class CategoryDetailActivityListView(

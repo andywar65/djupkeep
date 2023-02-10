@@ -1,0 +1,22 @@
+{% load i18n %}
+
+<div class="dropdown">
+  <a class="btn btn-primary dropdown-toggle"
+    href="#"
+    role="button"
+    id="dropdownMenuLink"
+    data-bs-toggle="dropdown"
+    aria-expanded="false">
+    {% trans "Create Element in Location" %}
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    {% for location in locations %}
+      <li>
+        <a class="dropdown-item"
+          href="{% url 'djupkeep:element_create_categorized' pk=category.id %}?location={{ location.id }}">
+          {{ location }}
+        </a>
+      </li>
+    {% endfor%}
+  </ul>
+</div>
