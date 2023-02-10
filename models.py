@@ -277,6 +277,7 @@ class Element(models.Model):
 class Activity(models.Model):
 
     FREQUENCY = [
+        ("7", _("Weekly")),
         ("30", _("Monthly")),
         ("60", _("Bimonthly")),
         ("90", _("Quarterly")),
