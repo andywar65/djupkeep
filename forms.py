@@ -33,7 +33,7 @@ class IntroForm(forms.Form):
     target = TreeNodeChoiceField(
         queryset=Category.objects.all(),
         required=False,
-        label=_("Maintenance procedures of Category:"),
+        label=_("Maintenance procedures by Category:"),
     )
 
 

@@ -9,22 +9,7 @@
   </div>
   <div class="card-body">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-      <div class="col">
-        <div class="card h-100">
-          <div class="card-body">
-            <h5 class="card-title">
-              <a class="btn btn-primary btn-lg"
-                hx-get="{% url 'djupkeep:element_list' %}"
-                hx-target="#content"
-                hx-push-url="true">
-                {% trans 'Elements' %} <i class="fa fa-map-marker fa-lg"></i>
-              </a>
-            </h5>
-            <p class="card-text">{% trans 'Things to be maintained' %}</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
+      <div class="col" id="categories">
         <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">
@@ -35,11 +20,26 @@
                 {% trans 'Categories' %} <i class="fa fa-folder-o fa-lg"></i>
               </a>
             </h5>
-            <p class="card-text">{% trans 'A collection of things to be maintained' %}</p>
+            <p class="card-text">{% trans 'A hierarchical directory of Elements' %}</p>
           </div>
         </div>
       </div>
-      <div class="col">
+      <div class="col" id="elements">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">
+              <a class="btn btn-primary btn-lg"
+                hx-get="{% url 'djupkeep:element_list' %}"
+                hx-target="#content"
+                hx-push-url="true">
+                {% trans 'Elements' %} <i class="fa fa-map-marker fa-lg"></i>
+              </a>
+            </h5>
+            <p class="card-text">{% trans 'Objects of maintenance' %}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col" id="locations">
         <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">
@@ -50,11 +50,11 @@
                 {% trans 'Locations' %} <i class="fa fa-map-o fa-lg"></i>
               </a>
             </h5>
-            <p class="card-text">{% trans 'Where things to be maintained are' %}</p>
+            <p class="card-text">{% trans 'Where Elements are' %}</p>
           </div>
         </div>
       </div>
-      <div class="col">
+      <div class="col" id="activities">
         <div class="card h-100">
           <div class="card-body">
             <form
@@ -71,22 +71,7 @@
           </div>
         </div>
       </div>
-      <div class="col">
-        <div class="card h-100">
-          <div class="card-body">
-            <h5 class="card-title">
-              <a class="btn btn-primary btn-lg"
-                hx-get="#"
-                hx-target="#content"
-                hx-push-url="true">
-                {% trans 'Maintainers' %} <i class="fa fa-user-md fa-lg"></i>
-              </a>
-            </h5>
-            <p class="card-text">{% trans 'Those who perform the Activities' %}</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
+      <div class="col" id="tasks">
         <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">
@@ -98,6 +83,21 @@
               </a>
             </h5>
             <p class="card-text">{% trans 'Perform an Activity to maintain an Element' %}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col" id="maintainers">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">
+              <a class="btn btn-primary btn-lg"
+                hx-get="#"
+                hx-target="#content"
+                hx-push-url="true">
+                {% trans 'Maintainers' %} <i class="fa fa-user-md fa-lg"></i>
+              </a>
+            </h5>
+            <p class="card-text">{% trans 'Those who perform Tasks' %}</p>
           </div>
         </div>
       </div>
