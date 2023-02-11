@@ -21,7 +21,9 @@
       <div class="col">
         {% include "djupkeep/categories/includes/element_create_button.html" %}
         {% for element in category.elements.all %}
-          {{ element }}
+          <div class="alert alert-info">
+            <strong>{{ element.id }}</strong> - {% translate 'Location' %}: {{ element.location }}
+          </div>
         {% endfor %}
       </div>
     </div>
