@@ -22,7 +22,13 @@
         {% include "djupkeep/categories/includes/element_create_button.html" %}
         {% for element in category.elements.all %}
           <div class="alert alert-info">
-            <strong>{{ element.id }}</strong> -
+            <strong>
+              <a class="link-primary"
+                hx-get="{% url 'djupkeep:element_detail' pk=element.id %}"
+                hx-target="#content"
+                hx-push-url="true">
+                {{ element.id }}</a>
+            </strong> -
             <em>{{ element.intro }}</em>
             <br>
             <i class="fa fa-map-o"></i> <a
