@@ -1,0 +1,41 @@
+{% load i18n %}
+{% load fb_versions %}
+
+{% block content %}
+  <div class="card mx-auto mt-4" style="max-width: 960px">
+    <div class="card-header">
+      <h3>{% translate 'Element' %}: {{ object }}</h3>
+    </div>
+    <div class="row">
+      {% if object.fb_image %}
+        <div class="col col-4">
+          <img
+            class="img-fluid"
+            src="{% version object.fb_image 'popup' %}"
+            alt="{{ object.intro }}" />
+        </div>
+      {% endif %}
+      <div class="col">
+        <div class="card-body">
+          <p class="card-text">{{ object.intro }}</p>
+          <ul>
+            <li><i class="fa fa-folder-o"></i> <a
+              href="{% url 'djupkeep:category_detail_related' pk=object.category.id %}">
+              {{ object.category }}
+            </a></li>
+            <li><i class="fa fa-map-o"></i> <a
+              href="{% url 'djupkeep:location_detail' pk=object.location.id %}">
+              {{ object.location }}
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a class="btn btn-primary"
+        href="{% url 'djupkeep:element_update' pk=object.id %}">
+        {% trans "Modify" %}
+      </a>
+    </div>
+  </div>
+{% endblock content %}

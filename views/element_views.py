@@ -31,13 +31,7 @@ class ElementListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
 class ElementDetailView(PermissionRequiredMixin, HxPageTemplateMixin, DetailView):
     permission_required = "djupkeep.view_element"
     model = Element
-    template_name = "djupkeep/elements/detail.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["location"] = self.object.location
-        context["category_list"] = [_("Category - ") + self.object.category.title]
-        return context
+    template_name = "djupkeep/elements/htmx/detail.html"
 
 
 class ElementCreateView(PermissionRequiredMixin, HxPageTemplateMixin, CreateView):
