@@ -109,6 +109,14 @@ class ElementCreateCategorizedView(PermissionRequiredMixin, CreateView):
         return context
 
     def get_success_url(self):
+        if "add_another" in self.request.POST:
+            return (
+                reverse(
+                    "djupkeep:element_create_categorized",
+                    kwargs={"pk": self.category.id},
+                )
+                + f"?location={ self.location.id }"
+            )
         return reverse(
             "djupkeep:category_detail_related", kwargs={"pk": self.category.id}
         )
