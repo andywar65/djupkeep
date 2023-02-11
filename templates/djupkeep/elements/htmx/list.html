@@ -12,13 +12,34 @@
         <tr>
           <th scope="col">{% trans "Category" %}</th>
           <th scope="col">#</th>
+          <th scope="col">{% trans "Description" %}</th>
           <th scope="col">{% trans "Location" %}</th>
         </tr>
         {% for element in object_list %}
           <tr>
-            <td>{{ element.category }}</td>
-            <td>{{ element.id }}</td>
-            <td>{{ element.location }}</td>
+            <td>
+              <a class="link-primary"
+                hx-get="{% url 'djupkeep:category_detail_related' pk=element.category.id %}"
+                hx-target="#content"
+                hx-push-url="true">
+                {{ element.category }}
+              </a>
+            </td>
+            <td><strong>
+              <a class="link-primary"
+                hx-get="{% url 'djupkeep:element_detail' pk=element.id %}"
+                hx-target="#content"
+                hx-push-url="true">
+                {{ element.id }}
+              </a>
+            </strong></td>
+            <td><em>{{ element.intro }}</em></td>
+            <td>
+              <a class="link-primary"
+                href="{% url 'djupkeep:location_detail' pk=element.location.id %}">
+                {{ element.location }}
+              </a>
+            </td>
           </tr>
         {% endfor %}
       </thead>
