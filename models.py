@@ -250,12 +250,12 @@ class Element(models.Model):
         if not image:
             return {
                 "content": title_str + intro_str,
-                "layer": _("Category - ") + self.category.title,
+                "layer": self.category.title,
             }
         image_str = '<img src="%(image)s">' % {"image": image}
         return {
             "content": title_str + image_str + intro_str,
-            "layer": _("Category - ") + self.category.title,
+            "layer": self.category.title,
         }
 
     def get_thumbnail_path(self):

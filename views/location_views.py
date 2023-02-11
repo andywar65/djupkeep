@@ -45,9 +45,6 @@ class LocationDetailView(PermissionRequiredMixin, DetailView):
         categories = Category.objects.filter(id__in=cat_list)
         name_list = categories.values_list("title", flat=True)
         context["category_list"] = list(dict.fromkeys(name_list))
-        context["category_list"] = [
-            _("Category - ") + s for s in context["category_list"]
-        ]
         return context
 
 
