@@ -41,6 +41,7 @@ from .views.location_views import (
     LocationListView,
     LocationUpdateView,
 )
+from .views.task_views import TaskListView
 
 app_name = "djupkeep"
 urlpatterns = [
@@ -203,5 +204,10 @@ urlpatterns = [
         "activity/<pk>/delete/",
         ActivityDeleteView.as_view(),
         name="activity_delete",
+    ),
+    path(
+        _("task/list/"),
+        TaskListView.as_view(),
+        name="task_list",
     ),
 ]

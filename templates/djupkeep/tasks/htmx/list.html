@@ -1,0 +1,48 @@
+{% load i18n %}
+
+<div
+  class="card mx-auto"
+  style="max-width: 960px; margin-top: 60px" >
+  <div class="card-header">
+    <h3>{% translate 'Tasks' %}</h3>
+  </div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">{% trans "Activity" %}</th>
+          <th scope="col">{% trans "Element" %}</th>
+          <th scope="col">{% trans "Due date" %}</th>
+        </tr>
+        {% for task in object_list %}
+          <tr>
+            <td><strong>
+              {{ task.id }}
+            </strong></td>
+            <td>
+              <a class="link-primary"
+                hx-get="{% url 'djupkeep:category_detail_related' pk=task.activity.category.id %}"
+                hx-target="#content"
+                hx-push-url="true">
+                {{ task.activity }}
+              </a>
+            </td>
+            <td>
+              <a class="link-primary"
+                hx-get="{% url 'djupkeep:element_detail' pk=task.element.id %}"
+                hx-target="#content"
+                hx-push-url="true">
+                {{ task.element }}
+              </a>
+            </td>
+            <td>
+              {{ task.due_date }}
+            </td>
+          </tr>
+        {% endfor %}
+      </thead>
+    </table>
+  </div>
+
+</div>
