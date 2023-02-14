@@ -329,3 +329,38 @@ class Activity(models.Model):
             return prev
         except Activity.DoesNotExist:
             return None
+
+
+class Task(models.Model):
+
+    activity = models.ForeignKey(
+        Activity,
+        on_delete=models.CASCADE,
+        related_name="tasks",
+        verbose_name=_("Activity"),
+    )
+    element = models.ForeignKey(
+        Element,
+        on_delete=models.CASCADE,
+        related_name="tasks",
+        verbose_name=_("Element"),
+    )
+    maintainer = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        related_name="tasks",
+        verbose_name=_("Maintainer"),
+        null=True,
+        blank=True,
+    )
+    due_date = models.DateField(_("Due date"), null=True)
+    check_date = models.DateTimeField(_("Check date"), null=True, blank=True)
+    notes = models.TextField(_("Notes"), null=True, blank=True)
+
+    class Meta:
+        verbose_name = _("Task")
+        verbose_name_plural = _("Tasks")
+        ordering = ["element", "-due_date"]
+
+    def __str__(self):
+        return _("Task") + " - " + str(self.id)

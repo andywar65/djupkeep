@@ -1,7 +1,7 @@
 from django.contrib import admin
 from leaflet.admin import LeafletGeoAdmin  # , LeafletGeoAdminMixin
 
-from .models import Activity, Category, Element, Location
+from .models import Activity, Category, Element, Location, Task
 
 
 class LocationAdmin(LeafletGeoAdmin):
@@ -32,3 +32,12 @@ class ActivityAdmin(admin.ModelAdmin):
     list_display = ("title", "category", "position")
     list_filter = ("category",)
     list_editable = ("position",)
+
+
+@admin.register(Task)
+class TaskAdmin(admin.ModelAdmin):
+    list_display = ("id", "element", "activity")
+    list_filter = (
+        "element",
+        "activity",
+    )
