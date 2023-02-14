@@ -361,6 +361,9 @@ class Task(models.Model):
         verbose_name = _("Task")
         verbose_name_plural = _("Tasks")
         ordering = ["element", "-due_date"]
+        permissions = [
+            ("check_task", _("Can perform activity tasks on elements")),
+        ]
 
     def __str__(self):
         return _("Task") + " - " + str(self.id)

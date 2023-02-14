@@ -14,6 +14,15 @@ def create_djupkeep_groups(sender, **kwargs):
         )
         permissions = Permission.objects.filter(content_type_id__in=types)
         grp.permissions.set(permissions)
+    grp, created = Group.objects.get_or_create(name=_("Maintainer"))
+    if created:
+        codes = [
+            "view_element",
+            "view_location",
+            "check_task",
+        ]
+        permissions = Permission.objects.filter(codename__in=codes)
+        grp.permissions.set(permissions)
 
 
 class DjupkeepConfig(AppConfig):
