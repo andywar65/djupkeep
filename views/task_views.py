@@ -32,3 +32,8 @@ class TaskCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, TemplateView)
 
     permission_required = "djupkeep.add_task"
     template_name = "djupkeep/tasks/htmx/report.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super(TaskCreateView, self).dispatch(request, *args, **kwargs)
+        response["HX-Trigger-After-Swap"] = "refreshTaskList"
+        return response
