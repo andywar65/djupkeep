@@ -9,7 +9,7 @@ from django.views.generic import ListView
 # from djupkeep.forms import ActivityCreateForm  # ElementUpdateForm
 from djupkeep.models import Task
 
-# from .category_views import HxOnlyTemplateMixin
+from .category_views import HxOnlyTemplateMixin
 from .location_views import HxPageTemplateMixin
 
 
@@ -17,3 +17,9 @@ class TaskListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
     permission_required = "djupkeep.view_task"
     model = Task
     template_name = "djupkeep/tasks/htmx/list.html"
+
+
+class TaskListRefreshView(PermissionRequiredMixin, HxOnlyTemplateMixin, ListView):
+    permission_required = "djupkeep.view_task"
+    model = Task
+    template_name = "djupkeep/tasks/htmx/list_refresh.html"

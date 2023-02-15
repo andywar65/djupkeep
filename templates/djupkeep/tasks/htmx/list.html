@@ -15,33 +15,12 @@
           <th scope="col">{% trans "Element" %}</th>
           <th scope="col">{% trans "Due date" %}</th>
         </tr>
-        {% for task in object_list %}
-          <tr>
-            <td><strong>
-              {{ task.id }}
-            </strong></td>
-            <td>
-              <a class="link-primary"
-                hx-get="{% url 'djupkeep:category_detail_related' pk=task.activity.category.id %}"
-                hx-target="#content"
-                hx-push-url="true">
-                {{ task.activity }}
-              </a>
-            </td>
-            <td>
-              <a class="link-primary"
-                hx-get="{% url 'djupkeep:element_detail' pk=task.element.id %}"
-                hx-target="#content"
-                hx-push-url="true">
-                {{ task.element }}
-              </a>
-            </td>
-            <td>
-              {{ task.due_date }}
-            </td>
-          </tr>
-        {% endfor %}
       </thead>
+      <tbody id="task-list"
+        hx-get="{% url 'djupkeep:task_list_refresh' %}"
+        hx-trigger="refreshTaskList from:body">
+        {% include "djupkeep/tasks/htmx/list_refresh.html" %}
+      </tbody>
     </table>
   </div>
 

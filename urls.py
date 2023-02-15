@@ -41,7 +41,7 @@ from .views.location_views import (
     LocationListView,
     LocationUpdateView,
 )
-from .views.task_views import TaskListView
+from .views.task_views import TaskListRefreshView, TaskListView
 
 app_name = "djupkeep"
 urlpatterns = [
@@ -209,5 +209,10 @@ urlpatterns = [
         _("task/list/"),
         TaskListView.as_view(),
         name="task_list",
+    ),
+    path(
+        "task/list/refresh/",
+        TaskListRefreshView.as_view(),
+        name="task_list_refresh",
     ),
 ]

@@ -168,6 +168,9 @@ class CategoryDetailView(PermissionRequiredMixin, HxOnlyTemplateMixin, DetailVie
 
 
 class CategoryDetailRefreshView(CategoryDetailView):
+    """Subclasses CategoryDetailView but triggers event that refreshes
+    category list"""
+
     def dispatch(self, request, *args, **kwargs):
         response = super(CategoryDetailRefreshView, self).dispatch(
             request, *args, **kwargs
