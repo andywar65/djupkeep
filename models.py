@@ -367,3 +367,8 @@ class Task(models.Model):
 
     def __str__(self):
         return _("Task") + " - " + str(self.id)
+
+
+def generate_report():
+    number = 0
+    return f"Generated { number } task(s)"
