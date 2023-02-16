@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import ListView, TemplateView
 
 # from djupkeep.forms import ActivityCreateForm  # ElementUpdateForm
-from djupkeep.models import Task, generate_report
+from djupkeep.models import Task, create_tasks_and_generate_report
 
 from .category_views import HxOnlyTemplateMixin
 from .location_views import HxPageTemplateMixin
@@ -35,7 +35,7 @@ class TaskCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, TemplateView)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["report"] = generate_report()
+        context["report"] = create_tasks_and_generate_report()
         return context
 
     def dispatch(self, request, *args, **kwargs):

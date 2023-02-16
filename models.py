@@ -380,7 +380,7 @@ class Task(models.Model):
         return None
 
 
-def generate_report():
+def create_tasks_and_generate_report():
     number = 0
     for act in Activity.objects.all().prefetch_related("category"):
         descendants = act.category.descendants(include_self=True)

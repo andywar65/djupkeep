@@ -38,4 +38,13 @@
       </a>
     </div>
   </div>
+  <div class="mx-auto" style="max-width: 480px">
+    {% if object.tasks %}
+      {% for task in object.tasks.all %}
+        <div id="task-{{ task.id }}">{{ task }}</div>
+      {% endfor %}
+    {% else %}
+      {% trans "No tasks yet" %}
+    {% endif %}
+  </div>
 {% endblock content %}
