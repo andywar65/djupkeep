@@ -1,0 +1,8 @@
+<div class="alert alert-{{ task.alert_color }}">
+  <strong>{{ task.id }}</strong> -
+  {{ task.activity }} -
+  {{ task.due_date }}
+  {% if task.check_date %}
+    / {{ task.check_date }}
+  {% endif %}
+</div>

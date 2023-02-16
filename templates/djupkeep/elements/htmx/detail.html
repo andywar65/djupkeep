@@ -38,10 +38,12 @@
       </a>
     </div>
   </div>
-  <div class="mx-auto" style="max-width: 480px">
+  <div class="mx-auto" style="max-width: 480px; margin-top: 15px">
     {% if object.tasks %}
       {% for task in object.tasks.all %}
-        <div id="task-{{ task.id }}">{{ task }}</div>
+        <div id="task-{{ task.id }}">
+          {% include "djupkeep/tasks/htmx/detail.html" %}
+        </div>
       {% endfor %}
     {% else %}
       {% trans "No tasks yet" %}

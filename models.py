@@ -379,6 +379,13 @@ class Task(models.Model):
             return "green"
         return None
 
+    def alert_color(self):
+        if self.check_date:
+            return "success"
+        elif self.due_date < now().date():
+            return "danger"
+        return "secondary"
+
 
 def create_tasks_and_generate_report():
     number = 0
