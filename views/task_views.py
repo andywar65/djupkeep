@@ -4,9 +4,9 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 # from django.shortcuts import get_object_or_404
 # from django.urls import reverse
 # from django.utils.translation import gettext_lazy as _
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView, TemplateView, UpdateView
 
-# from djupkeep.forms import ActivityCreateForm  # ElementUpdateForm
+from djupkeep.forms import TaskCheckForm
 from djupkeep.models import Task, create_tasks_and_generate_report
 
 from .category_views import HxOnlyTemplateMixin
@@ -42,3 +42,10 @@ class TaskCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, TemplateView)
         response = super(TaskCreateView, self).dispatch(request, *args, **kwargs)
         response["HX-Trigger-After-Swap"] = "refreshTaskList"
         return response
+
+
+class TaskCheckView(PermissionRequiredMixin, HxOnlyTemplateMixin, UpdateView):
+    permission_required = "djupkeep.check_task"
+    model = Task
+    form_class = TaskCheckForm
+    template_name = "djupkeep/tasks/htmx/check.html"

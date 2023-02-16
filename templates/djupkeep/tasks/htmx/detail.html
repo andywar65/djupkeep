@@ -1,7 +1,15 @@
 <div class="alert alert-{{ task.alert_color }}">
   <strong>{{ task.id }}</strong> -
-  {{ task.activity }} -
-  {{ task.due_date }}
+  {% if task.check_date %}
+    {{ task.activity }}
+  {% else %}
+    <a class="link-primary"
+      hx-get="{% url 'djupkeep:task_check' pk=task.id %}"
+      hx-target="#task-{{ task.id }}">
+      {{ task.activity }}
+    </a>
+  {% endif %}
+  - {{ task.due_date }}
   {% if task.check_date %}
     / {{ task.check_date }}
   {% endif %}

@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from leaflet.forms.widgets import LeafletWidget
 from tree_queries.forms import TreeNodeChoiceField
 
-from .models import Activity, Category, Element, Location
+from .models import Activity, Category, Element, Location, Task
 
 
 class LocationCreateForm(ModelForm):
@@ -81,3 +81,9 @@ class ActivityCreateForm(ModelForm):
             "category",
             "position",
         )
+
+
+class TaskCheckForm(ModelForm):
+    class Meta:
+        model = Task
+        fields = ("notes",)
