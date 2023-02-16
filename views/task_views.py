@@ -1,10 +1,14 @@
+# from datetime import timedelta
+
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 # from django.http import Http404
 # from django.shortcuts import get_object_or_404
-# from django.urls import reverse
+from django.urls import reverse
+from django.utils.timezone import now
+
 # from django.utils.translation import gettext_lazy as _
-from django.views.generic import ListView, TemplateView, UpdateView
+from django.views.generic import DetailView, ListView, TemplateView, UpdateView
 
 from djupkeep.forms import TaskCheckForm
 from djupkeep.models import Task, create_tasks_and_generate_report
@@ -44,8 +48,22 @@ class TaskCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, TemplateView)
         return response
 
 
+class TaskDetailView(PermissionRequiredMixin, HxOnlyTemplateMixin, DetailView):
+    permission_required = "djupkeep.view_task"
+    model = Task
+    context_object_name = "task"
+    template_name = "djupkeep/tasks/htmx/detail.html"
+
+
 class TaskCheckView(PermissionRequiredMixin, HxOnlyTemplateMixin, UpdateView):
     permission_required = "djupkeep.check_task"
     model = Task
     form_class = TaskCheckForm
     template_name = "djupkeep/tasks/htmx/check.html"
+
+    def form_valid(self, form):
+        form.instance.check_date = now()
+        return super(TaskCheckView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse("djupkeep:task_detail", kwargs={"pk": self.object.id})

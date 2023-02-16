@@ -44,6 +44,7 @@ from .views.location_views import (
 from .views.task_views import (
     TaskCheckView,
     TaskCreateView,
+    TaskDetailView,
     TaskListRefreshView,
     TaskListView,
 )
@@ -224,6 +225,11 @@ urlpatterns = [
         "task/add/",
         TaskCreateView.as_view(),
         name="task_create",
+    ),
+    path(
+        "task/<pk>/",
+        TaskDetailView.as_view(),
+        name="task_detail",
     ),
     path(
         "task/<pk>/check/",
