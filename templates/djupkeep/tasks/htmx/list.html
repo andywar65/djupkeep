@@ -2,7 +2,7 @@
 
 <div
   class="card mx-auto"
-  style="max-width: 960px; margin-top: 60px" >
+  style="margin-top: 60px" >
   <div class="card-header">
     <h3>{% translate 'Tasks' %}</h3>
   </div>
@@ -19,7 +19,9 @@
           <th scope="col">#</th>
           <th scope="col">{% trans "Activity" %}</th>
           <th scope="col">{% trans "Element" %}</th>
+          <th scope="col">{% trans "Maintainer" %}</th>
           <th scope="col">{% trans "Due date" %}</th>
+          <th scope="col">{% trans "Check date" %}</th>
         </tr>
       </thead>
       <tbody id="task-list"

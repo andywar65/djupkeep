@@ -20,7 +20,13 @@
       </a>
     </td>
     <td>
+      {{ task.maintainer|default_if_none:"-" }}
+    </td>
+    <td>
       {{ task.due_date }}
+    </td>
+    <td>
+      {{ task.check_date|default_if_none:"-" }}
     </td>
   </tr>
 {% endfor %}
