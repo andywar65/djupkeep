@@ -22,7 +22,10 @@
     <td>
       {{ task.maintainer|default_if_none:"-" }}
     </td>
-    <td>
+    <td
+      {% if task.due_date_color %}
+        style="color: {{ task.due_date_color }}"
+      {% endif %}>
       {{ task.due_date }}
     </td>
     <td>

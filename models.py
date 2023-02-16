@@ -372,6 +372,13 @@ class Task(models.Model):
     def __str__(self):
         return _("Task") + " - " + str(self.id)
 
+    def due_date_color(self):
+        if self.due_date < now().date():
+            return "red"
+        if self.due_date < (now() + timedelta(days=7)).date():
+            return "green"
+        return None
+
 
 def generate_report():
     number = 0
