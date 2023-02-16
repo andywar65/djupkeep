@@ -406,3 +406,11 @@ def create_tasks_and_generate_report():
                 task.save()
                 number += 1
     return _("Generated %(number)s task(s)") % {"number": str(number)}
+
+
+def create_task_after_checked(checked):
+    task = Task()
+    task.activity = checked.activity
+    task.element = checked.element
+    task.due_date = now() + timedelta(days=int(checked.activity.frequency))
+    task.save()

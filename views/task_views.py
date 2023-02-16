@@ -11,7 +11,11 @@ from django.utils.timezone import now
 from django.views.generic import DetailView, ListView, TemplateView, UpdateView
 
 from djupkeep.forms import TaskCheckForm
-from djupkeep.models import Task, create_tasks_and_generate_report
+from djupkeep.models import (
+    Task,
+    create_task_after_checked,
+    create_tasks_and_generate_report,
+)
 
 from .category_views import HxOnlyTemplateMixin
 from .location_views import HxPageTemplateMixin
@@ -63,6 +67,7 @@ class TaskCheckView(PermissionRequiredMixin, HxOnlyTemplateMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.check_date = now()
+        create_task_after_checked(self.object)
         return super(TaskCheckView, self).form_valid(form)
 
     def get_success_url(self):
