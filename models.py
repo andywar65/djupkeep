@@ -1,9 +1,11 @@
+from datetime import timedelta
 from math import pow, sqrt
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
+from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 from djgeojson.fields import LineStringField, PointField
 from filebrowser.base import FileObject
@@ -360,7 +362,9 @@ class Task(models.Model):
     class Meta:
         verbose_name = _("Task")
         verbose_name_plural = _("Tasks")
-        ordering = ["element", "-due_date"]
+        ordering = [
+            "due_date",
+        ]
         permissions = [
             ("check_task", _("Can perform activity tasks on elements")),
         ]
@@ -371,4 +375,18 @@ class Task(models.Model):
 
 def generate_report():
     number = 0
-    return f"Generated { number } task(s)"
+    for act in Activity.objects.all().prefetch_related("category"):
+        descendants = act.category.descendants(include_self=True)
+        cat_list = descendants.values_list("id", flat=True)
+        elements = Element.objects.filter(category_id__in=cat_list)
+        for elm in elements:
+            try:
+                Task.objects.get(activity_id=act.id, element_id=elm.id, check_date=None)
+            except Task.DoesNotExist:
+                task = Task()
+                task.activity = act
+                task.element = elm
+                task.due_date = now() + timedelta(days=int(act.frequency))
+                task.save()
+                number += 1
+    return _("Generated %(number)s task(s)") % {"number": str(number)}
