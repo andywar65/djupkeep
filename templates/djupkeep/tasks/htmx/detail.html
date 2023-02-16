@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <div class="alert alert-{{ task.alert_color }}">
   <strong>{{ task.id }}</strong> -
   {% if task.check_date %}
@@ -12,5 +14,8 @@
   - {{ task.due_date }}
   {% if task.check_date %}
     / {{ task.check_date }}
+  {% endif %}
+  {% if task.notes %}
+    <p><strong>{% trans "Notes" %}</strong>: <em>{{ task.notes }}</em></p>
   {% endif %}
 </div>

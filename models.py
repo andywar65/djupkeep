@@ -380,7 +380,9 @@ class Task(models.Model):
         return None
 
     def alert_color(self):
-        if self.check_date:
+        if self.notes:
+            return "warning"
+        elif self.check_date:
             return "success"
         elif self.due_date < now().date():
             return "danger"
