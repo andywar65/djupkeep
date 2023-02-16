@@ -1,1 +1,29 @@
-Check
+{% load bootstrap5 %}
+{% load i18n %}
+
+<div class="card" style="margin-bottom: 15px">
+  <div class="card-body">
+    <ul>
+      <li>
+        <strong>{% trans "ID" %}</strong>: {{ object.id }}
+      </li>
+      <li>
+        <strong>{{ object.activity }}</strong>:
+        <em>{{ object.activity.intro }}</em>
+      </li>
+      <li>
+        <strong>{% trans "Due date" %}</strong>: {{ object.due_date }}
+      </li>
+    </ul>
+    <form
+      hx-post="{% url 'djupkeep:task_check' pk=object.id %}"
+      hx-target="#task-{{ object.id }}">
+      {% bootstrap_form form %}
+      <button class="btn btn-primary" type="submit">
+        {% trans "Check" %}
+        <span class="htmx-indicator spinner-border spinner-border-sm"></span>
+      </button>
+    </form>
+  </div>
+
+</div>
