@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.utils.translation import gettext_lazy as _
 
 # from django.urls import reverse
-from django.views.generic import FormView, ListView
+from django.views.generic import FormView, ListView, TemplateView
 
 from djupkeep.forms import MaintainerCreateForm
 
@@ -23,6 +23,13 @@ class MaintainerListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView)
             is_superuser=True
         )
         return qs
+
+
+class MaintainerAddButtonView(
+    PermissionRequiredMixin, HxOnlyTemplateMixin, TemplateView
+):
+    permission_required = "djupkeep.change_task"
+    template_name = "djupkeep/maintainers/htmx/add_button.html"
 
 
 class MaintainerCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, FormView):
