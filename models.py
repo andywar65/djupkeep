@@ -379,6 +379,13 @@ class Task(models.Model):
             return "green"
         return None
 
+    def due_date_in_days(self):
+        if self.due_date < now().date():
+            days = now().date() - self.due_date
+            return _("Check was due %(days)s day(s) ago!") % {"days": str(days.days)}
+        days = self.due_date - now().date()
+        return _("Check is due in %(days)s day(s)") % {"days": str(days.days)}
+
     def alert_color(self):
         if self.notes:
             return "warning"

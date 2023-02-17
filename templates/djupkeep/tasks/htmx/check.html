@@ -12,7 +12,7 @@
         <em>{{ object.activity.intro }}</em>
       </li>
       <li>
-        <strong>{% trans "Due date" %}</strong>: {{ object.due_date }}
+        <strong>{% trans "Due date" %}</strong>: {{ object.due_date_in_days }}
       </li>
     </ul>
     <form
@@ -23,6 +23,11 @@
         {% trans "Check" %}
         <span class="htmx-indicator spinner-border spinner-border-sm"></span>
       </button>
+      <a class="btn btn-secondary"
+        hx-get="{% url 'djupkeep:task_detail' pk=object.id %}"
+        hx-target="#task-{{ object.id }}">
+        {% trans "Dismiss" %}
+      </a>
     </form>
   </div>
 </div>
