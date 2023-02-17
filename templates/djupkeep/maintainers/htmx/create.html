@@ -4,7 +4,7 @@
 <div class="card" style="margin-bottom: 15px">
   <div class="card-body">
     <form
-      hx-post="#"
+      hx-post="{% url 'djupkeep:maintainer_create' %}"
       hx-target="#add-maintainer">
       {% bootstrap_form form %}
       <button class="btn btn-primary" type="submit">
