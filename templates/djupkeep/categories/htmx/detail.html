@@ -1,26 +1,39 @@
 {% load i18n %}
 
 <div class="alert alert-secondary">
-  <strong>{{ category.get_punctuated_index }}</strong> -
-  <a class="link-primary"
-    title="{% trans 'Modify' %}"
-    hx-get="{% url 'djupkeep:category_update' pk=category.id %}"
-    hx-target="#cat-{{ category.id }}">
-    {{ category.title }}
-  </a> - <em>{{ category.intro }}</em>
-  {% if category.get_previous_sibling %}
-    <a class="link-primary"
-      title="{% trans 'Move up' %}"
-      hx-get="{% url 'djupkeep:category_move_up' pk=category.id %}"
-      hx-target="#category-list">
-      <i class="fa fa-arrow-up"></i></a>
-  {% endif %}
-  {% if category.get_next_sibling %}
-    <a class="link-primary"
-      title="{% trans 'Move down' %}"
-      hx-get="{% url 'djupkeep:category_move_down' pk=category.id %}"
-      hx-target="#category-list">
-      <i class="fa fa-arrow-down"></i>
-    </a>
-  {% endif %}
+  <div class="row">
+    <div class="col col-10">
+      <strong>{{ category.get_punctuated_index }}</strong> -
+      <a class="link-primary"
+        title="{% trans 'Modify' %}"
+        hx-get="{% url 'djupkeep:category_update' pk=category.id %}"
+        hx-target="#cat-{{ category.id }}">
+        {{ category.title }}
+      </a> - <em>{{ category.intro }}</em>
+      {% if category.get_previous_sibling %}
+        <a class="link-primary"
+          title="{% trans 'Move up' %}"
+          hx-get="{% url 'djupkeep:category_move_up' pk=category.id %}"
+          hx-target="#category-list">
+          <i class="fa fa-arrow-up"></i></a>
+      {% endif %}
+      {% if category.get_next_sibling %}
+        <a class="link-primary"
+          title="{% trans 'Move down' %}"
+          hx-get="{% url 'djupkeep:category_move_down' pk=category.id %}"
+          hx-target="#category-list">
+          <i class="fa fa-arrow-down"></i>
+        </a>
+      {% endif %}
+    </div>
+    <div class="col text-end">
+      <a class="btn btn-secondary btn-sm"
+        title="{% trans 'Add Activities and Elements' %}"
+        hx-get="{% url 'djupkeep:category_detail_related' pk=category.id %}"
+        hx-target="#content"
+        hx-push-url="true">
+        <i class="fa fa-plus"></i>
+      </a>
+    </div>
+  </div>
 </div>
