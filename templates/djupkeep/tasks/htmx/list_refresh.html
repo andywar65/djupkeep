@@ -24,7 +24,8 @@
       {{ task.due_date }}
     </td>
     <td>
-      {{ task.check_date|default_if_none:"-" }}
+      {{ task.check_date|default_if_none:"" }} -
+      <em>{{ task.notes|default_if_none:"" }}</em>
     </td>
   </tr>
 {% endfor %}

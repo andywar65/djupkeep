@@ -1,6 +1,7 @@
 # from datetime import timedelta
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.db.models import Q
 
 # from django.http import Http404
 # from django.shortcuts import get_object_or_404
@@ -26,6 +27,10 @@ class TaskListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
     model = Task
     template_name = "djupkeep/tasks/htmx/list.html"
 
+    def get_queryset(self):
+        qs = Task.objects.filter(Q(check_date=None) | ~Q(notes=""))
+        return qs
+
 
 class TaskListRefreshView(PermissionRequiredMixin, HxOnlyTemplateMixin, ListView):
     """This view is triggered when the list of tasks is changed"""
@@ -33,6 +38,10 @@ class TaskListRefreshView(PermissionRequiredMixin, HxOnlyTemplateMixin, ListView
     permission_required = "djupkeep.view_task"
     model = Task
     template_name = "djupkeep/tasks/htmx/list_refresh.html"
+
+    def get_queryset(self):
+        qs = Task.objects.filter(Q(check_date=None) | ~Q(notes=""))
+        return qs
 
 
 class TaskCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, TemplateView):
