@@ -41,6 +41,7 @@ from .views.location_views import (
     LocationListView,
     LocationUpdateView,
 )
+from .views.maintainer_views import MaintainerListView
 from .views.task_views import (
     TaskCheckView,
     TaskCreateView,
@@ -235,5 +236,10 @@ urlpatterns = [
         "task/<pk>/check/",
         TaskCheckView.as_view(),
         name="task_check",
+    ),
+    path(
+        _("maintainer/list/"),
+        MaintainerListView.as_view(),
+        name="maintainer_list",
     ),
 ]

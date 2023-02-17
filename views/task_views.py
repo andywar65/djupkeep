@@ -1,14 +1,7 @@
-# from datetime import timedelta
-
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Q
-
-# from django.http import Http404
-# from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.timezone import now
-
-# from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView, ListView, TemplateView, UpdateView
 
 from djupkeep.forms import TaskCheckForm

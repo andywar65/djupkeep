@@ -1,0 +1,33 @@
+{% load i18n %}
+
+<div
+  class="card mx-auto"
+  style="max-width: 480px; margin-top: 60px" >
+  <div class="card-header">
+    <h3>{% translate 'Maintainers' %}</h3>
+  </div>
+  <div class="card-body">
+    <div id="add-maintainer">
+      <a class="btn btn-success"
+        hx-get="#"
+        hx-target="#add-maintainer">
+        {% trans "Create Maintainer" %}
+      </a>
+
+    </div>
+    <div id="maintainer-list"
+      hx-get="#"
+      hx-trigger="refreshMaintainerList from:body">
+      {% if object_list %}
+        <ul>
+          {% for maintainer in object_list %}
+            <li>{{ maintainer }}</li>
+          {% endfor %}
+
+        </ul>
+      {% else %}
+        {% trans "No maintainers yet" %}
+      {% endif %}
+    </div>
+  </div>
+</div>
