@@ -8,12 +8,7 @@
   </div>
   <div class="card-body">
     <div id="add-maintainer">
-      <a class="btn btn-success"
-        hx-get="#"
-        hx-target="#add-maintainer">
-        {% trans "Create Maintainer" %}
-      </a>
-
+      {% include "djupkeep/maintainers/htmx/add_button.html" %}
     </div>
     <div id="maintainer-list"
       hx-get="#"
@@ -23,7 +18,6 @@
           {% for maintainer in object_list %}
             <li>{{ maintainer }}</li>
           {% endfor %}
-
         </ul>
       {% else %}
         {% trans "No maintainers yet" %}
