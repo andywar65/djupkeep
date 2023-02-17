@@ -25,11 +25,30 @@ class MaintainerListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView)
         return qs
 
 
+class MaintainerListRefreshView(PermissionRequiredMixin, HxOnlyTemplateMixin, ListView):
+    permission_required = "djupkeep.change_task"
+    model = User
+    template_name = "djupkeep/maintainers/htmx/list_refresh.html"
+
+    def get_queryset(self):
+        qs = User.objects.filter(groups__name=_("Maintainer")).exclude(
+            is_superuser=True
+        )
+        return qs
+
+
 class MaintainerAddButtonView(
     PermissionRequiredMixin, HxOnlyTemplateMixin, TemplateView
 ):
     permission_required = "djupkeep.change_task"
     template_name = "djupkeep/maintainers/htmx/add_button.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super(MaintainerAddButtonView, self).dispatch(
+            request, *args, **kwargs
+        )
+        response["HX-Trigger-After-Swap"] = "refreshMaintainerList"
+        return response
 
 
 class MaintainerCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, FormView):

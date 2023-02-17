@@ -44,6 +44,7 @@ from .views.location_views import (
 from .views.maintainer_views import (
     MaintainerAddButtonView,
     MaintainerCreateView,
+    MaintainerListRefreshView,
     MaintainerListView,
 )
 from .views.task_views import (
@@ -245,6 +246,11 @@ urlpatterns = [
         _("maintainer/list/"),
         MaintainerListView.as_view(),
         name="maintainer_list",
+    ),
+    path(
+        "maintainer/list/refresh/",
+        MaintainerListRefreshView.as_view(),
+        name="maintainer_list_refresh",
     ),
     path(
         "maintainer/add/button/",

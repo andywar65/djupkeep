@@ -11,17 +11,9 @@
       {% include "djupkeep/maintainers/htmx/add_button.html" %}
     </div>
     <div id="maintainer-list"
-      hx-get="#"
+      hx-get="{% url 'djupkeep:maintainer_list_refresh' %}"
       hx-trigger="refreshMaintainerList from:body">
-      {% if object_list %}
-        <ul>
-          {% for maintainer in object_list %}
-            <li>{{ maintainer }}</li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        {% trans "No maintainers yet" %}
-      {% endif %}
+      {% include "djupkeep/maintainers/htmx/list_refresh.html" %}
     </div>
   </div>
 </div>
