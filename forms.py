@@ -1,10 +1,13 @@
 from django import forms
-from django.forms import ModelForm
+from django.contrib.auth import get_user_model
+from django.forms import ModelChoiceField, ModelForm
 from django.utils.translation import gettext_lazy as _
 from leaflet.forms.widgets import LeafletWidget
 from tree_queries.forms import TreeNodeChoiceField
 
 from .models import Activity, Category, Element, Location, Task
+
+User = get_user_model()
 
 
 class LocationCreateForm(ModelForm):
@@ -87,3 +90,12 @@ class TaskCheckForm(ModelForm):
     class Meta:
         model = Task
         fields = ("notes",)
+
+
+class MaintainerCreateForm(forms.Form):
+    user = ModelChoiceField(
+        queryset=User.objects.exclude(groups__name=_("Maintainer")).exclude(
+            is_superuser=True
+        ),
+        required=True,
+    )

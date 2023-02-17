@@ -3,11 +3,11 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.utils.translation import gettext_lazy as _
 
 # from django.urls import reverse
-from django.views.generic import ListView
+from django.views.generic import FormView, ListView
 
-# from djupkeep.forms import TaskCheckForm
-# from djupkeep.models import
-# from .category_views import HxOnlyTemplateMixin
+from djupkeep.forms import MaintainerCreateForm
+
+from .category_views import HxOnlyTemplateMixin
 from .location_views import HxPageTemplateMixin
 
 User = get_user_model()
@@ -23,3 +23,9 @@ class MaintainerListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView)
             is_superuser=True
         )
         return qs
+
+
+class MaintainerCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, FormView):
+    permission_required = "djupkeep.change_task"
+    form_class = MaintainerCreateForm
+    template_name = "djupkeep/maintainers/htmx/create.html"
