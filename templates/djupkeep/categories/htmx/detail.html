@@ -3,18 +3,21 @@
 <div class="alert alert-secondary">
   <strong>{{ category.get_punctuated_index }}</strong> -
   <a class="link-primary"
+    title="{% trans 'Modify' %}"
     hx-get="{% url 'djupkeep:category_update' pk=category.id %}"
     hx-target="#cat-{{ category.id }}">
     {{ category.title }}
   </a> - <em>{{ category.intro }}</em>
   {% if category.get_previous_sibling %}
     <a class="link-primary"
+      title="{% trans 'Move up' %}"
       hx-get="{% url 'djupkeep:category_move_up' pk=category.id %}"
       hx-target="#category-list">
       <i class="fa fa-arrow-up"></i></a>
   {% endif %}
   {% if category.get_next_sibling %}
     <a class="link-primary"
+      title="{% trans 'Move down' %}"
       hx-get="{% url 'djupkeep:category_move_down' pk=category.id %}"
       hx-target="#category-list">
       <i class="fa fa-arrow-down"></i>
