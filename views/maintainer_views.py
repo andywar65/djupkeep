@@ -19,5 +19,7 @@ class MaintainerListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView)
     template_name = "djupkeep/maintainers/htmx/list.html"
 
     def get_queryset(self):
-        qs = User.objects.filter(groups__name=_("Maintainer"))
+        qs = User.objects.filter(groups__name=_("Maintainer")).exclude(
+            is_superuser=True
+        )
         return qs

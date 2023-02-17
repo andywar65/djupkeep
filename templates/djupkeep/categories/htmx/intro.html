@@ -91,7 +91,7 @@
           <div class="card-body">
             <h5 class="card-title">
               <a class="btn btn-primary btn-lg"
-                hx-get="#"
+                hx-get="{% url 'djupkeep:maintainer_list' %}"
                 hx-target="#content"
                 hx-push-url="true">
                 {% trans 'Maintainers' %} <i class="fa fa-user-md fa-lg"></i>
