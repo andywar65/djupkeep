@@ -33,6 +33,12 @@ class ElementDetailView(PermissionRequiredMixin, HxPageTemplateMixin, DetailView
     model = Element
     template_name = "djupkeep/elements/htmx/detail.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tasks"] = self.object.tasks.filter(check_date=None)
+        context["past_tasks"] = self.object.tasks.exclude(check_date=None)
+        return context
+
 
 class ElementCreateView(PermissionRequiredMixin, HxPageTemplateMixin, CreateView):
     permission_required = "djupkeep.add_element"

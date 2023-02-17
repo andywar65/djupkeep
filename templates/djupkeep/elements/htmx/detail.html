@@ -39,14 +39,21 @@
     </div>
   </div>
   <div class="mx-auto" style="max-width: 480px; margin-top: 15px">
-    {% if object.tasks %}
-      {% for task in object.tasks.all %}
+    {% if tasks %}
+      {% for task in tasks %}
         <div id="task-{{ task.id }}">
           {% include "djupkeep/tasks/htmx/detail.html" %}
         </div>
       {% endfor %}
     {% else %}
       {% trans "No tasks yet" %}
+    {% endif %}
+    {% if past_tasks %}
+      {% for task in past_tasks %}
+        {% include "djupkeep/tasks/htmx/detail.html" %}
+      {% endfor %}
+    {% else %}
+      {% trans "No previous tasks" %}
     {% endif %}
   </div>
 {% endblock content %}
