@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.models import Group
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import FormView, ListView, TemplateView
@@ -35,6 +36,30 @@ class MaintainerListRefreshView(PermissionRequiredMixin, HxOnlyTemplateMixin, Li
             is_superuser=True
         )
         return qs
+
+
+class MaintainerDeactivateView(MaintainerListRefreshView):
+    def setup(self, request, *args, **kwargs):
+        super(MaintainerDeactivateView, self).setup(request, *args, **kwargs)
+        maint = get_object_or_404(User, id=kwargs["pk"])
+        if maint.is_superuser:
+            return
+        elif not maint.groups.filter(name=_("Maintainer")).exists():
+            return
+        maint.is_active = False
+        maint.save()
+
+
+class MaintainerActivateView(MaintainerListRefreshView):
+    def setup(self, request, *args, **kwargs):
+        super(MaintainerActivateView, self).setup(request, *args, **kwargs)
+        maint = get_object_or_404(User, id=kwargs["pk"])
+        if maint.is_superuser:
+            return
+        elif not maint.groups.filter(name=_("Maintainer")).exists():
+            return
+        maint.is_active = True
+        maint.save()
 
 
 class MaintainerAddButtonView(

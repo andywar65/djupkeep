@@ -42,8 +42,10 @@ from .views.location_views import (
     LocationUpdateView,
 )
 from .views.maintainer_views import (
+    MaintainerActivateView,
     MaintainerAddButtonView,
     MaintainerCreateView,
+    MaintainerDeactivateView,
     MaintainerListRefreshView,
     MaintainerListView,
 )
@@ -261,5 +263,15 @@ urlpatterns = [
         "maintainer/create/",
         MaintainerCreateView.as_view(),
         name="maintainer_create",
+    ),
+    path(
+        "maintainer/<pk>/deactivate/",
+        MaintainerDeactivateView.as_view(),
+        name="maintainer_deactivate",
+    ),
+    path(
+        "maintainer/<pk>/activate/",
+        MaintainerActivateView.as_view(),
+        name="maintainer_activate",
     ),
 ]
