@@ -1,6 +1,7 @@
 {% load i18n %}
 
 <a class="btn btn-success"
+  style="margin-bottom: 15px"
   hx-get="{% url 'djupkeep:maintainer_create' %}"
   hx-target="#add-maintainer">
   {% trans "Create Maintainer" %}

@@ -1,11 +1,19 @@
 {% load i18n %}
 
 {% if object_list %}
-  <ul>
-    {% for maintainer in object_list %}
-      <li>{{ maintainer }}</li>
-    {% endfor %}
-  </ul>
+  {% for maintainer in object_list %}
+    {% if maintainer.is_active %}
+      <div class="alert alert-secondary">
+        {{ maintainer }}
+      </div>
+    {% else %}
+      <div class="alert alert-danger">
+        {{ maintainer }}
+      </div>
+    {% endif %}
+  {% endfor %}
 {% else %}
-  {% trans "No maintainers yet" %}
+  <div class="alert alert-secondary">
+    {% trans "No maintainers yet" %}
+  </div>
 {% endif %}
