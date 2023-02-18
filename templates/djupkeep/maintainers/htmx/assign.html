@@ -3,6 +3,7 @@
 
 <div class="card" style="margin-bottom: 15px">
   <div class="card-body">
+    {{ maintainer }}
     <form
       hx-post="{% url 'djupkeep:maintainer_assign' username=maintainer.username %}"
       hx-target="#maintainer-{{ maintainer.username }}">

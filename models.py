@@ -201,6 +201,19 @@ class Category(TreeNode):
         str_list = list(map(str, int_list))
         return ".".join(str_list)
 
+    def assign_activity_to(self, maintainer):
+        number = 0
+        descendants = self.descendants(include_self=True)
+        cat_list = descendants.values_list("id", flat=True)
+        elements = Element.objects.filter(category_id__in=cat_list)
+        for elm in elements:
+            tasks = elm.tasks.filter(check_date=None).exclude(
+                maintainer_id=maintainer.uuid
+            )
+            tasks.update(maintainer=maintainer)
+            number += tasks.count()
+        return _("Assigned %(number)s task(s)") % {"number": str(number)}
+
 
 class Element(models.Model):
 

@@ -108,19 +108,23 @@ class MaintainerAssignView(PermissionRequiredMixin, HxOnlyTemplateMixin, FormVie
     form_class = MaintainerAssignForm
     template_name = "djupkeep/maintainers/htmx/assign.html"
 
+    def setup(self, request, *args, **kwargs):
+        super(MaintainerAssignView, self).setup(request, *args, **kwargs)
+        self.maintainer = get_object_or_404(User, username=kwargs["username"])
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["maintainer"] = get_object_or_404(
-            User, username=self.kwargs["username"]
-        )
+        context["maintainer"] = self.maintainer
         return context
 
     def form_valid(self, form):
-        category = form.cleaned_data["category"]  # noqa
-        return super(MaintainerCreateView, self).form_valid(form)
+        category = form.cleaned_data["category"]
+        number = category.assign_activity_to(self.maintainer)
+        print(number)
+        return super(MaintainerAssignView, self).form_valid(form)
 
     def get_success_url(self):
         return reverse(
-            "djupkeep:maintainer_detail",
-            kwargs={"username": self.request.kwargs["username"]},
+            "djupkeep:maintainer_assign",
+            kwargs={"username": self.maintainer.username},
         )
