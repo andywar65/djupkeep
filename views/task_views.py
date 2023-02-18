@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.urls import reverse
 from django.utils.timezone import now
@@ -78,6 +79,15 @@ class TaskCheckView(PermissionRequiredMixin, HxOnlyTemplateMixin, UpdateView):
     model = Task
     form_class = TaskCheckForm
     template_name = "djupkeep/tasks/htmx/check.html"
+
+    def get_object(self, queryset=None):
+        obj = super(TaskCheckView, self).get_object(queryset=None)
+        if (
+            not obj.maintainer == self.request.user
+            and not self.request.user.is_superuser
+        ):
+            raise PermissionDenied
+        return obj
 
     def form_valid(self, form):
         form.instance.check_date = now()
