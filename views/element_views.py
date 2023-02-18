@@ -35,10 +35,20 @@ class ElementDetailView(PermissionRequiredMixin, HxPageTemplateMixin, DetailView
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["tasks"] = self.object.tasks.filter(check_date=None)
-        context["past_tasks"] = self.object.tasks.exclude(check_date=None).order_by(
-            "-check_date"
-        )
+        if not self.request.user.has_perm("djupkeep.add_task"):
+            context["tasks"] = self.object.tasks.filter(
+                check_date=None, maintainer_id=self.request.user.uuid
+            )
+            context["past_tasks"] = (
+                self.object.tasks.filter(maintainer_id=self.request.user.uuid)
+                .exclude(check_date=None)
+                .order_by("-check_date")
+            )
+        else:
+            context["tasks"] = self.object.tasks.filter(check_date=None)
+            context["past_tasks"] = self.object.tasks.exclude(check_date=None).order_by(
+                "-check_date"
+            )
         return context
 
 

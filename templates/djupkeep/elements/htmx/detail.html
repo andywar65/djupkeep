@@ -46,14 +46,14 @@
         </div>
       {% endfor %}
     {% else %}
-      {% trans "No tasks yet" %}
+      <p>{% trans "No tasks yet" %}</p>
     {% endif %}
     {% if past_tasks %}
       {% for task in past_tasks %}
         {% include "djupkeep/tasks/htmx/detail.html" %}
       {% endfor %}
     {% else %}
-      {% trans "No previous tasks" %}
+      <p>{% trans "No previous tasks" %}</p>
     {% endif %}
   </div>
 {% endblock content %}
