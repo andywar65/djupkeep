@@ -4,7 +4,12 @@
   <div class="alert alert-secondary">
     <div class="row">
       <div class="col">
-        {{ maintainer }}
+        <a class="link-primary"
+          hx-get="{% url 'djupkeep:maintainer_assign' username=maintainer.username %}"
+          hx-target="#maintainer-{{ maintainer.username }}"
+          title="{% trans 'Assign activities to maintainer' %}">
+          {{ maintainer }}
+        </a>
       </div>
       <div class="col text-end">
         <a class="btn btn-danger btn-sm"

@@ -1,0 +1,21 @@
+{% load bootstrap5 %}
+{% load i18n %}
+
+<div class="card" style="margin-bottom: 15px">
+  <div class="card-body">
+    <form
+      hx-post="{% url 'djupkeep:maintainer_assign' username=maintainer.username %}"
+      hx-target="#maintainer-{{ maintainer.username }}">
+      {% bootstrap_form form %}
+      <button class="btn btn-primary" type="submit">
+        {% trans "Assign" %}
+        <span class="htmx-indicator spinner-border spinner-border-sm"></span>
+      </button>
+      <a class="btn btn-secondary"
+        hx-get="{% url 'djupkeep:maintainer_detail' username=maintainer.username %}"
+        hx-target="#maintainer-{{ maintainer.username }}">
+        {% trans "Dismiss" %}
+      </a>
+    </form>
+  </div>
+</div>

@@ -99,3 +99,11 @@ class MaintainerCreateForm(forms.Form):
         ),
         required=True,
     )
+
+
+class MaintainerAssignForm(forms.Form):
+    category = TreeNodeChoiceField(
+        queryset=Category.objects.all(),
+        required=True,
+        label=_("Assign activities to maintainer by Category:"),
+    )

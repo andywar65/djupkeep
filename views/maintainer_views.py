@@ -4,9 +4,9 @@ from django.contrib.auth.models import Group
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import DetailView, FormView, ListView, TemplateView
+from django.views.generic import FormView, ListView, TemplateView
 
-from djupkeep.forms import MaintainerCreateForm
+from djupkeep.forms import MaintainerAssignForm, MaintainerCreateForm
 
 from .category_views import HxOnlyTemplateMixin
 from .location_views import HxPageTemplateMixin
@@ -62,11 +62,16 @@ class MaintainerActivateView(MaintainerListRefreshView):
         maint.save()
 
 
-class MaintainerDetailView(PermissionRequiredMixin, HxOnlyTemplateMixin, DetailView):
+class MaintainerDetailView(PermissionRequiredMixin, HxOnlyTemplateMixin, TemplateView):
     permission_required = "djupkeep.change_task"
-    model = User
-    context_object_name = "maintainer"
     template_name = "djupkeep/maintainers/htmx/detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["maintainer"] = get_object_or_404(
+            User, username=self.kwargs["username"]
+        )
+        return context
 
 
 class MaintainerAddButtonView(
@@ -96,3 +101,26 @@ class MaintainerCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, FormVie
 
     def get_success_url(self):
         return reverse("djupkeep:maintainer_add_button")
+
+
+class MaintainerAssignView(PermissionRequiredMixin, HxOnlyTemplateMixin, FormView):
+    permission_required = "djupkeep.change_task"
+    form_class = MaintainerAssignForm
+    template_name = "djupkeep/maintainers/htmx/assign.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["maintainer"] = get_object_or_404(
+            User, username=self.kwargs["username"]
+        )
+        return context
+
+    def form_valid(self, form):
+        category = form.cleaned_data["category"]  # noqa
+        return super(MaintainerCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse(
+            "djupkeep:maintainer_detail",
+            kwargs={"username": self.request.kwargs["username"]},
+        )
