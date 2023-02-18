@@ -431,5 +431,6 @@ def create_task_after_checked(checked):
     task = Task()
     task.activity = checked.activity
     task.element = checked.element
+    task.maintainer = checked.maintainer
     task.due_date = now() + timedelta(days=int(checked.activity.frequency))
     task.save()
