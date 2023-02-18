@@ -210,8 +210,7 @@ class Category(TreeNode):
             tasks = elm.tasks.filter(check_date=None).exclude(
                 maintainer_id=maintainer.uuid
             )
-            tasks.update(maintainer=maintainer)
-            number += tasks.count()
+            number += tasks.update(maintainer=maintainer)
         return _("Assigned %(number)s task(s)") % {"number": str(number)}
 
 
