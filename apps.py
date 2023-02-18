@@ -7,11 +7,11 @@ def create_djupkeep_groups(sender, **kwargs):
     from django.contrib.auth.models import Group, Permission
     from django.contrib.contenttypes.models import ContentType
 
+    types = ContentType.objects.filter(app_label="djupkeep").values_list(
+        "id", flat=True
+    )
     grp, created = Group.objects.get_or_create(name=_("Upkeep Manager"))
     if created:
-        types = ContentType.objects.filter(app_label="djupkeep").values_list(
-            "id", flat=True
-        )
         permissions = Permission.objects.filter(content_type_id__in=types)
         grp.permissions.set(permissions)
     grp, created = Group.objects.get_or_create(name=_("Maintainer"))
@@ -19,9 +19,12 @@ def create_djupkeep_groups(sender, **kwargs):
         codes = [
             "view_element",
             "view_location",
+            "view_task",
             "check_task",
         ]
-        permissions = Permission.objects.filter(codename__in=codes)
+        permissions = Permission.objects.filter(
+            content_type_id__in=types, codename__in=codes
+        )
         grp.permissions.set(permissions)
 
 

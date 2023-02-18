@@ -30,7 +30,7 @@ class HxOnlyTemplateMixin:
 
 
 class IntroTemplateView(PermissionRequiredMixin, HxPageTemplateMixin, FormView):
-    permission_required = "djupkeep.view_category"
+    permission_required = "djupkeep.view_location"
     form_class = IntroForm
     template_name = "djupkeep/categories/htmx/intro.html"
 
