@@ -2,15 +2,30 @@
 
 {% if object_list %}
   {% for maintainer in object_list %}
-    {% if maintainer.is_active %}
-      <div class="alert alert-secondary">
-        {{ maintainer }}
-      </div>
-    {% else %}
-      <div class="alert alert-danger">
-        {{ maintainer }}
-      </div>
-    {% endif %}
+    <div id="maintainer-{{ maintainer.username }}">
+      {% if maintainer.is_active %}
+        <div class="alert alert-secondary">
+          <div class="row">
+            <div class="col">
+              {{ maintainer }}
+            </div>
+            <div class="col text-end">
+              <a class="btn btn-danger btn-sm"
+                hx-get="{% url 'djupkeep:maintainer_deactivate' username=maintainer.username %}"
+                hx-target="#maintainer-list"
+                hx-confirm="{% trans 'Are you sure you want to deactivate maintainer' %} {{ maintainer }}"
+                title="{% trans 'Deactivate maintainer' %}">
+                <i class="fa fa-times"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <div class="alert alert-danger">
+          {{ maintainer }}
+        </div>
+      {% endif %}
+    </div>
   {% endfor %}
 {% else %}
   <div class="alert alert-secondary">

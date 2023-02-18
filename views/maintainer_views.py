@@ -41,7 +41,7 @@ class MaintainerListRefreshView(PermissionRequiredMixin, HxOnlyTemplateMixin, Li
 class MaintainerDeactivateView(MaintainerListRefreshView):
     def setup(self, request, *args, **kwargs):
         super(MaintainerDeactivateView, self).setup(request, *args, **kwargs)
-        maint = get_object_or_404(User, id=kwargs["pk"])
+        maint = get_object_or_404(User, username=kwargs["username"])
         if maint.is_superuser:
             return
         elif not maint.groups.filter(name=_("Maintainer")).exists():
@@ -53,7 +53,7 @@ class MaintainerDeactivateView(MaintainerListRefreshView):
 class MaintainerActivateView(MaintainerListRefreshView):
     def setup(self, request, *args, **kwargs):
         super(MaintainerActivateView, self).setup(request, *args, **kwargs)
-        maint = get_object_or_404(User, id=kwargs["pk"])
+        maint = get_object_or_404(User, username=kwargs["username"])
         if maint.is_superuser:
             return
         elif not maint.groups.filter(name=_("Maintainer")).exists():

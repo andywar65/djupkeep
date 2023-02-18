@@ -265,12 +265,12 @@ urlpatterns = [
         name="maintainer_create",
     ),
     path(
-        "maintainer/<pk>/deactivate/",
+        "maintainer/<username>/deactivate/",
         MaintainerDeactivateView.as_view(),
         name="maintainer_deactivate",
     ),
     path(
-        "maintainer/<pk>/activate/",
+        "maintainer/<username>/activate/",
         MaintainerActivateView.as_view(),
         name="maintainer_activate",
     ),
