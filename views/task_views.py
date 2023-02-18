@@ -21,7 +21,13 @@ class TaskListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
     template_name = "djupkeep/tasks/htmx/list.html"
 
     def get_queryset(self):
-        qs = Task.objects.filter(Q(check_date=None) | ~Q(notes=""))
+        if not self.request.user.has_perm("djupkeep.add_task"):
+            qs = Task.objects.filter(
+                Q(maintainer_id=self.request.user.uuid),
+                Q(check_date=None) | ~Q(notes=""),
+            )
+        else:
+            qs = Task.objects.filter(Q(check_date=None) | ~Q(notes=""))
         return qs
 
 
@@ -33,7 +39,13 @@ class TaskListRefreshView(PermissionRequiredMixin, HxOnlyTemplateMixin, ListView
     template_name = "djupkeep/tasks/htmx/list_refresh.html"
 
     def get_queryset(self):
-        qs = Task.objects.filter(Q(check_date=None) | ~Q(notes=""))
+        if not self.request.user.has_perm("djupkeep.add_task"):
+            qs = Task.objects.filter(
+                Q(maintainer_id=self.request.user.uuid),
+                Q(check_date=None) | ~Q(notes=""),
+            )
+        else:
+            qs = Task.objects.filter(Q(check_date=None) | ~Q(notes=""))
         return qs
 
 
