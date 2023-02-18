@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.models import Group
@@ -120,7 +121,7 @@ class MaintainerAssignView(PermissionRequiredMixin, HxOnlyTemplateMixin, FormVie
     def form_valid(self, form):
         category = form.cleaned_data["category"]
         number = category.assign_activity_to(self.maintainer)
-        print(number)
+        messages.add_message(self.request, messages.SUCCESS, number)
         return super(MaintainerAssignView, self).form_valid(form)
 
     def get_success_url(self):
