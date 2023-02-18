@@ -1,0 +1,37 @@
+{% load i18n %}
+
+{% if maintainer.is_active %}
+  <div class="alert alert-secondary">
+    <div class="row">
+      <div class="col">
+        {{ maintainer }}
+      </div>
+      <div class="col text-end">
+        <a class="btn btn-danger btn-sm"
+          hx-get="{% url 'djupkeep:maintainer_deactivate' username=maintainer.username %}"
+          hx-target="#maintainer-list"
+          hx-confirm="{% trans 'Are you sure you want to deactivate maintainer' %} {{ maintainer }}?"
+          title="{% trans 'Deactivate maintainer' %}">
+          <i class="fa fa-times"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+{% else %}
+  <div class="alert alert-danger">
+    <div class="row">
+      <div class="col">
+        {{ maintainer }}
+      </div>
+      <div class="col text-end">
+        <a class="btn btn-success btn-sm"
+          hx-get="{% url 'djupkeep:maintainer_activate' username=maintainer.username %}"
+          hx-target="#maintainer-list"
+          hx-confirm="{% trans 'Are you sure you want to activate maintainer' %} {{ maintainer }}?"
+          title="{% trans 'Activate maintainer' %}">
+          <i class="fa fa-check"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+{% endif %}

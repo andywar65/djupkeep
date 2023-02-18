@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import FormView, ListView, TemplateView
+from django.views.generic import DetailView, FormView, ListView, TemplateView
 
 from djupkeep.forms import MaintainerCreateForm
 
@@ -60,6 +60,13 @@ class MaintainerActivateView(MaintainerListRefreshView):
             return
         maint.is_active = True
         maint.save()
+
+
+class MaintainerDetailView(PermissionRequiredMixin, HxOnlyTemplateMixin, DetailView):
+    permission_required = "djupkeep.change_task"
+    model = User
+    context_object_name = "maintainer"
+    template_name = "djupkeep/maintainers/htmx/detail.html"
 
 
 class MaintainerAddButtonView(

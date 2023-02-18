@@ -46,6 +46,7 @@ from .views.maintainer_views import (
     MaintainerAddButtonView,
     MaintainerCreateView,
     MaintainerDeactivateView,
+    MaintainerDetailView,
     MaintainerListRefreshView,
     MaintainerListView,
 )
@@ -273,5 +274,10 @@ urlpatterns = [
         "maintainer/<username>/activate/",
         MaintainerActivateView.as_view(),
         name="maintainer_activate",
+    ),
+    path(
+        "maintainer/<username>/",
+        MaintainerDetailView.as_view(),
+        name="maintainer_detail",
     ),
 ]
