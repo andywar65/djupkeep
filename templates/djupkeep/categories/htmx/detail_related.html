@@ -7,9 +7,9 @@
     <h2>{% translate 'Category' %}: {{ category.get_punctuated_index }} - {{ category.title }}</h2>
     <p><em>{{ category.intro }}</em></p>
     <a class="link-primary"
-      hx-get="{% url 'djupkeep:category_list_wrapper' %}"
+      hx-get="{% url 'djupkeep:category_list' %}"
       hx-target="#content"
-      hx-push-url="{% url 'djupkeep:category_list' %}">
+      hx-push-url="true">
       {% translate 'All categories' %}
     </a>
   </div>

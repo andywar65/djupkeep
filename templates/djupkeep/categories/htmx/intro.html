@@ -14,9 +14,9 @@
           <div class="card-body">
             <h5 class="card-title">
               <a class="btn btn-primary btn-lg"
-                hx-get="{% url 'djupkeep:category_list_wrapper' %}"
+                hx-get="{% url 'djupkeep:category_list' %}"
                 hx-target="#content"
-                hx-push-url="{% url 'djupkeep:category_list' %}">
+                hx-push-url="true">
                 {% trans 'Categories' %} <i class="fa fa-folder-o fa-lg"></i>
               </a>
             </h5>

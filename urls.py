@@ -18,8 +18,8 @@ from .views.category_views import (
     CategoryDetailRefreshView,
     CategoryDetailRelatedView,
     CategoryDetailView,
+    CategoryListRefreshView,
     CategoryListView,
-    CategoryListWrapperView,
     CategoryMoveDownView,
     CategoryMoveUpView,
     CategoryUpdateView,
@@ -102,9 +102,9 @@ urlpatterns = [
         name="category_list",
     ),
     path(
-        "category/list/wrapper/",
-        CategoryListWrapperView.as_view(),
-        name="category_list_wrapper",
+        "category/list/refresh/",
+        CategoryListRefreshView.as_view(),
+        name="category_list_refresh",
     ),
     path(
         "category/add/",

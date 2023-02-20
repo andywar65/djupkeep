@@ -59,12 +59,12 @@ class CategoryListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
         return context
 
 
-class CategoryListWrapperView(CategoryListView):
-    """Subclasses CategoryListView with different template that adds a wrapper
-    with an event catcher around the list. Called only by IntroTemplateView.
+class CategoryListRefreshView(CategoryListView):
+    """Subclasses CategoryListView with different template.
+    Called when list is refreshed.
     View is restricted to HTMX requests"""
 
-    template_name = "djupkeep/categories/htmx/list_wrapper.html"
+    template_name = "djupkeep/categories/htmx/list_refresh.html"
 
     def get_template_names(self):
         if not self.request.htmx:
@@ -145,7 +145,7 @@ class CategoryMoveDownView(PermissionRequiredMixin, HxOnlyTemplateMixin, Redirec
             next.save()
 
     def get_redirect_url(self, *args, **kwargs):
-        return reverse("djupkeep:category_list")
+        return reverse("djupkeep:category_list_refresh")
 
 
 class CategoryMoveUpView(PermissionRequiredMixin, HxOnlyTemplateMixin, RedirectView):
@@ -162,7 +162,7 @@ class CategoryMoveUpView(PermissionRequiredMixin, HxOnlyTemplateMixin, RedirectV
             prev.save()
 
     def get_redirect_url(self, *args, **kwargs):
-        return reverse("djupkeep:category_list")
+        return reverse("djupkeep:category_list_refresh")
 
 
 class CategoryDetailView(PermissionRequiredMixin, HxOnlyTemplateMixin, DetailView):
@@ -217,4 +217,4 @@ class CategoryDeleteView(PermissionRequiredMixin, RedirectView):
         if category.parent:
             category.parent.move_younger_children(category.position)
         category.delete()
-        return reverse("djupkeep:category_list")
+        return reverse("djupkeep:category_list_refresh")
