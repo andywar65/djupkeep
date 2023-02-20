@@ -6,6 +6,7 @@
     hx-post="{% url 'djupkeep:category_update' pk=category.id %}"
     hx-target="#cat-{{ category.id }}">
     <div class="card-body">
+      <h5>{{ category.title }}</h5>
       {% bootstrap_form form %}
       <button class="btn btn-primary" type="submit" style="margin-bottom: 15px">
         {% trans "Update" %}
