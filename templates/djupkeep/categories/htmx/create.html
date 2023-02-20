@@ -4,7 +4,7 @@
 <div class="card">
   <form
     hx-post="{% url 'djupkeep:category_create' %}"
-    hx-target="#category-list">
+    hx-target="#cat-add">
     <div class="card-body">
       {% bootstrap_form form %}
       <button class="btn btn-success" type="submit">

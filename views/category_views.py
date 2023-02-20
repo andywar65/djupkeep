@@ -84,11 +84,18 @@ class CategoryCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, CreateVie
         return super(CategoryCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse("djupkeep:category_list")
+        return reverse("djupkeep:category_create_dismiss")
 
 
 class CategoryCreateDismissView(HxOnlyTemplateMixin, TemplateView):
     template_name = "djupkeep/categories/htmx/create_button.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super(CategoryCreateDismissView, self).dispatch(
+            request, *args, **kwargs
+        )
+        response["HX-Trigger-After-Swap"] = "refreshList"
+        return response
 
 
 class CategoryUpdateView(PermissionRequiredMixin, HxOnlyTemplateMixin, UpdateView):
