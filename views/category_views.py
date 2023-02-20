@@ -84,7 +84,7 @@ class CategoryCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, CreateVie
         return super(CategoryCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse("djupkeep:category_create_dismiss")
+        return reverse("djupkeep:category_add_button")
 
 
 class CategoryCreateDismissView(HxOnlyTemplateMixin, TemplateView):

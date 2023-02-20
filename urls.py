@@ -112,9 +112,9 @@ urlpatterns = [
         name="category_create",
     ),
     path(
-        "category/add/dismiss/",
+        "category/add/button/",
         CategoryCreateDismissView.as_view(),
-        name="category_create_dismiss",
+        name="category_add_button",
     ),
     path(
         "category/<pk>/",
