@@ -16,6 +16,12 @@
   <div class="card-body">
     <div class="row">
       <div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12" id="activity-list">
+        {% if category.has_ancestor_with_activities %}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {% trans "Warning: this category inherits activities from it's ancestors" %}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endif %}
         {% if category.children.exists %}
           <div class="alert alert-warning alert-dismissible fade show" role="alert">
             {% trans "Warning: activities created here will be inherited by all subcategories" %}

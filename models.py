@@ -213,6 +213,13 @@ class Category(TreeNode):
             number += tasks.update(maintainer=maintainer)
         return _("Assigned %(number)s task(s)") % {"number": str(number)}
 
+    def has_ancestor_with_activities(self):
+        ancestors = self.ancestors()
+        for ancestor in ancestors:
+            if ancestor.activities.exists():
+                return True
+        return False
+
 
 class Element(models.Model):
 
