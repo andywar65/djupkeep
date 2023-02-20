@@ -11,7 +11,7 @@ from .views.activity_views import (
     ActivityUpdateView,
 )
 from .views.category_views import (
-    CategoryCreateDismissView,
+    CategoryAddButtonView,
     CategoryCreateView,
     CategoryDeleteView,
     CategoryDetailActivityListView,
@@ -113,7 +113,7 @@ urlpatterns = [
     ),
     path(
         "category/add/button/",
-        CategoryCreateDismissView.as_view(),
+        CategoryAddButtonView.as_view(),
         name="category_add_button",
     ),
     path(
