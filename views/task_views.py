@@ -13,14 +13,19 @@ from djupkeep.models import (
 )
 
 from .category_views import HxOnlyTemplateMixin
-from .location_views import HxPageTemplateMixin
 
 
-class TaskListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
+class TaskListView(PermissionRequiredMixin, ListView):
     permission_required = "djupkeep.view_task"
     model = Task
+    paginate_by = 20
     template_name = "djupkeep/tasks/htmx/list.html"
 
+    def get_template_names(self):
+        if not self.request.htmx:
+            return [self.template_name.replace("htmx/", "")]
+        return [self.template_name]
+
     def get_queryset(self):
         if not self.request.user.has_perm("djupkeep.add_task"):
             qs = Task.objects.filter(
@@ -32,22 +37,11 @@ class TaskListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
         return qs
 
 
-class TaskListRefreshView(PermissionRequiredMixin, HxOnlyTemplateMixin, ListView):
-    """This view is triggered when the list of tasks is changed"""
+class TaskListRefreshView(TaskListView, HxOnlyTemplateMixin):
+    """This view is triggered when the list of tasks is changed.
+    It subclasses TaskListView, replacing template and forcing use of HTMX"""
 
-    permission_required = "djupkeep.view_task"
-    model = Task
     template_name = "djupkeep/tasks/htmx/list_refresh.html"
-
-    def get_queryset(self):
-        if not self.request.user.has_perm("djupkeep.add_task"):
-            qs = Task.objects.filter(
-                Q(maintainer_id=self.request.user.uuid),
-                Q(check_date=None) | ~Q(notes=""),
-            )
-        else:
-            qs = Task.objects.filter(Q(check_date=None) | ~Q(notes=""))
-        return qs
 
 
 class TaskCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, TemplateView):

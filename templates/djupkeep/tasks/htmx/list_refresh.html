@@ -29,3 +29,10 @@
     </td>
   </tr>
 {% endfor %}
+{% if page_obj.has_next %}
+  <tr
+    hx-get="{% url 'djupkeep:task_list_refresh' %}?page={{ page_obj.next_page_number }}"
+    hx-trigger="revealed"
+    hx-swap="outerHTML">
+  </tr>
+{% endif %}
