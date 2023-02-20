@@ -1,0 +1,23 @@
+{% load i18n %}
+
+<div class="alert alert-secondary alert-dismissible fade show" role="alert">
+  <div class="row">
+    <div class="col col-8">
+      <strong>{% trans "Index" %}</strong> -
+      <a class="link-primary"
+        title="{% trans 'Modify' %}"
+        href="#">
+        {% trans "Category name" %}
+      </a> - <em>{% trans "(This is just a sample, X to dismiss!)" %}</em>
+    </div>
+    <div class="col text-end">
+      {% trans "Activities" %} - {% trans "Elements" %}
+      <a class="btn btn-secondary btn-sm"
+        title="{% trans 'Add Activities and Elements' %}"
+        href="#">
+        <i class="fa fa-plus"></i>
+      </a>
+    </div>
+  </div>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>

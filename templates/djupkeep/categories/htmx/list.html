@@ -2,7 +2,7 @@
 
 <div
   class="card mx-auto"
-  style="max-width: 960px; margin-top: 60px" >
+  style="max-width: 960px; margin-top: 15px" >
   <div class="card-header">
     <h3>{% translate 'Categories' %}</h3>
   </div>
@@ -10,6 +10,7 @@
     <div id="cat-add" style="margin-bottom: 20px">
       {% include "djupkeep/categories/htmx/create_button.html" %}
     </div>
+    {% include "djupkeep/categories/includes/sample.html" %}
     {% if categories %}
       {% for category in categories %}
         <div class="row">

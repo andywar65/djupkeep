@@ -27,6 +27,7 @@
       {% endif %}
     </div>
     <div class="col text-end">
+      {{ category.activities.count }} - {{ category.elements.count }}
       <a class="btn btn-secondary btn-sm"
         title="{% trans 'Add Activities and Elements' %}"
         hx-get="{% url 'djupkeep:category_detail_related' pk=category.id %}"
