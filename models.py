@@ -416,6 +416,22 @@ class Task(models.Model):
 
 
 def create_tasks_and_generate_report():
+    # first check for inconsistent tasks (maybe we moved some categories)
+    inconsistent = 0
+    for task in Task.objects.filter(check_date=None).prefetch_related(
+        "element", "activity"
+    ):
+        # most common case, get rid of it immediately
+        if task.element.category == task.activity.category:
+            continue
+        descendants = task.activity.category.descendants()
+        cat_list = descendants.values_list("id", flat=True)
+        if task.element.category.id in cat_list:
+            continue
+        # task is inconsistent, we delete it
+        task.delete()
+        inconsistent += 1
+    # now let's generate consistent tasks
     number = 0
     for act in Activity.objects.all().prefetch_related("category"):
         descendants = act.category.descendants(include_self=True)
@@ -431,7 +447,9 @@ def create_tasks_and_generate_report():
                 task.due_date = now() + timedelta(days=int(act.frequency))
                 task.save()
                 number += 1
-    return _("Generated %(number)s task(s)") % {"number": str(number)}
+    return _(
+        "Generated %(number)s task(s). Deleted %(inconsistent)s inconsistent task(s)."
+    ) % {"number": str(number), "inconsistent": str(inconsistent)}
 
 
 def create_task_after_checked(checked):

@@ -7,6 +7,9 @@
       {{ task.activity }}
     </td>
     <td>
+      {{ task.activity.category }}
+    </td>
+    <td>
       <a class="link-primary"
         hx-get="{% url 'djupkeep:element_detail' pk=task.element.id %}"
         hx-target="#content"
