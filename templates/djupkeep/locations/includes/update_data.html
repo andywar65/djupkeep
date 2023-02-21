@@ -3,6 +3,7 @@
 {% if location.drawing %}
   <script id="line_data" type="application/json">{{ lines|geojsonfeature:"popupContent"|safe }}</script>
   <script id="block_data" type="application/json">{{ insertions|geojsonfeature:"popupContent"|safe }}</script>
+  {{ mapbox_token|json_script:"mapbox_token"}}
 {% else %}
   {{ location.get_image_path|json_script:"image_path" }}
   {{ location.get_image_size|json_script:"image_size" }}
