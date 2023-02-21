@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.forms import ModelChoiceField, ModelForm
 from django.utils.translation import gettext_lazy as _
 from leaflet.forms.widgets import LeafletWidget
@@ -13,7 +14,19 @@ User = get_user_model()
 class LocationCreateForm(ModelForm):
     class Meta:
         model = Location
-        fields = ["title", "intro", "image"]
+        fields = ["title", "intro", "drawing", "image"]
+
+    def clean(self):
+        cleaned_data = super().clean()
+        drw = cleaned_data.get("drawing")
+        img = cleaned_data.get("image")
+
+        if not drw and not img:
+            # One of two fields must exist.
+            raise ValidationError(
+                _("You must insert Drawing (DXF) or Plan (image)"),
+                code="no_drw_no_img",
+            )
 
 
 class LocationUpdateForm(ModelForm):
