@@ -20,9 +20,15 @@
                 </h4>
               </div>
               <div class="card-body">
-                <img class="card-img-top"
-                  src="{% version location.fb_image 'popup' %}"
-                  alt="{{ location.intro }}">
+                {% if location.fb_image %}
+                  <img class="card-img-top"
+                    src="{% version location.fb_image 'popup' %}"
+                    alt="{{ location.intro }}">
+                {% elif location.drawing.fb_image %}
+                  <img class="card-img-top"
+                    src="{% version location.drawing.fb_image 'popup' %}"
+                    alt="{{ location.intro }}">
+                {% endif %}
                 <p>
                   <em>{{ location.intro }}</em>
                 </p>
