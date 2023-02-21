@@ -1,5 +1,12 @@
-{{ location.get_image_path|json_script:"image_path" }}
-{{ location.get_image_size|json_script:"image_size" }}
-{{ location.origin.coordinates|json_script:"origin_coords" }}
-{{ location.length.coordinates.1|json_script:"unit_coords" }}
-{{ location.meters|json_script:"length_meters" }}
+{% load geojson_tags %}
+
+{% if location.drawing %}
+  <script id="line_data" type="application/json">{{ lines|geojsonfeature:"popupContent"|safe }}</script>
+  <script id="block_data" type="application/json">{{ insertions|geojsonfeature:"popupContent"|safe }}</script>
+{% else %}
+  {{ location.get_image_path|json_script:"image_path" }}
+  {{ location.get_image_size|json_script:"image_size" }}
+  {{ location.origin.coordinates|json_script:"origin_coords" }}
+  {{ location.length.coordinates.1|json_script:"unit_coords" }}
+  {{ location.meters|json_script:"length_meters" }}
+{% endif %}

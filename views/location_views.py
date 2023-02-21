@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import Http404
 from django.shortcuts import get_object_or_404
@@ -39,6 +40,11 @@ class LocationDetailView(PermissionRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        if self.object.drawing:
+            context["mapbox_token"] = settings.MAPBOX_TOKEN
+            context["lines"] = self.object.drawing.related_layers.filter(is_block=False)
+            # id_list = context["lines"].values_list("id", flat=True)
+            # context["insertions"] = Insertion.objects.filter(layer_id__in=id_list)
         context["elements"] = self.object.elements.all().prefetch_related("category")
         cat_list = context["elements"].values_list("category_id", flat=True)
         # TODO see if we can avoid next query as we use prefetch_related above
