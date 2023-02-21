@@ -61,7 +61,7 @@ function map_init(map, options) {
       let layer = marker.properties.popupContent.layer
       L.geoJson(marker, {onEachFeature: onEachFeature}).addTo(window[layer]);
     }
-    map.fitBounds(L.geoJson(collection).getBounds(), {padding: [30,30]});
+    // map.fitBounds(L.geoJson(collection).getBounds(), {padding: [30,30]});
     collection = JSON.parse(document.getElementById("line_data").textContent);
     if (collection !== null) {
       for (line of collection.features) {
@@ -69,6 +69,7 @@ function map_init(map, options) {
         L.geoJson(line, {style: setLineStyle, onEachFeature: onEachFeature}).addTo(map);
       }
     }
+    map.fitBounds(L.geoJson(collection).getBounds(), {padding: [30,30]});
     collection = JSON.parse(document.getElementById("block_data").textContent);
     if (collection !== null) {
       for (block of collection.features) {
