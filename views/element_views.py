@@ -119,17 +119,20 @@ class ElementCreateCategorizedView(PermissionRequiredMixin, CreateView):
     model = Element
     template_name = "djupkeep/elements/create_categorized.html"
 
-    def get_initial(self):
-        initial = super(ElementCreateCategorizedView, self).get_initial()
+    def setup(self, request, *args, **kwargs):
+        super(ElementCreateCategorizedView, self).setup(request, *args, **kwargs)
         self.category = get_object_or_404(Category, id=self.kwargs["pk"])
-        initial["category"] = self.category.id
         if "location" in self.request.GET:
             self.location = get_object_or_404(Location, id=self.request.GET["location"])
-            initial["location"] = self.location.id
+
+    def get_initial(self):
+        initial = super(ElementCreateCategorizedView, self).get_initial()
+        initial["category"] = self.category.id
+        initial["location"] = self.location.id
         return initial
 
     def get_form_class(self):
-        if self.object.location.drawing:
+        if self.location.drawing:
             return ElementUpdateDrawingForm
         return ElementUpdateForm
 
