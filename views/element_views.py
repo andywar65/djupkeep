@@ -86,14 +86,17 @@ class ElementCreateLocatedView(PermissionRequiredMixin, CreateView):
     model = Element
     template_name = "djupkeep/elements/create_located.html"
 
+    def setup(self, request, *args, **kwargs):
+        super(ElementCreateLocatedView, self).setup(request, *args, **kwargs)
+        self.location = get_object_or_404(Location, id=self.kwargs["pk"])
+
     def get_initial(self):
         initial = super(ElementCreateLocatedView, self).get_initial()
-        self.location = get_object_or_404(Location, id=self.kwargs["pk"])
         initial["location"] = self.location.id
         return initial
 
     def get_form_class(self):
-        if self.object.location.drawing:
+        if self.location.drawing:
             return ElementUpdateDrawingForm
         return ElementUpdateForm
 
