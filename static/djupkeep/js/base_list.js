@@ -69,7 +69,7 @@ function map_init(map, options) {
         L.geoJson(line, {style: setLineStyle, onEachFeature: onEachFeature}).addTo(map);
       }
     }
-    map.fitBounds(L.geoJson(collection).getBounds(), {padding: [30,30]});
+    map.fitBounds(L.geoJson(collection).getBounds(), {padding: [10,10]});
     collection = JSON.parse(document.getElementById("block_data").textContent);
     if (collection !== null) {
       for (block of collection.features) {

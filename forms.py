@@ -90,6 +90,25 @@ class ElementUpdateForm(ModelForm):
         js = ("djupkeep/js/location_update.js",)
 
 
+class ElementUpdateDrawingForm(ModelForm):
+    category = TreeNodeChoiceField(queryset=Category.objects.all(), required=True)
+
+    class Meta:
+        model = Element
+        fields = ["location", "category", "intro", "image", "geom"]
+        labels = {"image": _("Upload / change image")}
+        widgets = {
+            "geom": LeafletWidget(
+                attrs={
+                    "geom_type": "Point",
+                }
+            )
+        }
+
+    class Media:
+        js = ("djupkeep/js/element_location.js",)
+
+
 class ActivityCreateForm(ModelForm):
     class Meta:
         model = Activity

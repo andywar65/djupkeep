@@ -10,8 +10,13 @@ from django.views.generic import (  # ; ; RedirectView,
     ListView,
     UpdateView,
 )
+from djeocad.models import Insertion
 
-from djupkeep.forms import ElementCreateForm, ElementUpdateForm
+from djupkeep.forms import (
+    ElementCreateForm,
+    ElementUpdateDrawingForm,
+    ElementUpdateForm,
+)
 from djupkeep.models import Category, Element, Location
 
 from .location_views import HxPageTemplateMixin
@@ -79,7 +84,6 @@ class ElementCreateView(PermissionRequiredMixin, HxPageTemplateMixin, CreateView
 class ElementCreateLocatedView(PermissionRequiredMixin, CreateView):
     permission_required = "djupkeep.add_element"
     model = Element
-    form_class = ElementUpdateForm
     template_name = "djupkeep/elements/create_located.html"
 
     def get_initial(self):
@@ -88,9 +92,20 @@ class ElementCreateLocatedView(PermissionRequiredMixin, CreateView):
         initial["location"] = self.location.id
         return initial
 
+    def get_form_class(self):
+        if self.object.location.drawing:
+            return ElementUpdateDrawingForm
+        return ElementUpdateForm
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["location"] = self.location
+        if self.location.drawing:
+            context["lines"] = self.location.drawing.related_layers.filter(
+                is_block=False
+            )
+            id_list = context["lines"].values_list("id", flat=True)
+            context["insertions"] = Insertion.objects.filter(layer_id__in=id_list)
         return context
 
     def get_success_url(self):
@@ -102,7 +117,6 @@ class ElementCreateLocatedView(PermissionRequiredMixin, CreateView):
 class ElementCreateCategorizedView(PermissionRequiredMixin, CreateView):
     permission_required = "djupkeep.add_element"
     model = Element
-    form_class = ElementUpdateForm
     template_name = "djupkeep/elements/create_categorized.html"
 
     def get_initial(self):
@@ -114,10 +128,21 @@ class ElementCreateCategorizedView(PermissionRequiredMixin, CreateView):
             initial["location"] = self.location.id
         return initial
 
+    def get_form_class(self):
+        if self.object.location.drawing:
+            return ElementUpdateDrawingForm
+        return ElementUpdateForm
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["category"] = self.category
         context["location"] = self.location
+        if self.location.drawing:
+            context["lines"] = self.location.drawing.related_layers.filter(
+                is_block=False
+            )
+            id_list = context["lines"].values_list("id", flat=True)
+            context["insertions"] = Insertion.objects.filter(layer_id__in=id_list)
         return context
 
     def get_success_url(self):
@@ -137,13 +162,23 @@ class ElementCreateCategorizedView(PermissionRequiredMixin, CreateView):
 class ElementUpdateView(PermissionRequiredMixin, UpdateView):
     permission_required = "djupkeep.change_element"
     model = Element
-    form_class = ElementUpdateForm
     template_name = "djupkeep/elements/update.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["location"] = self.object.location
+        if self.object.location.drawing:
+            context["lines"] = self.object.location.drawing.related_layers.filter(
+                is_block=False
+            )
+            id_list = context["lines"].values_list("id", flat=True)
+            context["insertions"] = Insertion.objects.filter(layer_id__in=id_list)
         return context
+
+    def get_form_class(self):
+        if self.object.location.drawing:
+            return ElementUpdateDrawingForm
+        return ElementUpdateForm
 
     def get_success_url(self):
         return reverse(
