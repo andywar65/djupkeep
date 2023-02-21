@@ -55,6 +55,8 @@ class LocationCreateView(PermissionRequiredMixin, HxPageTemplateMixin, CreateVie
     template_name = "djupkeep/locations/htmx/create.html"
 
     def get_success_url(self):
+        if self.object.drawing:
+            return reverse("djupkeep:location_detail", kwargs={"pk": self.object.id})
         return reverse("djupkeep:location_change", kwargs={"pk": self.object.id})
 
 
@@ -62,8 +64,16 @@ class LocationUpdateView(PermissionRequiredMixin, UpdateView):
     permission_required = "djupkeep.change_location"
     model = Location
     context_object_name = "location"
-    form_class = LocationUpdateForm
-    template_name = "djupkeep/locations/update.html"
+
+    def get_form_class(self):
+        if self.object.drawing:
+            return LocationCreateForm
+        return LocationUpdateForm
+
+    def get_template_names(self):
+        if self.object.drawing:
+            return ["djupkeep/locations/update_drawing.html"]
+        return ["djupkeep/locations/update.html"]
 
     def get_success_url(self):
         return reverse("djupkeep:location_detail", kwargs={"pk": self.object.id})

@@ -1,0 +1,62 @@
+{% extends "base_menu.html" %}
+{% load bootstrap5 %}
+{% load i18n %}
+
+{% block content %}
+  <div class="card mx-auto" style="max-width: 480px; margin-top: 60px">
+    <div class="card-header">
+      <h4 class="card-title">
+        {% trans "Update location"%}: {{ location }}
+      </h4>
+    </div>
+    <form method="POST" action="" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="card-body">
+        {% if location.elements.exists %}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {% blocktrans %}
+              Warning: some elements are already attached to this location, so if you change or
+              dismiss Drawing, their position may be shifted and you will have to restore it manually.
+            {% endblocktrans %}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endif %}
+        {% bootstrap_form form %}
+      </div>
+      <div class="card-footer">
+        <input class="btn btn-primary"
+          style="margin-bottom: 15px"
+          type="submit"
+          value="{% trans 'Update' %}" />
+        <div class="dropdown">
+          <a class="btn btn-secondary dropdown-toggle"
+            href="#"
+            role="button"
+            id="dropdownMenuLink"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+            {% trans "Other actions" %}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li>
+              <a class="dropdown-item"
+                href="{% url 'djupkeep:location_detail' pk=location.id %}">
+                {% trans "View location" %}
+              </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item"
+                hx-get="{% url 'djupkeep:location_delete' pk=location.id %}"
+                hx-target="#content"
+                hx-confirm="{% trans 'Are you sure you want to delete location' %} {{ location.title }}"
+                hx-push-url="{% url 'djupkeep:location_list' %}">
+                {% trans "Delete location" %}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </form>
+  </div>
+{% endblock content %}
