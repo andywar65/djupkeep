@@ -106,7 +106,7 @@ class ElementUpdateDrawingForm(ModelForm):
         }
 
     class Media:
-        js = ("djupkeep/js/element_location.js",)
+        js = ("djupkeep/js/element_update.js",)
 
 
 class ActivityCreateForm(ModelForm):
