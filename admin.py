@@ -5,7 +5,7 @@ from .models import Activity, Category, Element, Location, Task
 
 
 class LocationAdmin(LeafletGeoAdmin):
-    list_display = ("title", "intro")
+    list_display = ("title", "intro", "drawing")
     exclude = ("image", "origin")
 
 

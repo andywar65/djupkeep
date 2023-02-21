@@ -7,6 +7,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
+from djeocad.models import Drawing
 from djgeojson.fields import LineStringField, PointField
 from filebrowser.base import FileObject
 from filebrowser.fields import FileBrowseField
@@ -31,6 +32,14 @@ class Location(models.Model):
         max_length=50,
     )
     intro = models.CharField(_("Description"), max_length=200, null=True)
+    drawing = models.ForeignKey(
+        Drawing,
+        on_delete=models.SET_NULL,
+        related_name="locations",
+        verbose_name=_("Drawing"),
+        null=True,
+        blank=True,
+    )
     fb_image = FileBrowseField(
         _("Plan"),
         max_length=200,
