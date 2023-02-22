@@ -10,21 +10,18 @@ from djupkeep.models import (
     Task,
     create_task_after_checked,
     create_tasks_and_generate_report,
+    get_tasks_by_year_month,
 )
 
 from .category_views import HxOnlyTemplateMixin
+from .location_views import HxPageTemplateMixin
 
 
-class TaskListView(PermissionRequiredMixin, ListView):
+class TaskListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
     permission_required = "djupkeep.view_task"
     model = Task
     paginate_by = 20
     template_name = "djupkeep/tasks/htmx/list.html"
-
-    def get_template_names(self):
-        if not self.request.htmx:
-            return [self.template_name.replace("htmx/", "")]
-        return [self.template_name]
 
     def get_queryset(self):
         if not self.request.user.has_perm("djupkeep.add_task"):
@@ -90,3 +87,14 @@ class TaskCheckView(PermissionRequiredMixin, HxOnlyTemplateMixin, UpdateView):
 
     def get_success_url(self):
         return reverse("djupkeep:task_detail", kwargs={"pk": self.object.id})
+
+
+class TaskCalendarView(PermissionRequiredMixin, HxPageTemplateMixin, TemplateView):
+    permission_required = "djupkeep.view_task"
+    template_name = "djupkeep/tasks/htmx/calendar.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["year"] = now().year
+        context["tasks"] = get_tasks_by_year_month()
+        return context
