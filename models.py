@@ -468,3 +468,28 @@ def create_task_after_checked(checked):
     task.maintainer = checked.maintainer
     task.due_date = now() + timedelta(days=int(checked.activity.frequency))
     task.save()
+
+
+def get_tasks_by_year_month():
+    year = now().year
+    month = now().month
+    years = []
+    for y in range(year - 1, year + 2):
+        months = []
+        for m in range(1, 13):
+            warning = False
+            current = False
+            tasks = Task.objects.filter(due_date__year=y, due_date__month=m)
+            due_tasks = tasks.filter(check_date=None)
+            checked = tasks.exclude(check_date=None)
+            if not warning and due_tasks.filter(due_date__lt=now().date()).exists():
+                warning = True
+            if not warning and checked.exclude(notes=None).exists():
+                warning = True
+            if y == year and m == month:
+                current = True
+            months.append(
+                {"number": tasks.count(), "warning": warning, "current": current}
+            )
+        years.append(months)
+    return years
