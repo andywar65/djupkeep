@@ -17,7 +17,7 @@ function map_init(map, options) {
     const base_map = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        maxZoom: 19,
+        maxZoom: 23,
       });
 
     const mapbox_token = JSON.parse(document.getElementById("mapbox_token").textContent);
@@ -25,7 +25,7 @@ function map_init(map, options) {
     const sat_map = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
       {
         attribution: 'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 19,
+        maxZoom: 23,
         tileSize: 512,
         zoomOffset: -1,
         id: "mapbox/satellite-v9",
