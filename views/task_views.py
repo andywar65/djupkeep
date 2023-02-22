@@ -97,3 +97,10 @@ class TaskCalendarView(PermissionRequiredMixin, HxPageTemplateMixin, TemplateVie
         context = super().get_context_data(**kwargs)
         context["tasks"] = get_tasks_by_year_month()
         return context
+
+
+class TaskCalendarRefreshView(TaskCalendarView, HxOnlyTemplateMixin):
+    """This view is triggered when the list of tasks is changed.
+    It subclasses TaskCalendarView, replacing template and forcing use of HTMX"""
+
+    template_name = "djupkeep/tasks/htmx/calendar_refresh.html"

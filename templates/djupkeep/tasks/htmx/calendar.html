@@ -32,7 +32,7 @@
         </tr>
       </thead>
       <tbody id="task-list"
-        hx-get="#"
+        hx-get="{% url 'djupkeep:task_calendar_refresh' %}"
         hx-trigger="refreshTaskList from:body">
         {% include "djupkeep/tasks/htmx/calendar_refresh.html" %}
       </tbody>
