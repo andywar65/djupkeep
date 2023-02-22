@@ -1,8 +1,8 @@
 {% for year in tasks %}
   <tr>
-    <td>
+    <th scope="row">
       {{ year.year }}
-    </td>
+    </th>
     {% for month in year.months %}
       <td{% if month.warning %} class="table-danger"{% endif %}>
         {% if month.current %}
