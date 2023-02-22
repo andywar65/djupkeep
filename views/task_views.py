@@ -95,6 +95,5 @@ class TaskCalendarView(PermissionRequiredMixin, HxPageTemplateMixin, TemplateVie
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["year"] = now().year
         context["tasks"] = get_tasks_by_year_month()
         return context

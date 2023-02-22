@@ -491,5 +491,5 @@ def get_tasks_by_year_month():
             months.append(
                 {"number": tasks.count(), "warning": warning, "current": current}
             )
-        years.append(months)
+        years.append({"year": y, "months": months})
     return years

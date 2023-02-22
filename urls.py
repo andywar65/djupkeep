@@ -52,6 +52,7 @@ from .views.maintainer_views import (
     MaintainerListView,
 )
 from .views.task_views import (
+    TaskCalendarView,
     TaskCheckView,
     TaskCreateView,
     TaskDetailView,
@@ -230,6 +231,11 @@ urlpatterns = [
         "task/list/refresh/",
         TaskListRefreshView.as_view(),
         name="task_list_refresh",
+    ),
+    path(
+        _("task/calendar/"),
+        TaskCalendarView.as_view(),
+        name="task_calendar",
     ),
     path(
         "task/add/",
