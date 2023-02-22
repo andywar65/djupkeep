@@ -42,7 +42,9 @@ class LocationDetailView(PermissionRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.object.drawing:
-            context["mapbox_token"] = settings.MAPBOX_TOKEN
+            context["mapbox_token"] = None
+            if hasattr(settings, "MAPBOX_TOKEN"):
+                context["mapbox_token"] = settings.MAPBOX_TOKEN
             context["lines"] = self.object.drawing.related_layers.filter(is_block=False)
             id_list = context["lines"].values_list("id", flat=True)
             context["insertions"] = Insertion.objects.filter(layer_id__in=id_list)
