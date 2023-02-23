@@ -434,21 +434,27 @@ def create_tasks_and_generate_report():
         "element", "activity"
     ):
         # most common case, get rid of it immediately
-        if task.element.category == task.activity.category:
-            continue
-        descendants = task.activity.category.descendants()
-        cat_list = descendants.values_list("id", flat=True)
-        if task.element.category.id in cat_list:
-            continue
+        if not task.activity.extend:
+            if task.element.category == task.activity.category:
+                continue
+        # the activity is extended to category descendants
+        else:
+            descendants = task.activity.category.descendants()
+            cat_list = descendants.values_list("id", flat=True)
+            if task.element.category.id in cat_list:
+                continue
         # task is inconsistent, we delete it
         task.delete()
         inconsistent += 1
     # now let's generate consistent tasks
     number = 0
     for act in Activity.objects.all().prefetch_related("category"):
-        descendants = act.category.descendants(include_self=True)
-        cat_list = descendants.values_list("id", flat=True)
-        elements = Element.objects.filter(category_id__in=cat_list)
+        if not act.extend:
+            elements = Element.objects.filter(category_id=act.category.id)
+        else:
+            descendants = act.category.descendants()
+            cat_list = descendants.values_list("id", flat=True)
+            elements = Element.objects.filter(category_id__in=cat_list)
         for elm in elements:
             try:
                 Task.objects.get(activity_id=act.id, element_id=elm.id, check_date=None)
