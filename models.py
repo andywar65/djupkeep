@@ -497,6 +497,8 @@ def get_tasks_by_year_month():
             )
             if not warning and due_tasks.filter(due_date__lt=now().date()).exists():
                 warning = True
+            if not warning and due_tasks.filter(maintainer_id=None).exists():
+                warning = True
             if not warning and checked.exists():
                 warning = True
             if y == year and m == month:
