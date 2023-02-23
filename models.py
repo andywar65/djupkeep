@@ -474,12 +474,13 @@ def get_tasks_by_year_month():
     year = now().year
     month = now().month
     years = []
+    all_tasks = Task.objects.all()
     for y in range(year - 1, year + 2):
         months = []
         for m in range(1, 13):
             warning = False
             current = False
-            tasks = Task.objects.filter(due_date__year=y, due_date__month=m)
+            tasks = all_tasks.filter(due_date__year=y, due_date__month=m)
             due_tasks = tasks.filter(check_date=None)
             checked = tasks.exclude(check_date=None)
             if not warning and due_tasks.filter(due_date__lt=now().date()).exists():
