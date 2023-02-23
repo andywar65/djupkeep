@@ -225,7 +225,7 @@ class Category(TreeNode):
     def has_ancestor_with_activities(self):
         ancestors = self.ancestors()
         for ancestor in ancestors:
-            if ancestor.activities.exists():
+            if ancestor.activities.filter(extend=True).exists():
                 return True
         return False
 

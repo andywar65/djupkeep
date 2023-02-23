@@ -22,12 +22,6 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         {% endif %}
-        {% if category.children.exists %}
-          <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            {% trans "Warning: activities created here will be inherited by all subcategories" %}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-        {% endif %}
         {% include "djupkeep/activities/htmx/list.html" %}
       </div>
       <div class="col">
