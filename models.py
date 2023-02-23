@@ -489,17 +489,24 @@ def get_tasks_by_year_month():
         for m in range(1, 13):
             warning = False
             current = False
-            tasks = all_tasks.filter(due_date__year=y, due_date__month=m)
-            due_tasks = tasks.filter(check_date=None)
-            checked = tasks.exclude(check_date=None)
+            due_tasks = all_tasks.filter(
+                due_date__year=y, due_date__month=m, check_date=None
+            )
+            checked = all_tasks.filter(check_date__year=y, check_date__month=m).exclude(
+                notes=""
+            )
             if not warning and due_tasks.filter(due_date__lt=now().date()).exists():
                 warning = True
-            if not warning and checked.exclude(notes=None).exists():
+            if not warning and checked.exists():
                 warning = True
             if y == year and m == month:
                 current = True
             months.append(
-                {"number": tasks.count(), "warning": warning, "current": current}
+                {
+                    "number": due_tasks.count() + checked.count(),
+                    "warning": warning,
+                    "current": current,
+                }
             )
         years.append({"year": y, "months": months})
     return years

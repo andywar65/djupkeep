@@ -1,6 +1,5 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.db.models import Q
 from django.urls import reverse
 from django.utils.timezone import now
 from django.views.generic import DetailView, ListView, TemplateView, UpdateView
@@ -24,13 +23,21 @@ class TaskListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
     template_name = "djupkeep/tasks/htmx/list.html"
 
     def get_queryset(self):
-        if not self.request.user.has_perm("djupkeep.add_task"):
-            qs = Task.objects.filter(
-                Q(maintainer_id=self.request.user.uuid),
-                Q(check_date=None) | ~Q(notes=""),
+        if "year" in self.request.GET:
+            year = self.request.GET["year"]
+            month = self.request.GET["month"]
+            qs1 = Task.objects.filter(
+                check_date=None, due_date__year=year, due_date__month=month
+            )
+            qs2 = Task.objects.exclude(notes="").filter(
+                check_date__year=year, check_date__month=month
             )
         else:
-            qs = Task.objects.filter(Q(check_date=None) | ~Q(notes=""))
+            qs1 = Task.objects.filter(check_date=None)
+            qs2 = Task.objects.exclude(notes="")
+        qs = qs1 | qs2
+        if not self.request.user.has_perm("djupkeep.add_task"):
+            qs.filter(maintainer_id=self.request.user.uuid)
         return qs
 
 
