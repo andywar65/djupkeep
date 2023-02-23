@@ -314,6 +314,7 @@ class Activity(models.Model):
         ("120", _("Four-monthly")),
         ("183", _("Biannual")),
         ("365", _("Annual")),
+        ("730", _("Every two years")),
     ]
 
     category = models.ForeignKey(
@@ -333,6 +334,7 @@ class Activity(models.Model):
         choices=FREQUENCY,
         default="30",
     )
+    extend = models.BooleanField(_("Apply to subcategories only"), default=False)
 
     class Meta:
         verbose_name = _("Activity")
@@ -386,6 +388,7 @@ class Task(models.Model):
     due_date = models.DateField(_("Due date"), null=True)
     check_date = models.DateTimeField(_("Check date"), null=True, blank=True)
     notes = models.TextField(_("Notes"), null=True, blank=True)
+    read = models.BooleanField(_("Notes have been read"), default=False)
 
     class Meta:
         verbose_name = _("Task")
