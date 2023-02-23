@@ -5,10 +5,23 @@
     </th>
     {% for month in year.months %}
       <td{% if month.warning %} class="table-danger"{% endif %}>
-        {% if month.current %}
-          <strong>{{ month.number }}</strong>
+        {% if month.number %}
+          <a class="link-primary"
+            hx-get="{% url 'djupkeep:task_list' %}?year={{ year.year }}&month={{ forloop.counter }}"
+            hx-target="#content"
+            hx-push-url="true">
+            {% if month.current %}
+              <strong>{{ month.number }}</strong>
+            {% else %}
+              {{ month.number }}
+            {% endif %}
+          </a>
         {% else %}
-          {{ month.number }}
+          {% if month.current %}
+            <strong>{{ month.number }}</strong>
+          {% else %}
+            {{ month.number }}
+          {% endif %}
         {% endif %}
       </td>
     {% endfor %}
