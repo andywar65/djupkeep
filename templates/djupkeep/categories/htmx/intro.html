@@ -76,7 +76,11 @@
           <div class="card-body">
             <h5 class="card-title">
               <a class="btn btn-primary btn-lg"
-                hx-get="{% url 'djupkeep:task_calendar' %}"
+                {% if perms.djupkeep.add_task %}
+                  hx-get="{% url 'djupkeep:task_calendar' %}"
+                {% else %}
+                  hx-get="{% url 'djupkeep:task_list' %}"
+                {% endif %}
                 hx-target="#content"
                 hx-push-url="true">
                 {% trans 'Tasks' %} <i class="fa fa-check-square-o fa-lg"></i>

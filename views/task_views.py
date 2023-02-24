@@ -97,7 +97,7 @@ class TaskCheckView(PermissionRequiredMixin, HxOnlyTemplateMixin, UpdateView):
 
 
 class TaskCalendarView(PermissionRequiredMixin, HxPageTemplateMixin, TemplateView):
-    permission_required = "djupkeep.view_task"
+    permission_required = "djupkeep.add_task"
     template_name = "djupkeep/tasks/htmx/calendar.html"
 
     def get_context_data(self, **kwargs):
