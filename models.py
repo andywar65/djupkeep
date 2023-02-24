@@ -485,7 +485,9 @@ def get_tasks_by_year_month():
     years = []
     for y in range(year - 1, year + 2):
         year_due_tasks = Task.objects.filter(due_date__year=y, check_date=None)
-        year_checked = Task.objects.filter(check_date__year=y).exclude(notes="")
+        year_checked = Task.objects.filter(check_date__year=y, read=False).exclude(
+            notes=""
+        )
         months = []
         for m in range(1, 13):
             warning = False

@@ -30,9 +30,9 @@ class TaskListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
             qs1 = Task.objects.filter(
                 check_date=None, due_date__year=year, due_date__month=month
             )
-            qs2 = Task.objects.exclude(notes="").filter(
-                check_date__year=year, check_date__month=month
-            )
+            qs2 = Task.objects.filter(
+                check_date__year=year, check_date__month=month, read=False
+            ).exclude(notes="")
         else:
             qs1 = Task.objects.filter(check_date=None)
             qs2 = Task.objects.exclude(notes="")
