@@ -483,32 +483,39 @@ def get_tasks_by_year_month():
     year = now().year
     month = now().month
     years = []
-    all_tasks = Task.objects.all()
     for y in range(year - 1, year + 2):
+        year_due_tasks = Task.objects.filter(due_date__year=y, check_date=None)
+        year_checked = Task.objects.filter(check_date__year=y).exclude(notes="")
         months = []
         for m in range(1, 13):
             warning = False
             current = False
-            due_tasks = all_tasks.filter(
-                due_date__year=y, due_date__month=m, check_date=None
-            )
-            checked = all_tasks.filter(check_date__year=y, check_date__month=m).exclude(
-                notes=""
-            )
-            if not warning and due_tasks.filter(due_date__lt=now().date()).exists():
-                warning = True
-            if not warning and due_tasks.filter(maintainer_id=None).exists():
-                warning = True
-            if not warning and checked.exists():
-                warning = True
             if y == year and m == month:
                 current = True
-            months.append(
-                {
-                    "number": due_tasks.count() + checked.count(),
-                    "warning": warning,
-                    "current": current,
-                }
-            )
+            if year_due_tasks or year_checked:
+                due_tasks = year_due_tasks.filter(due_date__month=m)
+                checked = year_checked.filter(check_date__month=m)
+                if due_tasks:
+                    if due_tasks.filter(due_date__lt=now().date()):
+                        warning = True
+                    if not warning and due_tasks.filter(maintainer_id=None):
+                        warning = True
+                if not warning and checked:
+                    warning = True
+                months.append(
+                    {
+                        "number": due_tasks.count() + checked.count(),
+                        "warning": warning,
+                        "current": current,
+                    }
+                )
+            else:
+                months.append(
+                    {
+                        "number": 0,
+                        "warning": False,
+                        "current": current,
+                    }
+                )
         years.append({"year": y, "months": months})
     return years
