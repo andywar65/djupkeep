@@ -5,11 +5,15 @@
     <div class="col col-10">
       <strong>{{ category.get_punctuated_index }}</strong> -
       <a class="link-primary"
-        title="{% trans 'Modify' %}"
-        hx-get="{% url 'djupkeep:category_update' pk=category.id %}"
-        hx-target="#cat-{{ category.id }}">
+        title="{% trans 'Add Activities and Elements' %}"
+        hx-get="{% url 'djupkeep:category_detail_related' pk=category.id %}"
+        hx-target="#content"
+        hx-push-url="true">
         {{ category.title }}
-      </a> - <em>{{ category.intro }}</em>
+      </a> - <em>{{ category.intro }}</em> -
+      ({{ category.activities.count }} / {{ category.elements.count }})
+    </div>
+    <div class="col text-end">
       {% if category.get_previous_sibling %}
         <a class="link-primary"
           title="{% trans 'Move up' %}"
@@ -25,15 +29,11 @@
           <i class="fa fa-arrow-down"></i>
         </a>
       {% endif %}
-    </div>
-    <div class="col text-end">
-      {{ category.activities.count }} - {{ category.elements.count }}
-      <a class="btn btn-secondary btn-sm"
-        title="{% trans 'Add Activities and Elements' %}"
-        hx-get="{% url 'djupkeep:category_detail_related' pk=category.id %}"
-        hx-target="#content"
-        hx-push-url="true">
-        <i class="fa fa-plus"></i>
+      <a class="btn btn-primary btn-sm"
+        title="{% trans 'Modify' %}"
+        hx-get="{% url 'djupkeep:category_update' pk=category.id %}"
+        hx-target="#cat-{{ category.id }}">
+        <i class="fa fa-pencil"></i>
       </a>
     </div>
   </div>

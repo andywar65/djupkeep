@@ -2,20 +2,28 @@
 
 <div class="alert alert-secondary alert-dismissible fade show" role="alert">
   <div class="row">
-    <div class="col col-8">
+    <div class="col col-10">
       <strong>{% trans "Index" %}</strong> -
       <a class="link-primary"
-        title="{% trans 'Modify' %}"
-        href="#">
-        {% trans "Category name" %}
-      </a> - <em>{% trans "(This is just a sample, X to dismiss!)" %}</em>
-    </div>
-    <div class="col text-end">
-      {% trans "Activities" %} - {% trans "Elements" %}
-      <a class="btn btn-secondary btn-sm"
         title="{% trans 'Add Activities and Elements' %}"
         href="#">
-        <i class="fa fa-plus"></i>
+        {% trans "Category name" %}
+      </a> - <em>{% trans "This is just a sample, X to dismiss!" %}</em> -
+      ({% trans "Activities" %} / {% trans "Elements" %})
+    </div>
+    <div class="col text-end">
+      <a class="link-primary"
+        title="{% trans 'Move up' %}"
+        href="#">
+        <i class="fa fa-arrow-up"></i></a>
+      <a class="link-primary"
+        title="{% trans 'Move down' %}"
+        href="#">
+        <i class="fa fa-arrow-down"></i></a>
+      <a class="btn btn-primary btn-sm"
+        title="{% trans 'Modify' %}"
+        href="#">
+        <i class="fa fa-pencil"></i>
       </a>
     </div>
   </div>
