@@ -8,39 +8,28 @@
     <div class="card-body">
       <h5>{{ category.title }}</h5>
       {% bootstrap_form form %}
-      <button class="btn btn-primary" type="submit" style="margin-bottom: 15px">
-        {% trans "Update" %}
-        <span class="htmx-indicator spinner-border spinner-border-sm"></span>
-      </button>
-      <div class="dropdown">
-        <a class="btn btn-secondary dropdown-toggle"
-          href="#"
-          role="button"
-          id="dropdownMenuLink"
-          data-bs-toggle="dropdown"
-          aria-expanded="false">
-          {% trans "Other actions" %}
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <li>
-            <a class="dropdown-item"
-              hx-get="{% url 'djupkeep:category_detail' pk=category.id %}"
-              hx-target="#cat-{{ category.id }}">
-              {% trans 'Dismiss' %}
-            </a>
-          </li>
-          <li><hr class="dropdown-divider"></li>
-          <li>
-            <a class="dropdown-item"
-              hx-get="{% url 'djupkeep:category_delete' pk=category.id %}"
-              hx-target="#category-list"
-              hx-confirm="{% trans 'Are you sure you want to delete category' %} {{ category.title }}">
-              {% trans "Delete category" %}
-            </a>
-          </li>
-        </ul>
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary" type="submit">
+            {% trans "Update" %}
+            <span class="htmx-indicator spinner-border spinner-border-sm"></span>
+          </button>
+          <button class="btn-close"
+            title="{% trans 'Dismiss' %}"
+            hx-get="{% url 'djupkeep:category_detail' pk=category.id %}"
+            hx-target="#cat-{{ category.id }}">
+          </button>
+        </div>
+        <div class="col text-end">
+          <button class="btn btn-danger"
+            title="{% trans "Delete category" %}"
+            hx-get="{% url 'djupkeep:category_delete' pk=category.id %}"
+            hx-target="#category-list"
+            hx-confirm="{% trans 'Are you sure you want to delete category' %} {{ category.title }}">
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
       </div>
     </div>
-
   </form>
 </div>
