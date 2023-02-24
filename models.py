@@ -404,6 +404,8 @@ class Task(models.Model):
         return _("Task") + " - " + str(self.id)
 
     def due_date_color(self):
+        if self.check_date:
+            return None
         if self.due_date < now().date():
             return "red"
         if self.due_date < (now() + timedelta(days=7)).date():
