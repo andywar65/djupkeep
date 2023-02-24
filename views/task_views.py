@@ -29,13 +29,21 @@ class TaskListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
             month = self.request.GET["month"]
             qs1 = Task.objects.filter(
                 check_date=None, due_date__year=year, due_date__month=month
+            ).prefetch_related("activity", "element", "maintainer")
+            qs2 = (
+                Task.objects.filter(
+                    check_date__year=year, check_date__month=month, read=False
+                )
+                .exclude(notes="")
+                .prefetch_related("activity", "element", "maintainer")
             )
-            qs2 = Task.objects.filter(
-                check_date__year=year, check_date__month=month, read=False
-            ).exclude(notes="")
         else:
-            qs1 = Task.objects.filter(check_date=None)
-            qs2 = Task.objects.exclude(notes="")
+            qs1 = Task.objects.filter(check_date=None).prefetch_related(
+                "activity", "element", "maintainer"
+            )
+            qs2 = Task.objects.exclude(notes="").prefetch_related(
+                "activity", "element", "maintainer"
+            )
         qs = qs1 | qs2
         if not self.request.user.has_perm("djupkeep.add_task"):
             qs.filter(maintainer_id=self.request.user.uuid)
