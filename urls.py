@@ -59,6 +59,7 @@ from .views.task_views import (
     TaskDetailView,
     TaskListRefreshView,
     TaskListView,
+    TaskReadDetailView,
 )
 
 app_name = "djupkeep"
@@ -257,6 +258,11 @@ urlpatterns = [
         "task/<pk>/check/",
         TaskCheckView.as_view(),
         name="task_check",
+    ),
+    path(
+        "task/<pk>/read/",
+        TaskReadDetailView.as_view(),
+        name="task_read",
     ),
     path(
         _("maintainer/list/"),

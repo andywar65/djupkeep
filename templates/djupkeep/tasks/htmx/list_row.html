@@ -1,0 +1,43 @@
+{% load i18n %}
+
+<td>
+  <strong>
+    {{ task.id }}
+  </strong>
+</td>
+<td>
+  <a class="link-primary"
+    hx-get="{% url 'djupkeep:element_detail' pk=task.element.id %}"
+    hx-target="#content"
+    hx-push-url="true">
+    {{ task.element }}
+  </a>
+</td>
+<td>
+  {{ task.activity }}
+</td>
+<td>
+  {{ task.maintainer|default_if_none:"-" }}
+</td>
+<td
+  {% if task.due_date_color %}
+    style="color: {{ task.due_date_color }}"
+  {% endif %}>
+  {{ task.due_date }}
+</td>
+<td>
+  {{ task.check_date|default_if_none:"" }}
+</td>
+<td>
+  {% if task.read %}
+    <em>{{ task.notes|default_if_none:"" }}</em>
+  {% else %}
+    <a class="link-primary"
+      title="{% trans 'Mark as read' %}"
+      hx-get="{% url 'djupkeep:task_read' pk=task.id %}"
+      hx-target="#task-{{ task.id }}"
+      hx-confirm="{% trans 'Have you read the task message?' %}">
+      <em>{{ task.notes|default_if_none:"" }}</em>
+    </a>
+  {% endif %}
+</td>

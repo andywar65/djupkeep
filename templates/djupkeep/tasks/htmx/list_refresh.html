@@ -1,34 +1,6 @@
 {% for task in object_list %}
-  <tr>
-    <td><strong>
-      {{ task.id }}
-    </strong></td>
-    <td>
-      <a class="link-primary"
-        hx-get="{% url 'djupkeep:element_detail' pk=task.element.id %}"
-        hx-target="#content"
-        hx-push-url="true">
-        {{ task.element }}
-      </a>
-    </td>
-    <td>
-      {{ task.activity }}
-    </td>
-    <td>
-      {{ task.maintainer|default_if_none:"-" }}
-    </td>
-    <td
-      {% if task.due_date_color %}
-        style="color: {{ task.due_date_color }}"
-      {% endif %}>
-      {{ task.due_date }}
-    </td>
-    <td>
-      {{ task.check_date|default_if_none:"" }}
-    </td>
-    <td>
-      <em>{{ task.notes|default_if_none:"" }}</em>
-    </td>
+  <tr id="task-{{ task.id }}">
+    {% include "djupkeep/tasks/htmx/list_row.html" %}
   </tr>
 {% endfor %}
 {% if page_obj.has_next %}

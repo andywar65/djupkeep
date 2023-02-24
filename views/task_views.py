@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.http import Http404
 from django.urls import reverse
 from django.utils.timezone import now
 from django.views.generic import DetailView, ListView, TemplateView, UpdateView
@@ -111,3 +112,18 @@ class TaskCalendarRefreshView(TaskCalendarView, HxOnlyTemplateMixin):
     It subclasses TaskCalendarView, replacing template and forcing use of HTMX"""
 
     template_name = "djupkeep/tasks/htmx/calendar_refresh.html"
+
+
+class TaskReadDetailView(PermissionRequiredMixin, HxOnlyTemplateMixin, DetailView):
+    permission_required = "djupkeep.change_task"
+    model = Task
+    context_object_name = "task"
+    template_name = "djupkeep/tasks/htmx/list_row.html"
+
+    def get_object(self, queryset=None):
+        task = super(TaskReadDetailView, self).get_object(queryset=None)
+        if task.notes == "":
+            raise Http404("Task has no notes to read")
+        task.read = True
+        task.save()
+        return task

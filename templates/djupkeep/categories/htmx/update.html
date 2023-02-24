@@ -25,7 +25,7 @@
             title="{% trans "Delete category" %}"
             hx-get="{% url 'djupkeep:category_delete' pk=category.id %}"
             hx-target="#category-list"
-            hx-confirm="{% trans 'Are you sure you want to delete category' %} {{ category.title }}">
+            hx-confirm="{% trans 'Are you sure you want to delete category' %} {{ category.title }}?">
             <i class="fa fa-trash"></i>
           </button>
         </div>
