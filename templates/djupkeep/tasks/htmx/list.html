@@ -12,6 +12,11 @@
       hx-target="#task-report">
       {% trans "Create Tasks" %}
     </a>
+    <a class="btn btn-secondary"
+      hx-get="{% url 'djupkeep:task_calendar' %}"
+      hx-target="#content">
+      {% trans "Back to calendar" %}
+    </a>
     <div id="task-report"></div>
     <table class="table table-hover">
       <thead>
