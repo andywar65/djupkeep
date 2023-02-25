@@ -478,6 +478,8 @@ def create_tasks_and_generate_report():
 
 
 def create_task_after_checked(checked):
+    if checked.activity.once:
+        return
     task = Task()
     task.activity = checked.activity
     task.element = checked.element
