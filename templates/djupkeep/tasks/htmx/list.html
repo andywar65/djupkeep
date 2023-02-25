@@ -7,14 +7,10 @@
     <h3>{% translate 'Tasks' %}</h3>
   </div>
   <div class="card-body">
-    <a class="btn btn-success"
-      hx-get="{% url 'djupkeep:task_create' %}"
-      hx-target="#task-report">
-      {% trans "Create Tasks" %}
-    </a>
     <a class="btn btn-secondary"
       hx-get="{% url 'djupkeep:task_calendar' %}"
-      hx-target="#content">
+      hx-target="#content"
+      hx-push-url="true">
       {% trans "Back to calendar" %}
     </a>
     <div id="task-report"></div>
