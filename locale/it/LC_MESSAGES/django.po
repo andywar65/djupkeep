@@ -1,0 +1,716 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-25 18:24+0100\n"
+"PO-Revision-Date: 2023-02-25 19:15+0100\n"
+"Last-Translator: andywar65 <andy.war1965@gmail.com>\n"
+"Language-Team: \n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#: .\djupkeep\apps.py:13
+msgid "Upkeep Manager"
+msgstr "Manager del Piano"
+
+#: .\djupkeep\apps.py:17 .\djupkeep\forms.py:129 .\djupkeep\models.py:381
+#: .\djupkeep\templates\djupkeep\tasks\htmx\list.html:23
+#: .\djupkeep\views\maintainer_views.py:24
+#: .\djupkeep\views\maintainer_views.py:36
+#: .\djupkeep\views\maintainer_views.py:48
+#: .\djupkeep\views\maintainer_views.py:60
+#: .\djupkeep\views\maintainer_views.py:99
+msgid "Maintainer"
+msgstr "Manutentore"
+
+#: .\djupkeep\forms.py:27
+msgid "You must insert Drawing (DXF) or Plan (image)"
+msgstr "Inserire disegno (DXF) oppure planimetria (immagine)"
+
+#: .\djupkeep\forms.py:52
+msgid "Maintenance procedures by Category:"
+msgstr "Procedure di manutenzione per categoria:"
+
+#: .\djupkeep\forms.py:80 .\djupkeep\forms.py:99
+msgid "Upload / change image"
+msgstr "Carica / modifica immagine"
+
+#: .\djupkeep\forms.py:140
+msgid "Assign activities to maintainer by Category:"
+msgstr "Assegna attività al manutentore per categoria:"
+
+#: .\djupkeep\models.py:26 .\djupkeep\models.py:146 .\djupkeep\models.py:322
+msgid "Name"
+msgstr "Nome"
+
+#: .\djupkeep\models.py:29 .\djupkeep\models.py:149 .\djupkeep\models.py:242
+#: .\djupkeep\models.py:325
+#: .\djupkeep\templates\djupkeep\elements\htmx\list.html:15
+msgid "Description"
+msgstr "Descrizione"
+
+#: .\djupkeep\models.py:34
+msgid "Drawing"
+msgstr "Disegno"
+
+#: .\djupkeep\models.py:39 .\djupkeep\models.py:47
+msgid "Plan"
+msgstr "Planimetria"
+
+#: .\djupkeep\models.py:44 .\djupkeep\models.py:52
+msgid "Plan of your location"
+msgstr "Planimetria della location"
+
+#: .\djupkeep\models.py:54
+msgid "Origin of axis"
+msgstr "Origine degli assi"
+
+#: .\djupkeep\models.py:56
+msgid "Reference length on the map"
+msgstr "Misura di riferimento sulla mappa"
+
+#: .\djupkeep\models.py:61
+msgid "Reference length in meters"
+msgstr "Misura di riferimento in metri"
+
+#: .\djupkeep\models.py:69 .\djupkeep\models.py:234
+#: .\djupkeep\templates\djupkeep\elements\htmx\list.html:16
+#: .\djupkeep\templates\djupkeep\locations\detail.html:10
+msgid "Location"
+msgstr ""
+
+#: .\djupkeep\models.py:70
+#: .\djupkeep\templates\djupkeep\categories\htmx\intro.html:50
+#: .\djupkeep\templates\djupkeep\locations\htmx\list.html:6
+msgid "Locations"
+msgstr "Location"
+
+#: .\djupkeep\models.py:153 .\djupkeep\models.py:240 .\djupkeep\models.py:319
+#: .\djupkeep\templates\djupkeep\categories\htmx\detail_related.html:7
+#: .\djupkeep\templates\djupkeep\elements\htmx\list.html:13
+msgid "Category"
+msgstr "Categoria"
+
+#: .\djupkeep\models.py:154
+#: .\djupkeep\templates\djupkeep\categories\htmx\intro.html:20
+#: .\djupkeep\templates\djupkeep\categories\htmx\list.html:7
+msgid "Categories"
+msgstr "Categorie"
+
+#: .\djupkeep\models.py:218
+#, python-format
+msgid "Assigned %(number)s task(s)"
+msgstr "Assegnato/i %(number)s controllo/i"
+
+#: .\djupkeep\models.py:244 .\djupkeep\models.py:251
+msgid "Image"
+msgstr "Immagine"
+
+#: .\djupkeep\models.py:257
+msgid "Position"
+msgstr "Posizione"
+
+#: .\djupkeep\models.py:260 .\djupkeep\models.py:375
+#: .\djupkeep\templates\djupkeep\elements\htmx\detail.html:7
+#: .\djupkeep\templates\djupkeep\tasks\htmx\list.html:21
+msgid "Element"
+msgstr "Elemento"
+
+#: .\djupkeep\models.py:261
+#: .\djupkeep\templates\djupkeep\categories\htmx\intro.html:35
+#: .\djupkeep\templates\djupkeep\categories\includes\sample.html:12
+#: .\djupkeep\templates\djupkeep\elements\htmx\list.html:7
+msgid "Elements"
+msgstr "Elementi"
+
+#: .\djupkeep\models.py:305
+msgid "Weekly"
+msgstr "Settimanale"
+
+#: .\djupkeep\models.py:306
+msgid "Monthly"
+msgstr "Mensile"
+
+#: .\djupkeep\models.py:307
+msgid "Bimonthly"
+msgstr "Bimestrale"
+
+#: .\djupkeep\models.py:308
+msgid "Quarterly"
+msgstr "Trimestrale"
+
+#: .\djupkeep\models.py:309
+msgid "Four-monthly"
+msgstr "Quadrimestrale"
+
+#: .\djupkeep\models.py:310
+msgid "Biannual"
+msgstr "Semestrale"
+
+#: .\djupkeep\models.py:311
+msgid "Annual"
+msgstr "Annuale"
+
+#: .\djupkeep\models.py:312
+msgid "Every two years"
+msgstr "Ogni due anni"
+
+#: .\djupkeep\models.py:332
+msgid "Apply only once"
+msgstr "Applica solo una volta"
+
+#: .\djupkeep\models.py:334
+msgid "Apply to subcategories only"
+msgstr "Applica solo alle subcategorie"
+
+#: .\djupkeep\models.py:337 .\djupkeep\models.py:369
+#: .\djupkeep\templates\djupkeep\tasks\htmx\list.html:22
+msgid "Activity"
+msgstr "Attività"
+
+#: .\djupkeep\models.py:338
+#: .\djupkeep\templates\djupkeep\categories\htmx\intro.html:66
+#: .\djupkeep\templates\djupkeep\categories\includes\sample.html:12
+msgid "Activities"
+msgstr "Attività"
+
+#: .\djupkeep\models.py:385
+#: .\djupkeep\templates\djupkeep\tasks\htmx\check.html:15
+#: .\djupkeep\templates\djupkeep\tasks\htmx\list.html:24
+msgid "Due date"
+msgstr "Scadenza"
+
+#: .\djupkeep\models.py:386
+#: .\djupkeep\templates\djupkeep\tasks\htmx\list.html:25
+msgid "Check date"
+msgstr "Data di controllo"
+
+#: .\djupkeep\models.py:387
+#: .\djupkeep\templates\djupkeep\tasks\htmx\detail.html:25
+#: .\djupkeep\templates\djupkeep\tasks\htmx\list.html:26
+msgid "Notes"
+msgstr "Note"
+
+#: .\djupkeep\models.py:388
+msgid "Notes have been read"
+msgstr "Le note sono state recepite"
+
+#: .\djupkeep\models.py:391 .\djupkeep\models.py:401
+msgid "Task"
+msgstr "Controllo"
+
+#: .\djupkeep\models.py:392
+#: .\djupkeep\templates\djupkeep\categories\htmx\intro.html:86
+#: .\djupkeep\templates\djupkeep\tasks\htmx\list.html:7
+msgid "Tasks"
+msgstr "Controlli"
+
+#: .\djupkeep\models.py:397
+msgid "Can perform activity tasks on elements"
+msgstr "Può effettuare attività di manutenzione sugli elementi"
+
+#: .\djupkeep\models.py:415
+#, python-format
+msgid "Check was due %(days)s day(s) ago!"
+msgstr "Controllo scaduto %(days)s giorno/i fa!"
+
+#: .\djupkeep\models.py:417
+#, python-format
+msgid "Check is due in %(days)s day(s)"
+msgstr "Scadenza tra %(days)s giorno/i"
+
+#: .\djupkeep\models.py:471
+#, python-format
+msgid ""
+"Generated %(number)s task(s). Deleted %(inconsistent)s inconsistent task(s)."
+msgstr ""
+"Generato/i %(number)s controllo/i. Eliminato/i %(inconsistent)s controllo/i "
+"incongruo/i."
+
+#: .\djupkeep\templates\djupkeep\activities\htmx\create.html:11
+#: .\djupkeep\templates\djupkeep\categories\htmx\create.html:11
+#: .\djupkeep\templates\djupkeep\elements\create_categorized.html:26
+#: .\djupkeep\templates\djupkeep\elements\create_located.html:25
+#: .\djupkeep\templates\djupkeep\elements\htmx\create.html:19
+#: .\djupkeep\templates\djupkeep\locations\htmx\create.html:19
+#: .\djupkeep\templates\djupkeep\maintainers\htmx\create.html:11
+msgid "Add"
+msgstr "Aggiungi"
+
+#: .\djupkeep\templates\djupkeep\activities\htmx\create.html:17
+#: .\djupkeep\templates\djupkeep\activities\htmx\update.html:17
+#: .\djupkeep\templates\djupkeep\categories\htmx\create.html:17
+#: .\djupkeep\templates\djupkeep\categories\htmx\update.html:18
+#: .\djupkeep\templates\djupkeep\maintainers\htmx\assign.html:19
+#: .\djupkeep\templates\djupkeep\maintainers\htmx\create.html:17
+#: .\djupkeep\templates\djupkeep\tasks\htmx\check.html:29
+msgid "Dismiss"
+msgstr "Annulla"
+
+#: .\djupkeep\templates\djupkeep\activities\htmx\create_button.html:6
+msgid "Add activity"
+msgstr "Aggiungi attività"
+
+#: .\djupkeep\templates\djupkeep\activities\htmx\update.html:11
+#: .\djupkeep\templates\djupkeep\categories\htmx\update.html:14
+#: .\djupkeep\templates\djupkeep\elements\update.html:32
+#: .\djupkeep\templates\djupkeep\locations\update.html:45
+#: .\djupkeep\templates\djupkeep\locations\update_drawing.html:30
+msgid "Update"
+msgstr "Aggiorna"
+
+#: .\djupkeep\templates\djupkeep\activities\htmx\update.html:22
+msgid "Are you sure you want to delete activity"
+msgstr "Vuoi eliminare l'attività"
+
+#: .\djupkeep\templates\djupkeep\activities\htmx\update.html:23
+msgid "Delete activity"
+msgstr "Elimina l'attività"
+
+#: .\djupkeep\templates\djupkeep\categories\htmx\create_button.html:6
+msgid "Add category"
+msgstr "Aggiungi categoria"
+
+#: .\djupkeep\templates\djupkeep\categories\htmx\detail.html:8
+#: .\djupkeep\templates\djupkeep\categories\includes\sample.html:8
+msgid "Add Activities and Elements"
+msgstr "Aggiungi attività ed elementi"
+
+#: .\djupkeep\templates\djupkeep\categories\htmx\detail.html:19
+#: .\djupkeep\templates\djupkeep\categories\includes\sample.html:16
+msgid "Move up"
+msgstr "Sposta in su"
+
+#: .\djupkeep\templates\djupkeep\categories\htmx\detail.html:26
+#: .\djupkeep\templates\djupkeep\categories\includes\sample.html:20
+msgid "Move down"
+msgstr "Sposta in giù"
+
+#: .\djupkeep\templates\djupkeep\categories\htmx\detail.html:33
+#: .\djupkeep\templates\djupkeep\categories\includes\sample.html:24
+#: .\djupkeep\templates\djupkeep\elements\htmx\detail.html:37
+#: .\djupkeep\templates\djupkeep\locations\detail.html:24
+msgid "Modify"
+msgstr "Modifica"
+
+#: .\djupkeep\templates\djupkeep\categories\htmx\detail_related.html:13
+msgid "All categories"
+msgstr "Tutte le categorie"
+
+#: .\djupkeep\templates\djupkeep\categories\htmx\detail_related.html:21
+msgid "Warning: this category inherits activities from it's ancestors"
+msgstr ""
+"Attenzione: questa categoria eredita attività da una o più sovracategorie"
+
+#: .\djupkeep\templates\djupkeep\categories\htmx\intro.html:8
+msgid "Maintenance Plan Content"
+msgstr "Contenuto del piano di manutenzione"
+
+#: .\djupkeep\templates\djupkeep\categories\htmx\intro.html:23
+msgid "A hierarchical directory of Elements"
+msgstr "Una raccolta gerarchica di elementi"
+
+#: .\djupkeep\templates\djupkeep\categories\htmx\intro.html:38
+msgid "Objects of maintenance"
+msgstr "Oggetti della manutenzione"
+
+#: .\djupkeep\templates\djupkeep\categories\htmx\intro.html:53
+msgid "Where Elements are"
+msgstr "Dove sono gli elementi"
+
+#: .\djupkeep\templates\djupkeep\categories\htmx\intro.html:89
+msgid "Perform an Activity to maintain an Element"
+msgstr "Esecuzione di una attività per manutenere un elemento"
+
+#: .\djupkeep\templates\djupkeep\categories\htmx\intro.html:101
+#: .\djupkeep\templates\djupkeep\maintainers\htmx\list.html:7
+msgid "Maintainers"
+msgstr "Manutentori"
+
+#: .\djupkeep\templates\djupkeep\categories\htmx\intro.html:104
+msgid "Those who perform Tasks"
+msgstr "Coloro che eseguono i controlli"
+
+#: .\djupkeep\templates\djupkeep\categories\htmx\list_refresh.html:14
+msgid "No categories yet"
+msgstr "Ancora nessuna categoria"
+
+#: .\djupkeep\templates\djupkeep\categories\htmx\update.html:25
+msgid "Delete category"
+msgstr "Elimina categoria"
+
+#: .\djupkeep\templates\djupkeep\categories\htmx\update.html:28
+msgid "Are you sure you want to delete category"
+msgstr "Vuoi eliminare la categoria"
+
+#: .\djupkeep\templates\djupkeep\categories\includes\element_create_button.html:10
+msgid "Create Element in Location"
+msgstr "Crea elemento nella location"
+
+#: .\djupkeep\templates\djupkeep\categories\includes\sample.html:6
+msgid "Index"
+msgstr "Indice"
+
+#: .\djupkeep\templates\djupkeep\categories\includes\sample.html:10
+msgid "Category name"
+msgstr "Nome della categoria"
+
+#: .\djupkeep\templates\djupkeep\categories\includes\sample.html:11
+msgid "This is just a sample, X to dismiss!"
+msgstr "Questo è un esempio, fai click su X per eliminarlo!"
+
+#: .\djupkeep\templates\djupkeep\elements\create_categorized.html:13
+#: .\djupkeep\templates\djupkeep\elements\create_located.html:13
+#: .\djupkeep\templates\djupkeep\elements\htmx\create.html:8
+#: .\djupkeep\templates\djupkeep\elements\htmx\list.html:53
+msgid "Add element"
+msgstr "Aggiungi elemento"
+
+#: .\djupkeep\templates\djupkeep\elements\create_categorized.html:34
+#: .\djupkeep\templates\djupkeep\elements\update.html:40
+#: .\djupkeep\templates\djupkeep\locations\detail.html:33
+#: .\djupkeep\templates\djupkeep\locations\update.html:53
+#: .\djupkeep\templates\djupkeep\locations\update_drawing.html:38
+msgid "Other actions"
+msgstr "Altre azioni"
+
+#: .\djupkeep\templates\djupkeep\elements\create_categorized.html:41
+msgid "Create and add another"
+msgstr "Crea e aggiungi un altro"
+
+#: .\djupkeep\templates\djupkeep\elements\create_categorized.html:46
+msgid "Back to category"
+msgstr "Torna alla categoria"
+
+#: .\djupkeep\templates\djupkeep\elements\create_located.html:28
+#: .\djupkeep\templates\djupkeep\elements\htmx\create.html:22
+#: .\djupkeep\templates\djupkeep\elements\htmx\element_confirm_delete.html:23
+#: .\djupkeep\templates\djupkeep\locations\htmx\create.html:24
+msgid "Discard"
+msgstr "Annulla"
+
+#: .\djupkeep\templates\djupkeep\elements\htmx\detail.html:49
+msgid "No tasks yet"
+msgstr "Ancora nessun controllo"
+
+#: .\djupkeep\templates\djupkeep\elements\htmx\detail.html:56
+msgid "No previous tasks"
+msgstr "Nessun controllo precedente"
+
+#: .\djupkeep\templates\djupkeep\elements\htmx\element_confirm_delete.html:7
+#: .\djupkeep\templates\djupkeep\elements\update.html:55
+msgid "Delete element"
+msgstr "Elimina l'elemento"
+
+#: .\djupkeep\templates\djupkeep\elements\htmx\element_confirm_delete.html:12
+msgid "Are you sure you want to delete element"
+msgstr "Vuoi eliminare l'elemento"
+
+#: .\djupkeep\templates\djupkeep\elements\htmx\element_confirm_delete.html:20
+#: .\djupkeep\templates\djupkeep\tasks\htmx\list_row.html:46
+msgid "Delete"
+msgstr "Elimina"
+
+#: .\djupkeep\templates\djupkeep\elements\update.html:14
+msgid "Update element"
+msgstr "Aggiorna l'elemento"
+
+#: .\djupkeep\templates\djupkeep\elements\update.html:46
+#: .\djupkeep\templates\djupkeep\locations\update.html:59
+#: .\djupkeep\templates\djupkeep\locations\update_drawing.html:44
+msgid "View location"
+msgstr "Vedi la location"
+
+#: .\djupkeep\templates\djupkeep\locations\detail.html:39
+msgid "Add element to location"
+msgstr "Aggiungi elemento alla location"
+
+#: .\djupkeep\templates\djupkeep\locations\detail.html:48
+msgid "Back to location list"
+msgstr "Torna alla lista delle location"
+
+#: .\djupkeep\templates\djupkeep\locations\htmx\create.html:8
+#: .\djupkeep\templates\djupkeep\locations\htmx\list.html:49
+msgid "Add location"
+msgstr "Aggiungi location"
+
+#: .\djupkeep\templates\djupkeep\locations\htmx\list.html:41
+msgid "No locations yet"
+msgstr "Ancora nessuna location"
+
+#: .\djupkeep\templates\djupkeep\locations\update.html:13
+#: .\djupkeep\templates\djupkeep\locations\update_drawing.html:9
+msgid "Update location"
+msgstr "Aggiorna location"
+
+#: .\djupkeep\templates\djupkeep\locations\update.html:19
+msgid ""
+"\n"
+"                  Warning: some elements are already attached to this "
+"location, so if you change\n"
+"                  origin of axis (first point of Reference length) their "
+"position may be shifted.\n"
+"                  Restore previous origin of axis, reset Reference length / "
+"Meters, update and\n"
+"                  check if elements are back to their place.\n"
+"                "
+msgstr ""
+"\n"
+"                  Attenzione: alcuni elementi sono già inseriti in questa "
+"location, quindi se cambi\n"
+"                  l'origine degli assi (primo punto della misura di "
+"riferimento) la loro posizione può variare.\n"
+"                  Ripristina l'origine degli assi, resetta la misura di "
+"riferimento / metri, aggiorna e\n"
+"                  verifica che gli elementi siano al loro posto.\n"
+" "
+
+#: .\djupkeep\templates\djupkeep\locations\update.html:29
+msgid ""
+"\n"
+"                  Draw a reference segment on the map. First point will set "
+"origin of axis (red lines),\n"
+"                  so choose wisely. In the 'Meters' field enter actual size "
+"of Reference length.\n"
+"                "
+msgstr ""
+"\n"
+"                  Disegna una misura di riferimento sulla mappa. Il primo "
+"punto sarà l'origine degli assi\n"
+"                  (linee rosse), sceglilo avvedutamente. Nel campo 'Metri' "
+"inserisci la dimensione\n"
+"                  reale della misura di riferimento.\n"
+" "
+
+#: .\djupkeep\templates\djupkeep\locations\update.html:67
+#: .\djupkeep\templates\djupkeep\locations\update_drawing.html:52
+msgid "Are you sure you want to delete location"
+msgstr "Vuoi eliminare la location"
+
+#: .\djupkeep\templates\djupkeep\locations\update.html:69
+#: .\djupkeep\templates\djupkeep\locations\update_drawing.html:54
+msgid "Delete location"
+msgstr "Elimina location"
+
+#: .\djupkeep\templates\djupkeep\locations\update_drawing.html:17
+msgid ""
+"\n"
+"              Warning: some elements are already attached to this location, "
+"so if you change or\n"
+"              dismiss Drawing, their position may be shifted and you will "
+"have to restore it manually.\n"
+"            "
+msgstr ""
+"\n"
+"              Attenzione, alcuni elementi sono già inseriti nella location, "
+"se cambi o elimini il\n"
+"              disegno, la loro posizione potrebbe variare, e la dovresti "
+"ripristinare manualmente.\n"
+"            "
+
+#: .\djupkeep\templates\djupkeep\maintainers\htmx\add_button.html:7
+msgid "Create Maintainer"
+msgstr "Aggiungi Manutentore"
+
+#: .\djupkeep\templates\djupkeep\maintainers\htmx\assign.html:13
+msgid "Assign"
+msgstr "Assegna"
+
+#: .\djupkeep\templates\djupkeep\maintainers\htmx\detail.html:10
+msgid "Assign activities to maintainer"
+msgstr "Assegna attività al manutentore"
+
+#: .\djupkeep\templates\djupkeep\maintainers\htmx\detail.html:18
+msgid "Are you sure you want to deactivate maintainer"
+msgstr "Vuoi disattivare il manutentore"
+
+#: .\djupkeep\templates\djupkeep\maintainers\htmx\detail.html:19
+msgid "Deactivate maintainer"
+msgstr "Disattiva manutentore"
+
+#: .\djupkeep\templates\djupkeep\maintainers\htmx\detail.html:35
+msgid "Are you sure you want to activate maintainer"
+msgstr "Vuoi attivare il manutentore"
+
+#: .\djupkeep\templates\djupkeep\maintainers\htmx\detail.html:36
+msgid "Activate maintainer"
+msgstr "Attiva manutentore"
+
+#: .\djupkeep\templates\djupkeep\maintainers\htmx\list_refresh.html:11
+msgid "No maintainers yet"
+msgstr "Ancora nessun manutentore"
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\calendar.html:7
+msgid "Task Calendar"
+msgstr "Calendario dei controlli"
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\calendar.html:13
+msgid "Create Tasks"
+msgstr "Crea operazioni di controllo"
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\calendar.html:19
+msgid "Year"
+msgstr "Anno"
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\calendar.html:20
+msgid "Jan"
+msgstr "Gen"
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\calendar.html:21
+msgid "Feb"
+msgstr ""
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\calendar.html:22
+msgid "Mar"
+msgstr ""
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\calendar.html:23
+msgid "Apr"
+msgstr ""
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\calendar.html:24
+msgid "May"
+msgstr "Mag"
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\calendar.html:25
+msgid "Jun"
+msgstr "Giu"
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\calendar.html:26
+msgid "Jul"
+msgstr "Lug"
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\calendar.html:27
+msgid "Aug"
+msgstr "Ago"
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\calendar.html:28
+msgid "Sep"
+msgstr "Set"
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\calendar.html:29
+msgid "Oct"
+msgstr "Ott"
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\calendar.html:30
+msgid "Nov"
+msgstr ""
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\calendar.html:31
+msgid "Dec"
+msgstr "Dic"
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\check.html:8
+msgid "ID"
+msgstr ""
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\check.html:23
+msgid "Check"
+msgstr "Controlla"
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\detail.html:22
+msgid "No maintainer assigned to this task"
+msgstr "Non ci sono manutentori assegnati a questo controllo"
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\list.html:14
+msgid "Back to calendar"
+msgstr "Torna al calendario"
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\list_row.html:36
+msgid "Mark as read"
+msgstr "Segna come letto"
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\list_row.html:39
+msgid "Have you read the task message?"
+msgstr "Hai letto il messaggio del manutentore?"
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\list_row.html:49
+msgid "Are you sure you want to delete task"
+msgstr "Vuoi eliminare il controllo"
+
+#: .\djupkeep\templates\djupkeep\tasks\htmx\list_row_deleted.html:6
+msgid "Deleted"
+msgstr "Eliminato"
+
+#: .\djupkeep\urls.py:74
+msgid "location/list/"
+msgstr "location/lista/"
+
+#: .\djupkeep\urls.py:79
+msgid "location/add/"
+msgstr "location/aggiungi/"
+
+#: .\djupkeep\urls.py:84
+msgid "location/<pk>/"
+msgstr ""
+
+#: .\djupkeep\urls.py:89
+msgid "location/<pk>/change/"
+msgstr "location/<pk>/modifica/"
+
+#: .\djupkeep\urls.py:94
+msgid "location/<pk>/delete/"
+msgstr "location/<pk>/elimina/"
+
+#: .\djupkeep\urls.py:99
+msgid "location/<pk>/element/add/"
+msgstr "location/<pk>/elemento/aggiungi/"
+
+#: .\djupkeep\urls.py:104
+msgid "category/list/"
+msgstr "categoria/lista/"
+
+#: .\djupkeep\urls.py:134
+msgid "category/<pk>/related/"
+msgstr "categoria/<pk>/aggregati/"
+
+#: .\djupkeep\urls.py:159
+msgid "element/list/"
+msgstr "elemento/lista/"
+
+#: .\djupkeep\urls.py:164
+msgid "element/add/"
+msgstr "elemento/aggiungi/"
+
+#: .\djupkeep\urls.py:169
+msgid "element/<pk>/"
+msgstr "elemento/<pk>/"
+
+#: .\djupkeep\urls.py:174
+msgid "element/<pk>/change/"
+msgstr "element/<pk>/modifica/"
+
+#: .\djupkeep\urls.py:179
+msgid "element/<pk>/delete/"
+msgstr "element/<pk>/elimina/"
+
+#: .\djupkeep\urls.py:199
+msgid "category/<pk>/element/add/"
+msgstr "categoria/<pk>/elemento/aggiungi/"
+
+#: .\djupkeep\urls.py:229
+msgid "task/list/"
+msgstr "controllo/lista/"
+
+#: .\djupkeep\urls.py:239
+msgid "task/calendar/"
+msgstr "controllo/calendario/"
+
+#: .\djupkeep\urls.py:274
+msgid "maintainer/list/"
+msgstr "manutentore/lista/"
+
+#: .\djupkeep\views\activity_views.py:123 .\djupkeep\views\category_views.py:71
+#: .\djupkeep\views\category_views.py:215 .\djupkeep\views\element_views.py:203
+#: .\djupkeep\views\location_views.py:96
+msgid "Request without HTMX headers"
+msgstr ""
