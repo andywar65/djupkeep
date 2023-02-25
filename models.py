@@ -20,11 +20,6 @@ def get_default_origin():
     return dict(type="Point", coordinates=[0, 0])
 
 
-def get_default_length_field():
-    # legacy method, maybe I should smash some migrations
-    return
-
-
 class Location(models.Model):
 
     title = models.CharField(

@@ -11,28 +11,6 @@ import djupkeep.models
 
 class Migration(migrations.Migration):
 
-    replaces = [
-        ("djupkeep", "0001_initial"),
-        ("djupkeep", "0002_alter_project_fb_image_alter_project_image_and_more"),
-        ("djupkeep", "0003_location_delete_project"),
-        ("djupkeep", "0004_category"),
-        ("djupkeep", "0005_location_length_location_meters"),
-        ("djupkeep", "0006_remove_location_unit"),
-        ("djupkeep", "0007_alter_location_length"),
-        ("djupkeep", "0008_alter_location_length_alter_location_origin"),
-        ("djupkeep", "0009_element"),
-        ("djupkeep", "0010_alter_element_geom"),
-        ("djupkeep", "0011_activity"),
-        ("djupkeep", "0012_alter_category_options_category_position"),
-        ("djupkeep", "0013_activity_position"),
-        ("djupkeep", "0014_alter_activity_options_alter_category_options_and_more"),
-        ("djupkeep", "0015_alter_activity_frequency_task"),
-        ("djupkeep", "0016_alter_task_options"),
-        ("djupkeep", "0017_alter_task_options_location_drawing"),
-        ("djupkeep", "0018_activity_extend_task_read_alter_activity_frequency"),
-        ("djupkeep", "0019_activity_once_activity_repeat"),
-    ]
-
     initial = True
 
     dependencies = [
