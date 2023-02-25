@@ -42,8 +42,10 @@ class TaskListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
             qs1 = Task.objects.filter(check_date=None).prefetch_related(
                 "activity", "element", "maintainer"
             )
-            qs2 = Task.objects.exclude(notes="").prefetch_related(
-                "activity", "element", "maintainer"
+            qs2 = (
+                Task.objects.filter(read=False)
+                .exclude(notes="")
+                .prefetch_related("activity", "element", "maintainer")
             )
         qs = qs1 | qs2
         if not self.request.user.has_perm("djupkeep.add_task"):
