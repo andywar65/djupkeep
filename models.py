@@ -334,6 +334,8 @@ class Activity(models.Model):
         choices=FREQUENCY,
         default="30",
     )
+    once = models.BooleanField(_("Apply only once"), default=False)
+    repeat = models.BooleanField(default=True, editable=False)
     extend = models.BooleanField(_("Apply to subcategories only"), default=False)
 
     class Meta:
