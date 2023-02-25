@@ -56,6 +56,7 @@ from .views.task_views import (
     TaskCalendarView,
     TaskCheckView,
     TaskCreateView,
+    TaskDeleteView,
     TaskDetailView,
     TaskListRefreshView,
     TaskListView,
@@ -263,6 +264,11 @@ urlpatterns = [
         "task/<pk>/read/",
         TaskReadDetailView.as_view(),
         name="task_read",
+    ),
+    path(
+        "task/<pk>/delete/",
+        TaskDeleteView.as_view(),
+        name="task_delete",
     ),
     path(
         _("maintainer/list/"),

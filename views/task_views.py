@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.timezone import now
 from django.views.generic import DetailView, ListView, TemplateView, UpdateView
@@ -135,3 +136,13 @@ class TaskReadDetailView(PermissionRequiredMixin, HxOnlyTemplateMixin, DetailVie
         task.read = True
         task.save()
         return task
+
+
+class TaskDeleteView(PermissionRequiredMixin, HxOnlyTemplateMixin, TemplateView):
+    permission_required = "djupkeep.delete_task"
+    template_name = "djupkeep/tasks/htmx/list_row_deleted.html"
+
+    def setup(self, request, *args, **kwargs):
+        super(TaskDeleteView, self).setup(request, *args, **kwargs)
+        task = get_object_or_404(Task, id=self.kwargs["pk"])
+        task.delete()
