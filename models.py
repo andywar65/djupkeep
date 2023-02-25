@@ -452,7 +452,7 @@ def create_tasks_and_generate_report():
         inconsistent += 1
     # now let's generate consistent tasks
     number = 0
-    for act in Activity.objects.all().prefetch_related("category"):
+    for act in Activity.objects.filter(repeat=True).prefetch_related("category"):
         if not act.extend:
             elements = Element.objects.filter(category_id=act.category.id)
         else:
@@ -469,6 +469,9 @@ def create_tasks_and_generate_report():
                 task.due_date = now() + timedelta(days=int(act.frequency))
                 task.save()
                 number += 1
+        if act.once:
+            act.repeat = False
+            act.save()
     return _(
         "Generated %(number)s task(s). Deleted %(inconsistent)s inconsistent task(s)."
     ) % {"number": str(number), "inconsistent": str(inconsistent)}
