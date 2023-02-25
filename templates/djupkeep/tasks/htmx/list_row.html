@@ -41,3 +41,12 @@
     </a>
   {% endif %}
 </td>
+<td>
+  <a class="btn btn-sm btn-danger"
+    title="{% trans 'Delete' %}"
+    hx-get="#"
+    hx-target="#task-{{ task.id }}"
+    hx-confirm="{% trans 'Are you sure you want to delete task' %} {{ task.id }}?">
+    <i class="fa fa-times"></i>
+  </a>
+</td>
