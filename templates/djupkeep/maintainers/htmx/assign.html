@@ -13,10 +13,10 @@
         {% trans "Assign" %}
         <span class="htmx-indicator spinner-border spinner-border-sm"></span>
       </button>
-      <a class="btn btn-secondary"
+      <a class="btn btn-close"
+        title="{% trans 'Dismiss' %}"
         hx-get="{% url 'djupkeep:maintainer_detail' username=maintainer.username %}"
         hx-target="#maintainer-{{ maintainer.username }}">
-        {% trans "Dismiss" %}
       </a>
     </form>
   </div>

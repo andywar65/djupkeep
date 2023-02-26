@@ -11,10 +11,10 @@
         {% trans "Add" %}
         <span class="htmx-indicator spinner-border spinner-border-sm"></span>
       </button>
-      <a class="btn btn-secondary"
+      <a class="btn btn-close"
+        title="{% trans 'Dismiss' %}"
         hx-get="{% url 'djupkeep:maintainer_add_button' %}"
         hx-target="#add-maintainer">
-        {% trans "Dismiss" %}
       </a>
     </form>
   </div>
