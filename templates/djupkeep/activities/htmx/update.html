@@ -7,21 +7,28 @@
     hx-target="#activity-{{ activity.id }}">
     <div class="card-body">
       {% bootstrap_form form %}
-      <button class="btn btn-primary" type="submit">
-        {% trans "Update" %}
-        <span class="htmx-indicator spinner-border spinner-border-sm"></span>
-      </button>
-      <a class="btn btn-secondary"
-        hx-get="{% url 'djupkeep:activity_detail' pk=activity.id %}"
-        hx-target="#activity-{{ activity.id }}">
-        {% trans 'Dismiss' %}
-      </a>
-      <a class="btn btn-danger"
-        hx-get="{% url 'djupkeep:activity_delete' pk=activity.id %}"
-        hx-target="#activity-list"
-        hx-confirm="{% trans 'Are you sure you want to delete activity' %} {{ activity.title }}">
-        {% trans "Delete activity" %}
-      </a>
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary" type="submit">
+            {% trans "Update" %}
+            <span class="htmx-indicator spinner-border spinner-border-sm"></span>
+          </button>
+          <button class="btn-close"
+            title="{% trans 'Dismiss' %}"
+            hx-get="{% url 'djupkeep:activity_detail' pk=activity.id %}"
+            hx-target="#activity-{{ activity.id }}">
+          </button>
+        </div>
+        <div class="col text-end">
+          <button class="btn btn-danger"
+            title="{% trans "Delete activity" %}"
+            hx-get="{% url 'djupkeep:activity_delete' pk=activity.id %}"
+            hx-target="#activity-list"
+            hx-confirm="{% trans 'Are you sure you want to delete activity' %} {{ activity.title }}">
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
+      </div>
     </div>
   </form>
 </div>
