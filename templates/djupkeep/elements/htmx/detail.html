@@ -20,7 +20,10 @@
           <p class="card-text">{{ object.intro }}</p>
           <ul>
             <li><i class="fa fa-folder-o"></i> <a
-              href="{% url 'djupkeep:category_detail_related' pk=object.category.id %}">
+              class="link-primary"
+              hx-get="{% url 'djupkeep:category_detail_related' pk=object.category.id %}"
+              hx-target="#content"
+              hx-pudh-url="true">
               {{ object.category }}
             </a></li>
             <li><i class="fa fa-map-o"></i> <a
