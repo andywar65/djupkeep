@@ -21,33 +21,17 @@
           </div>
           <div class="card-footer">
             <input class="btn btn-primary"
-              style="margin-bottom: 15px"
               type="submit"
               value="{% trans 'Add' %}" />
-            <div class="dropdown">
-              <a class="btn btn-secondary dropdown-toggle"
-                href="#"
-                role="button"
-                id="dropdownMenuLink"
-                data-bs-toggle="dropdown"
-                aria-expanded="false">
-                {% trans "Other actions" %}
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li>
-                  <input class="dropdown-item"
-                    type="submit"
-                    name="add_another"
-                    value="{% trans 'Create and add another' %}" />
-                </li>
-                <li>
-                  <a class="dropdown-item"
-                    href="{% url 'djupkeep:category_detail_related' pk=category.id %}">
-                    {% trans "Back to category" %}
-                  </a>
-                </li>
-              </ul>
-            </div>
+            <input class="btn btn-primary"
+              title="{% trans 'Create and add another' %}"
+              type="submit"
+              name="add_another"
+              value="{% trans '+ 1' %}" />
+            <a class="btn btn-close"
+              title="{% trans 'Back to category' %}"
+              href="{% url 'djupkeep:category_detail_related' pk=category.id %}">
+            </a>
           </div>
         </div>
       </div>
