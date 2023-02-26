@@ -23,10 +23,10 @@
         {% trans "Check" %}
         <span class="htmx-indicator spinner-border spinner-border-sm"></span>
       </button>
-      <a class="btn btn-secondary"
+      <a class="btn btn-close"
+        title="{% trans 'Dismiss' %}"
         hx-get="{% url 'djupkeep:task_detail' pk=object.id %}"
         hx-target="#task-{{ object.id }}">
-        {% trans "Dismiss" %}
       </a>
     </form>
   </div>

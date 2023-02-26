@@ -121,7 +121,10 @@ class ActivityCreateForm(ModelForm):
 class TaskCheckForm(ModelForm):
     class Meta:
         model = Task
-        fields = ("notes",)
+        fields = (
+            "notes",
+            "image",
+        )
 
 
 class MaintainerCreateForm(forms.Form):

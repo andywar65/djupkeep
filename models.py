@@ -386,6 +386,14 @@ class Task(models.Model):
     check_date = models.DateTimeField(_("Check date"), null=True, blank=True)
     notes = models.TextField(_("Notes"), null=True, blank=True)
     read = models.BooleanField(_("Notes have been read"), default=False)
+    image = models.ImageField(
+        _("Image"),
+        max_length=200,
+        null=True,
+        blank=True,
+        upload_to="uploads/images/upkeep/",
+        help_text=_("Eventually add image to notes"),
+    )
 
     class Meta:
         verbose_name = _("Task")
