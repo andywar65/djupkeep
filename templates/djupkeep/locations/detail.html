@@ -19,37 +19,21 @@
       {% leaflet_map "mymap" callback="window.map_init" %}
     </div>
     <div class="card-footer">
-      <a class="btn btn-primary" style="margin-bottom: 15px"
+      <a class="btn btn-primary"
         href="{% url 'djupkeep:location_change' pk=location.id %}">
         {% trans "Modify" %}
       </a>
-      <div class="dropdown">
-        <a class="btn btn-secondary dropdown-toggle"
-          href="#"
-          role="button"
-          id="dropdownMenuLink"
-          data-bs-toggle="dropdown"
-          aria-expanded="false">
-          {% trans "Other actions" %}
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <li>
-            <a class="dropdown-item"
-              href="{% url 'djupkeep:element_create_located' pk=location.id %}">
-              {% trans "Add element to location" %}
-            </a>
-          </li>
-          <li><hr class="dropdown-divider"></li>
-          <li>
-            <a class="dropdown-item"
-              hx-get="{% url 'djupkeep:location_list' %}"
-              hx-target="#content"
-              hx-push-url="true">
-              {% trans "Back to location list" %}
-            </a>
-          </li>
-        </ul>
-      </div>
+      <a class="btn btn-primary"
+        title="{% trans 'Add element to location' %}"
+        href="{% url 'djupkeep:element_create_located' pk=location.id %}">
+        + <i class="fa fa-map-marker"></i>
+      </a>
+      <a class="btn btn-close"
+        title="{% trans 'Back to location list' %}"
+        hx-get="{% url 'djupkeep:location_list' %}"
+        hx-target="#content"
+        hx-push-url="true">
+      </a>
     </div>
   </div>
   {% include "djupkeep/locations/includes/update_data.html" %}
