@@ -26,36 +26,26 @@
             {% bootstrap_field form.image %}
           </div>
           <div class="card-footer">
-            <input class="btn btn-primary"
-              style="margin-bottom: 15px;"
-              type="submit"
-              value="{% trans 'Update' %}" />
-            <div class="dropdown">
-              <a class="btn btn-secondary dropdown-toggle"
-                href="#"
-                role="button"
-                id="dropdownMenuLink"
-                data-bs-toggle="dropdown"
-                aria-expanded="false">
-                {% trans "Other actions" %}
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li>
-                  <a class="dropdown-item"
-                    href="{% url 'djupkeep:location_detail' pk=location.id %}">
-                    {% trans "View location" %}
-                  </a>
-                </li>
-                <li><hr class="dropdown-divider"></li>
-                <li>
-                  <a class="dropdown-item"
-                    hx-get="{% url 'djupkeep:element_delete' pk=object.id %}"
-                    hx-target="#content"
-                    hx-push-url="true">
-                    {% trans "Delete element" %}
-                  </a>
-                </li>
-              </ul>
+            <div class="row">
+              <div class="col">
+                <input class="btn btn-primary"
+                  type="submit"
+                  value="{% trans 'Update' %}" />
+                <a class="btn btn-secondary"
+                  title="{% trans 'View location' %}"
+                  href="{% url 'djupkeep:location_detail' pk=location.id %}">
+                  <i class="fa fa-map-o"></i>
+                </a>
+              </div>
+              <div class="col text-end">
+                <a class="btn btn-danger"
+                  title="{% trans 'Delete element' %}"
+                  hx-get="{% url 'djupkeep:element_delete' pk=object.id %}"
+                  hx-target="#content"
+                  hx-push-url="true">
+                  <i class="fa fa-times"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
