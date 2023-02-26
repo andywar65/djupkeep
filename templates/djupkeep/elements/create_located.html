@@ -23,9 +23,9 @@
             <input class="btn btn-primary"
               type="submit"
               value="{% trans 'Add' %}" />
-            <a class="btn btn-secondary"
+            <a class="btn btn-close"
+              title="{% trans 'Discard' %}"
               href="{% url 'djupkeep:location_detail' pk=location.id %}">
-              {% trans "Discard" %}
             </a>
           </div>
         </div>
