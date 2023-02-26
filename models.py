@@ -433,6 +433,13 @@ class Task(models.Model):
             return "danger"
         return "secondary"
 
+    def save(self, *args, **kwargs):
+        # save and eventually upload image file
+        super(Task, self).save(*args, **kwargs)
+        if self.image and not self.notes:
+            self.notes = _("Watch image before marking as read")
+            super(Task, self).save(*args, **kwargs)
+
 
 def create_tasks_and_generate_report():
     # first check for inconsistent tasks (maybe we moved some categories)

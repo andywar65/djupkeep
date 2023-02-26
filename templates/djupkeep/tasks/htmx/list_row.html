@@ -37,7 +37,14 @@
       hx-get="{% url 'djupkeep:task_read' pk=task.id %}"
       hx-target="#task-{{ task.id }}"
       hx-confirm="{% trans 'Have you read the task message?' %}">
-      <em>{{ task.notes|default_if_none:"" }}</em>
+      <em>{{ task.notes|default_if_none:"" }}</em></a>
+  {% endif %}
+  {% if task.image %}
+    -
+    <a class="link-primary"
+      href="{{ task.image.url }}"
+      target="_blank">
+      {% trans "Image" %}
     </a>
   {% endif %}
 </td>
