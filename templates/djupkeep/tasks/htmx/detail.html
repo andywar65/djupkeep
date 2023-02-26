@@ -24,4 +24,11 @@
   {% if task.notes %}
     <p><strong>{% trans "Notes" %}</strong>: <em>{{ task.notes }}</em></p>
   {% endif %}
+  {% if task.image %}
+    <a class="link-primary"
+      href="{{ task.image.url }}"
+      target="_blank">
+      <strong>{% trans "Image" %}</strong>
+    </a>
+  {% endif %}
 </div>
