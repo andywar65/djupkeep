@@ -27,7 +27,7 @@
               {{ object.category }}
             </a></li>
             <li><i class="fa fa-map-o"></i> <a
-              href="{% url 'djupkeep:location_detail' pk=object.location.id %}">
+              href="{% url 'djupkeep:location_detail' pk=object.location.id %}?element={{ object.id }}">
               {{ object.location }}
             </a></li>
           </ul>

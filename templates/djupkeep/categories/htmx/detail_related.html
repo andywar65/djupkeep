@@ -38,7 +38,7 @@
             <em>{{ element.intro }}</em>
             <br>
             <i class="fa fa-map-o"></i> <a
-              href="{% url 'djupkeep:location_detail' pk=element.location.id %}">
+              href="{% url 'djupkeep:location_detail' pk=element.location.id %}?element={{ element.id }}">
               {{ element.location }}
             </a>
           </div>
