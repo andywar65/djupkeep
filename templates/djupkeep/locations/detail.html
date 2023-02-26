@@ -7,8 +7,19 @@
 {% block content %}
   <div class="card mx-auto" style="max-width: 960px; margin-top: 15px">
     <div class="card-header">
-      <h3>{% translate 'Location' %}: {{ location.title }}</h3>
-      <p>{{ location.intro }}</p>
+      <div class="row">
+        <div class="col col-8">
+          <h3>{% translate 'Location' %}: {{ location.title }}</h3>
+          <p>{{ location.intro }}</p>
+        </div>
+        <div class="col text-end">
+          <a class="btn btn-warning"
+            id="locate-user"
+            title="{% translate 'Locate user' %}">
+            <i class="fa fa-street-view"></i>
+          </a>
+        </div>
+      </div>
     </div>
     <div class="card-body">
       {% if location.drawing %}

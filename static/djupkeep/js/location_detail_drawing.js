@@ -33,6 +33,7 @@ function map_init(map, options) {
       });
 
     const layer_control = L.control.layers(null).addTo(map);
+    const locationGroup = L.layerGroup().addTo(map);
 
     function getCollections() {
       // add eventually inactive base layers so they can be removed
@@ -45,6 +46,7 @@ function map_init(map, options) {
       });
       // add base layers back to map and layer control
       base_map.addTo(map);
+      locationGroup.addTo(map);
       layer_control.addBaseLayer(base_map, "Base");
       layer_control.addBaseLayer(sat_map, "Satellite");
       // add other layers to map and layer control
@@ -84,4 +86,25 @@ function map_init(map, options) {
     addEventListener("refreshCollections", function(evt){
       getCollections();
     })
+
+    function userFound(e) {
+      let content = "You are here (accuracy " + e.accuracy + " meters)!";
+      L.marker( e.latlng ).bindPopup(content).addTo(locationGroup);
+      L.circle(e.latlng, e.accuracy).addTo(locationGroup);
+      // map.panTo(e.latlng, map.getZoom());
+      collection = JSON.parse(document.getElementById("marker_data").textContent);
+      map.fitBounds([e.latlng, L.geoJson(collection).getBounds()],
+        {padding: [50,50]});
+    }
+
+    function userNotFound(e) {
+        alert(e.message);
+    }
+
+    function locateUser() {
+      locationGroup.clearLayers();
+      map.locate().on('locationfound', userFound).on('locationerror', userNotFound);
+    }
+
+    document.getElementById("locate-user").addEventListener("click", locateUser);
   }
