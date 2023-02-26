@@ -11,11 +11,11 @@
         {% trans "Add" %}
         <span class="htmx-indicator spinner-border spinner-border-sm"></span>
       </button>
-      <a class="btn btn-secondary"
+      <button class="btn-close"
+        title="{% trans 'Dismiss' %}"
         hx-get="{% url 'djupkeep:activity_create_dismiss' pk=category.id %}"
         hx-target="#activity-add">
-        {% trans 'Dismiss' %}
-      </a>
+      </button>
     </div>
   </form>
 </div>

@@ -9,8 +9,8 @@
         hx-get="{% url 'djupkeep:category_detail_related' pk=category.id %}"
         hx-target="#content"
         hx-push-url="true">
-        {{ category.title }}
-      </a> - <em>{{ category.intro }}</em> -
+        {{ category.title }}</a>
+      - <em>{{ category.intro }}</em> -
       ({{ category.activities.count }} / {{ category.elements.count }})
     </div>
     <div class="col text-end">
