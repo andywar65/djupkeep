@@ -1,6 +1,5 @@
 from django.apps import AppConfig
 from django.db.models.signals import post_migrate
-from django.utils.translation import gettext as _
 
 
 def create_djupkeep_groups(sender, **kwargs):
@@ -10,11 +9,11 @@ def create_djupkeep_groups(sender, **kwargs):
     types = ContentType.objects.filter(app_label="djupkeep").values_list(
         "id", flat=True
     )
-    grp, created = Group.objects.get_or_create(name=_("Upkeep Manager"))
+    grp, created = Group.objects.get_or_create(name="Upkeep Manager")
     if created:
         permissions = Permission.objects.filter(content_type_id__in=types)
         grp.permissions.set(permissions)
-    grp, created = Group.objects.get_or_create(name=_("Maintainer"))
+    grp, created = Group.objects.get_or_create(name="Maintainer")
     if created:
         codes = [
             "view_element",

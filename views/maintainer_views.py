@@ -4,7 +4,6 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.models import Group
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
 from django.views.generic import FormView, ListView, TemplateView
 
 from djupkeep.forms import MaintainerAssignForm, MaintainerCreateForm
@@ -21,9 +20,7 @@ class MaintainerListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView)
     template_name = "djupkeep/maintainers/htmx/list.html"
 
     def get_queryset(self):
-        qs = User.objects.filter(groups__name=_("Maintainer")).exclude(
-            is_superuser=True
-        )
+        qs = User.objects.filter(groups__name="Maintainer").exclude(is_superuser=True)
         return qs
 
 
@@ -33,9 +30,7 @@ class MaintainerListRefreshView(PermissionRequiredMixin, HxOnlyTemplateMixin, Li
     template_name = "djupkeep/maintainers/htmx/list_refresh.html"
 
     def get_queryset(self):
-        qs = User.objects.filter(groups__name=_("Maintainer")).exclude(
-            is_superuser=True
-        )
+        qs = User.objects.filter(groups__name="Maintainer").exclude(is_superuser=True)
         return qs
 
 
@@ -45,7 +40,7 @@ class MaintainerDeactivateView(MaintainerListRefreshView):
         maint = get_object_or_404(User, username=kwargs["username"])
         if maint.is_superuser:
             return
-        elif not maint.groups.filter(name=_("Maintainer")).exists():
+        elif not maint.groups.filter(name="Maintainer").exists():
             return
         maint.is_active = False
         maint.save()
@@ -57,7 +52,7 @@ class MaintainerActivateView(MaintainerListRefreshView):
         maint = get_object_or_404(User, username=kwargs["username"])
         if maint.is_superuser:
             return
-        elif not maint.groups.filter(name=_("Maintainer")).exists():
+        elif not maint.groups.filter(name="Maintainer").exists():
             return
         maint.is_active = True
         maint.save()
@@ -96,7 +91,7 @@ class MaintainerCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, FormVie
 
     def form_valid(self, form):
         user = form.cleaned_data["user"]
-        grp = Group.objects.get(name=_("Maintainer"))
+        grp = Group.objects.get(name="Maintainer")
         grp.user_set.add(user)
         return super(MaintainerCreateView, self).form_valid(form)
 

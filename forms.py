@@ -129,7 +129,7 @@ class TaskCheckForm(ModelForm):
 
 class MaintainerCreateForm(forms.Form):
     user = ModelChoiceField(
-        queryset=User.objects.exclude(groups__name=_("Maintainer")).exclude(
+        queryset=User.objects.exclude(groups__name="Maintainer").exclude(
             is_superuser=True
         ),
         required=True,
