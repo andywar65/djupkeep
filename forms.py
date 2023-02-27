@@ -132,6 +132,10 @@ class TaskBulkUpdateForm(forms.Form):
         queryset=User.objects.filter(groups__name="Maintainer"),
         required=False,
     )
+    due_date = forms.DateField(
+        label=_("Due date"),
+        required=False,
+    )
 
 
 class MaintainerCreateForm(forms.Form):
