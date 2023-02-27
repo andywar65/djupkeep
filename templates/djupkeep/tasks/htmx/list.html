@@ -13,25 +13,40 @@
       hx-push-url="true">
       {% trans "Back to calendar" %}
     </a>
-    <div id="task-report"></div>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">{% trans "Element" %}</th>
-          <th scope="col">{% trans "Activity" %}</th>
-          <th scope="col">{% trans "Maintainer" %}</th>
-          <th scope="col">{% trans "Due date" %}</th>
-          <th scope="col">{% trans "Check date" %}</th>
-          <th scope="col">{% trans "Notes" %}</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody id="task-list"
-        hx-get="{% url 'djupkeep:task_list_refresh' %}"
-        hx-trigger="refreshTaskList from:body">
-        {% include "djupkeep/tasks/htmx/list_refresh.html" %}
-      </tbody>
-    </table>
+    <a class="btn btn-danger"
+      hx-include="#checked-tasks"
+      {% if year %}
+        hx-get="{% url 'djupkeep:task_list_refresh' %}?year={{ year }}&month={{ month }}&delete=true"
+      {% else %}
+        hx-get="{% url 'djupkeep:task_list_refresh' %}&delete=true"
+      {% endif %}
+      hx-target="#task-list">
+      {% trans "Delete checked tasks" %}
+    </a>
+    <form id="checked-tasks">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">{% trans "Element" %}</th>
+            <th scope="col">{% trans "Activity" %}</th>
+            <th scope="col">{% trans "Maintainer" %}</th>
+            <th scope="col">{% trans "Due date" %}</th>
+            <th scope="col">{% trans "Check date" %}</th>
+            <th scope="col">{% trans "Notes" %}</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody id="task-list"
+          {% if year %}
+            hx-get="{% url 'djupkeep:task_list_refresh' %}?year={{ year }}&month={{ month }}"
+          {% else %}
+            hx-get="{% url 'djupkeep:task_list_refresh' %}"
+          {% endif %}
+          hx-trigger="refreshTaskList from:body">
+          {% include "djupkeep/tasks/htmx/list_refresh.html" %}
+        </tbody>
+      </table>
+    </form>
   </div>
 </div>

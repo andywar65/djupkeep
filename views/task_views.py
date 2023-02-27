@@ -52,6 +52,13 @@ class TaskListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
             qs.filter(maintainer_id=self.request.user.uuid)
         return qs
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if "year" in self.request.GET:
+            context["year"] = self.request.GET["year"]
+            context["month"] = self.request.GET["month"]
+        return context
+
 
 class TaskListRefreshView(TaskListView, HxOnlyTemplateMixin):
     """This view is triggered when the list of tasks is changed.

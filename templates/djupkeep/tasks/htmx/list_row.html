@@ -49,6 +49,7 @@
   {% endif %}
 </td>
 <td>
+  <input type='checkbox' name='ids' value='{{ task.id }}'>
   <a class="btn btn-sm btn-danger"
     title="{% trans 'Delete' %}"
     hx-get="{% url 'djupkeep:task_delete' pk=task.id %}"
