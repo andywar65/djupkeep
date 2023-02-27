@@ -1,4 +1,3 @@
-{% load bootstrap5 %}
 {% load i18n %}
 
 <div
@@ -18,17 +17,7 @@
         </a>
       </div>
       <div class="col" id="update-box">
-        <a class="btn btn-primary mb-2"
-          hx-include="#checked-tasks"
-          {% if year %}
-            hx-get="{% url 'djupkeep:task_list_refresh' %}?year={{ year }}&month={{ month }}&delete=true"
-          {% else %}
-            hx-get="{% url 'djupkeep:task_list_refresh' %}&delete=true"
-          {% endif %}
-          hx-target="#task-list">
-          {% trans "Modify checked tasks" %}
-        </a>
-        {% bootstrap_messages %}
+        {% include "djupkeep/tasks/htmx/bulk_button.html" %}
       </div>
     </div>
     <table class="table table-hover">

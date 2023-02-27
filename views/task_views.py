@@ -4,9 +4,15 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.timezone import now
-from django.views.generic import DetailView, ListView, TemplateView, UpdateView
+from django.views.generic import (
+    DetailView,
+    FormView,
+    ListView,
+    TemplateView,
+    UpdateView,
+)
 
-from djupkeep.forms import TaskCheckForm
+from djupkeep.forms import TaskBulkUpdateForm, TaskCheckForm
 from djupkeep.models import (
     Task,
     create_task_after_checked,
@@ -113,6 +119,24 @@ class TaskCheckView(PermissionRequiredMixin, HxOnlyTemplateMixin, UpdateView):
 
     def get_success_url(self):
         return reverse("djupkeep:task_detail", kwargs={"pk": self.object.id})
+
+
+class TaskBulkUpdateView(PermissionRequiredMixin, HxOnlyTemplateMixin, FormView):
+    permission_required = "djupkeep.change_task"
+    form_class = TaskBulkUpdateForm
+    template_name = "djupkeep/tasks/htmx/bulk_update.html"
+
+    def get_success_url(self):
+        return reverse("djupkeep:task_bulk_button")
+
+
+class TaskBulkButtonView(HxOnlyTemplateMixin, TemplateView):
+    template_name = "djupkeep/tasks/htmx/bulk_button.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super(TaskBulkButtonView, self).dispatch(request, *args, **kwargs)
+        response["HX-Trigger-After-Swap"] = "refreshTaskList"
+        return response
 
 
 class TaskCalendarView(PermissionRequiredMixin, HxPageTemplateMixin, TemplateView):

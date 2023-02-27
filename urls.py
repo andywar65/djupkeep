@@ -52,6 +52,8 @@ from .views.maintainer_views import (
     MaintainerListView,
 )
 from .views.task_views import (
+    TaskBulkButtonView,
+    TaskBulkUpdateView,
     TaskCalendarRefreshView,
     TaskCalendarView,
     TaskCheckView,
@@ -244,6 +246,21 @@ urlpatterns = [
         "task/calendar/refresh/",
         TaskCalendarRefreshView.as_view(),
         name="task_calendar_refresh",
+    ),
+    path(
+        "task/add/",
+        TaskCreateView.as_view(),
+        name="task_create",
+    ),
+    path(
+        "task/bulk/update/",
+        TaskBulkUpdateView.as_view(),
+        name="task_bulk_update",
+    ),
+    path(
+        "task/bulk/button/",
+        TaskBulkButtonView.as_view(),
+        name="task_bulk_button",
     ),
     path(
         "task/add/",

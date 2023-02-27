@@ -127,6 +127,13 @@ class TaskCheckForm(ModelForm):
         )
 
 
+class TaskBulkUpdateForm(forms.Form):
+    user = ModelChoiceField(
+        queryset=User.objects.filter(groups__name="Maintainer"),
+        required=False,
+    )
+
+
 class MaintainerCreateForm(forms.Form):
     user = ModelChoiceField(
         queryset=User.objects.exclude(groups__name="Maintainer").exclude(
