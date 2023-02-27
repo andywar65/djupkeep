@@ -9,22 +9,28 @@
       hx-post="{% url 'djupkeep:task_bulk_update' %}"
       hx-target="#update-box">
       {% bootstrap_form form %}
-      <button class="btn btn-primary" type="submit">
-        {% trans "Update" %}
-        <span class="htmx-indicator spinner-border spinner-border-sm"></span>
-      </button>
-      <button class="btn btn-close"
-        hx-get="{% url 'djupkeep:task_bulk_button' %}"
-        hx-target="#update-box"
-        title="{% trans 'Dismiss' %}">
-      </button>
-      <button class="btn btn-danger"
-        type="submit"
-        name="delete"
-        title="{% trans 'Update' %}"
-        hx-confirm="{% trans 'Are you sure you want to delete the checked tasks?' %}">
-        <i class="fa fa-times"></i>
-      </button>
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary" type="submit">
+            {% trans "Update" %}
+            <span class="htmx-indicator spinner-border spinner-border-sm"></span>
+          </button>
+          <button class="btn btn-close"
+            hx-get="{% url 'djupkeep:task_bulk_button' %}"
+            hx-target="#update-box"
+            title="{% trans 'Dismiss' %}">
+          </button>
+        </div>
+        <div class="col text-end">
+          <button class="btn btn-danger"
+            type="submit"
+            name="delete"
+            title="{% trans 'Delete' %}"
+            hx-confirm="{% trans 'Are you sure you want to delete the checked tasks?' %}">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+      </div>
     </form>
   </div>
 </div>
