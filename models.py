@@ -435,9 +435,10 @@ class Task(models.Model):
 
     def too_early(self):
         margin = 30
-        freq = int(self.activity.frequency)
-        if freq < 60:
-            margin = freq / 2
+        if self.activity.frequency == "7":
+            margin = 1
+        elif self.activity.frequency == "30":
+            margin = 15
         if (self.due_date - now().date()).days > margin:
             return True
         return False
