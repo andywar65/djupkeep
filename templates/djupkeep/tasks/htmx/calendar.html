@@ -1,15 +1,16 @@
+{% load bootstrap5 %}
 {% load i18n %}
 
 <div
-  class="card mx-auto"
-  style="margin-top: 60px" >
+  class="card mx-auto mt-4">
   <div class="card-header">
     <h3>{% translate 'Task Calendar' %}</h3>
   </div>
   <div class="card-body">
+    {% bootstrap_messages %}
     <a class="btn btn-success"
       hx-get="{% url 'djupkeep:task_create' %}"
-      hx-target="#task-report">
+      hx-target="#content">
       {% trans "Create Tasks" %}
     </a>
     <div id="task-report"></div>

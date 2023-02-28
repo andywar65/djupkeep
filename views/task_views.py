@@ -10,6 +10,7 @@ from django.views.generic import (
     DetailView,
     FormView,
     ListView,
+    RedirectView,
     TemplateView,
     UpdateView,
 )
@@ -27,6 +28,8 @@ from .location_views import HxPageTemplateMixin
 
 
 class TaskListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
+    """TODO write some managers."""
+
     permission_required = "djupkeep.view_task"
     model = Task
     paginate_by = 20
@@ -70,26 +73,21 @@ class TaskListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
 
 class TaskListRefreshView(TaskListView, HxOnlyTemplateMixin):
     """This view is triggered when the list of tasks is changed.
-    It subclasses TaskListView, replacing template and forcing use of HTMX"""
+    It subclasses TaskListView, replacing template and forcing use of HTMX.
+    TODO verify if this view is unused and eventually delete it."""
 
     template_name = "djupkeep/tasks/htmx/list_refresh.html"
 
 
-class TaskCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, TemplateView):
-    """Automatically creates tasks, generates a report and triggers list refresh"""
+class TaskCreateView(PermissionRequiredMixin, HxOnlyTemplateMixin, RedirectView):
+    """Automatically creates tasks, generates a report and triggers calendar refresh"""
 
     permission_required = "djupkeep.add_task"
-    template_name = "djupkeep/tasks/htmx/report.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["report"] = create_tasks_and_generate_report()
-        return context
-
-    def dispatch(self, request, *args, **kwargs):
-        response = super(TaskCreateView, self).dispatch(request, *args, **kwargs)
-        response["HX-Trigger-After-Swap"] = "refreshTaskList"
-        return response
+    def get_redirect_url(self, *args, **kwargs):
+        report = create_tasks_and_generate_report()
+        messages.success(self.request, report)
+        return reverse("djupkeep:task_calendar")
 
 
 class TaskDetailView(PermissionRequiredMixin, HxOnlyTemplateMixin, DetailView):
@@ -200,6 +198,8 @@ class TaskReadDetailView(PermissionRequiredMixin, HxOnlyTemplateMixin, DetailVie
 
 
 class TaskDeleteView(PermissionRequiredMixin, HxOnlyTemplateMixin, TemplateView):
+    """TODO verify if this view is unused and eventually delete it."""
+
     permission_required = "djupkeep.delete_task"
     template_name = "djupkeep/tasks/htmx/list_row_deleted.html"
 
