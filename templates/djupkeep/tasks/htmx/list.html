@@ -33,17 +33,17 @@
           <th scope="col"></th>
         </tr>
       </thead>
-      <tbody id="task-list"
-        {% if year %}
-          hx-get="{% url 'djupkeep:task_list_refresh' %}?year={{ year }}&month={{ month }}"
-        {% else %}
-          hx-get="{% url 'djupkeep:task_list_refresh' %}"
-        {% endif %}
-        hx-trigger="refreshTaskList from:body">
-        <form id="checked-tasks">
+      <form id="checked-tasks">
+        <tbody id="task-list"
+          {% if year %}
+            hx-get="{% url 'djupkeep:task_list_refresh' %}?year={{ year }}&month={{ month }}"
+          {% else %}
+            hx-get="{% url 'djupkeep:task_list_refresh' %}"
+          {% endif %}
+          hx-trigger="refreshTaskList from:body">
           {% include "djupkeep/tasks/htmx/list_refresh.html" %}
-        </form>
-      </tbody>
+        </tbody>
+      </form>
     </table>
   </div>
 </div>

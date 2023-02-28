@@ -2,7 +2,6 @@
 {% load i18n %}
 
 <a class="btn btn-primary mb-2"
-  hx-include="#checked-tasks"
   hx-get="{% url 'djupkeep:task_bulk_update' %}"
   hx-target="#update-box">
   {% trans "Modify checked tasks" %}

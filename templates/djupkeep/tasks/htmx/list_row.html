@@ -50,11 +50,4 @@
 </td>
 <td>
   <input type='checkbox' name='ids' value='{{ task.id }}'>
-  <a class="btn btn-sm btn-danger"
-    title="{% trans 'Delete' %}"
-    hx-get="{% url 'djupkeep:task_delete' pk=task.id %}"
-    hx-target="#task-{{ task.id }}"
-    hx-confirm="{% trans 'Are you sure you want to delete task' %} {{ task.id }}?">
-    <i class="fa fa-times"></i>
-  </a>
 </td>

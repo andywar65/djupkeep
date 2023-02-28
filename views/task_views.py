@@ -1,9 +1,11 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.timezone import now
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
     DetailView,
     FormView,
@@ -125,6 +127,22 @@ class TaskBulkUpdateView(PermissionRequiredMixin, HxOnlyTemplateMixin, FormView)
     permission_required = "djupkeep.change_task"
     form_class = TaskBulkUpdateForm
     template_name = "djupkeep/tasks/htmx/bulk_update.html"
+
+    def form_valid(self, form):
+        if "ids" in self.request.POST:
+            updated = 0
+            deleted = 0
+            id_list = self.request.POST.getlist("ids")
+            for task in Task.objects.filter(id__in=id_list):
+                if "delete_tasks" in self.request.POST:
+                    task.delete()
+                    deleted += 1
+            messages.success(
+                self.request,
+                _("Updated %(updated)s task(s). Deleted %(deleted)s task(s).")
+                % {"updated": str(updated), "deleted": str(deleted)},
+            )
+        return super(TaskBulkUpdateView, self).form_valid(form)
 
     def get_success_url(self):
         return reverse("djupkeep:task_bulk_button")
