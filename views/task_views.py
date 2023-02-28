@@ -36,6 +36,11 @@ class TaskListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
     template_name = "djupkeep/tasks/htmx/list.html"
 
     def get_queryset(self):
+        if not self.request.user.has_perm("djupkeep.add_task"):
+            qs = Task.objects.filter(
+                check_date=None, maintainer_id=self.request.user.uuid
+            )
+            return qs
         if "year" in self.request.GET:
             year = self.request.GET["year"]
             month = self.request.GET["month"]
@@ -59,8 +64,6 @@ class TaskListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
                 .prefetch_related("activity", "element", "maintainer")
             )
         qs = qs1 | qs2
-        if not self.request.user.has_perm("djupkeep.add_task"):
-            qs.filter(maintainer_id=self.request.user.uuid)
         return qs
 
     def get_context_data(self, **kwargs):
