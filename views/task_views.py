@@ -114,7 +114,8 @@ class TaskCheckView(PermissionRequiredMixin, HxOnlyTemplateMixin, UpdateView):
 
     def form_valid(self, form):
         if self.object.too_early():
-            raise PermissionDenied
+            form.add_error(None, _("Checking too early"))
+            return super(TaskCheckView, self).form_invalid(form)
         if self.object.too_late():
             if form.instance.notes == "":
                 form.instance.notes = _("Past due date")
