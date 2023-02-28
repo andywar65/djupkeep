@@ -434,7 +434,11 @@ class Task(models.Model):
         return "secondary"
 
     def too_early(self):
-        if (self.due_date - now().date()).days > 30:
+        margin = 30
+        freq = int(self.activity.frequency)
+        if freq < 60:
+            margin = freq / 2
+        if (self.due_date - now().date()).days > margin:
             return True
         return False
 
