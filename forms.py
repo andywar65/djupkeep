@@ -130,6 +130,7 @@ class TaskCheckForm(ModelForm):
 class TaskBulkUpdateForm(forms.Form):
     user = ModelChoiceField(
         queryset=User.objects.filter(groups__name="Maintainer"),
+        label=_("Maintainer"),
         required=False,
     )
     due_date = forms.DateField(

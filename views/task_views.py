@@ -133,10 +133,20 @@ class TaskBulkUpdateView(PermissionRequiredMixin, HxOnlyTemplateMixin, FormView)
             updated = 0
             deleted = 0
             id_list = self.request.POST.getlist("ids")
+            maintainer = form.cleaned_data["user"]
+            due_date = form.cleaned_data["due_date"]
             for task in Task.objects.filter(id__in=id_list):
                 if "delete_tasks" in self.request.POST:
                     task.delete()
                     deleted += 1
+                else:
+                    if maintainer:
+                        task.maintainer = maintainer
+                    if due_date:
+                        task.due_date = due_date
+                    if maintainer or due_date:
+                        task.save()
+                        updated += 1
             messages.success(
                 self.request,
                 _("Updated %(updated)s task(s). Deleted %(deleted)s task(s).")
