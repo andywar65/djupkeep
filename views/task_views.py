@@ -32,7 +32,7 @@ class TaskListView(PermissionRequiredMixin, HxPageTemplateMixin, ListView):
 
     permission_required = "djupkeep.view_task"
     model = Task
-    paginate_by = 20
+    # paginate_by = 20
     template_name = "djupkeep/tasks/htmx/list.html"
 
     def get_queryset(self):
@@ -113,6 +113,11 @@ class TaskCheckView(PermissionRequiredMixin, HxOnlyTemplateMixin, UpdateView):
         return obj
 
     def form_valid(self, form):
+        if self.object.too_early():
+            raise PermissionDenied
+        if self.object.too_late():
+            if form.instance.notes == "":
+                form.instance.notes = _("Past due date")
         form.instance.check_date = now()
         create_task_after_checked(self.object)
         return super(TaskCheckView, self).form_valid(form)

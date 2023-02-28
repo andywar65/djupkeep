@@ -2,19 +2,18 @@
 {% load i18n %}
 
 <div
-  class="card mx-auto mt-4"
   {% if year %}
     hx-get="{% url 'djupkeep:task_list' %}?year={{ year }}&month={{ month }}"
   {% else %}
     hx-get="{% url 'djupkeep:task_list' %}"
   {% endif %}
   hx-trigger="refreshTaskList from:body"
-  hx-target="#content">
+  hx-target="#content"></div>
+<div class="card mx-auto mt-4">
   <div class="card-header">
     <h3>{% translate 'Tasks' %}</h3>
   </div>
   <div class="card-body">
-    {% bootstrap_messages %}
     <div class="row">
       <div class="col col-3">
         <a class="btn btn-secondary"
@@ -28,6 +27,7 @@
         {% include "djupkeep/tasks/htmx/bulk_button.html" %}
       </div>
     </div>
+    {% bootstrap_messages %}
     <table class="table table-hover">
       <thead>
         <tr>
@@ -43,7 +43,11 @@
       </thead>
       <form id="checked-tasks">
         <tbody id="task-list">
-          {% include "djupkeep/tasks/htmx/list_refresh.html" %}
+          {% for task in object_list %}
+            <tr id="task-{{ task.id }}">
+              {% include "djupkeep/tasks/htmx/list_row.html" %}
+            </tr>
+          {% endfor %}
         </tbody>
       </form>
     </table>

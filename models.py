@@ -433,6 +433,16 @@ class Task(models.Model):
             return "danger"
         return "secondary"
 
+    def too_early(self):
+        if (self.due_date - now().date()).days > 30:
+            return True
+        return False
+
+    def too_late(self):
+        if self.due_date < now().date():
+            return True
+        return False
+
     def save(self, *args, **kwargs):
         # save and eventually upload image file
         super(Task, self).save(*args, **kwargs)
