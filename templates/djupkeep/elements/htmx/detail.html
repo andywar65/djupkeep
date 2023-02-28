@@ -30,6 +30,17 @@
               href="{% url 'djupkeep:location_detail' pk=object.location.id %}?element={{ object.id }}">
               {{ object.location }}
             </a></li>
+            <li><i class="fa fa-check-square-o"></i> <a
+              class="link-primary"
+              {% if perms.djupkeep.add_task %}
+                hx-get="{% url 'djupkeep:task_calendar' %}"
+              {% else %}
+                hx-get="{% url 'djupkeep:task_list' %}"
+              {% endif %}
+              hx-target="#content"
+              hx-push-url="true">
+              {% translate "Back to calendar" %}
+            </a></li>
           </ul>
         </div>
       </div>
