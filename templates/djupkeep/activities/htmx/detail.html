@@ -1,25 +1,30 @@
 {% load i18n %}
 
 <div class="alert alert-{% if activity.extend %}danger{% else %}secondary{% endif %}">
-  <strong>{{ activity.position }}</strong> -
-  <a class="link-primary"
-    hx-get="{% url 'djupkeep:activity_update' pk=activity.id %}"
-    hx-target="#activity-{{ activity.id }}">
-    {{ activity.title }}</a>
-  {% if activity.get_previous_sibling or activity.get_next_sibling %}
-    -
-    {% if activity.get_previous_sibling %}
+  <div class="row">
+    <div class="col col-8">
+      <strong>{{ activity.position }}</strong> -
       <a class="link-primary"
-        hx-get="{% url 'djupkeep:activity_move_up' pk=activity.id %}"
-        hx-target="#activity-list">
-        <i class="fa fa-arrow-up"></i></a>
-    {% endif %}
-    {% if activity.get_next_sibling %}
-      <a class="link-primary"
-        hx-get="{% url 'djupkeep:activity_move_down' pk=activity.id %}"
-        hx-target="#activity-list">
-        <i class="fa fa-arrow-down"></i>
-      </a>
-    {% endif %}
-  {% endif %}
+        hx-get="{% url 'djupkeep:activity_update' pk=activity.id %}"
+        hx-target="#activity-{{ activity.id }}">
+        {{ activity.title }}</a>
+    </div>
+    <div class="col text-end">
+      {% if activity.get_previous_sibling %}
+        <a class="link-primary"
+          title="{% trans 'Move up' %}"
+          hx-get="{% url 'djupkeep:activity_move_up' pk=activity.id %}"
+          hx-target="#activity-list">
+          <i class="fa fa-arrow-up"></i></a>
+      {% endif %}
+      {% if activity.get_next_sibling %}
+        <a class="link-primary"
+          title="{% trans 'Move down' %}"
+          hx-get="{% url 'djupkeep:activity_move_down' pk=activity.id %}"
+          hx-target="#activity-list">
+          <i class="fa fa-arrow-down"></i>
+        </a>
+      {% endif %}
+    </div>
+  </div>
 </div>
